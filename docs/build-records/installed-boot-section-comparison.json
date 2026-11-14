@@ -1,0 +1,57 @@
+{
+  "kernel": {
+    "installed": {
+      "bytes": 50587672,
+      "sha256": "163b2cf0fd8ed83d3d25278c99ac200cd1f82324536fb3ceb9f403623fa436d9"
+    },
+    "rom_zip": {
+      "bytes": 50587672,
+      "sha256": "163b2cf0fd8ed83d3d25278c99ac200cd1f82324536fb3ceb9f403623fa436d9"
+    },
+    "matches": true
+  },
+  "ramdisk": {
+    "installed": {
+      "bytes": 1422825,
+      "sha256": "43040d3011939d7f5e86688bbe10ef0f9da105571c0a61f296ae4de8d472208c"
+    },
+    "rom_zip": {
+      "bytes": 1494361,
+      "sha256": "072b57fde3faa84adc0401b2b4a7cf93e4bdacc90faee65020e531afb474a293"
+    },
+    "matches": false
+  },
+  "second": {
+    "installed": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rom_zip": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "matches": true
+  },
+  "recovery_dtbo": {
+    "installed": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "rom_zip": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "matches": true
+  },
+  "dtb": {
+    "installed": {
+      "bytes": 381581,
+      "sha256": "63d253dd5fd502934fb0fc36b14e0933fa4c39f9df373cb95a1f14e7751cb599"
+    },
+    "rom_zip": {
+      "bytes": 381581,
+      "sha256": "63d253dd5fd502934fb0fc36b14e0933fa4c39f9df373cb95a1f14e7751cb599"
+    },
+    "matches": true
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "model": "SM-P613",
+  "region": "XAC",
+  "firmware_version": "P613XXS8CYE1/P613OXM8CYE1/P613XXS8CYE1/P613XXS8CYE1",
+  "archive_name": "SM-P613_3_20250509082921_2gdq79ujkv_fac.zip",
+  "bytes": 6355534287,
+  "sha256": "284b3d018a702726553021cb30c2edfe69af36c0ffb147ac6d1e0cc0a7bbf275",
+  "zip_crc_check_passed": true,
+  "members": [
+    {
+      "name": "BL_P613XXS8CYE1_P613XXS8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT.tar.md5",
+      "uncompressed_bytes": 62136430
+    },
+    {
+      "name": "AP_P613XXS8CYE1_P613XXS8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT_meta_OS14.tar.md5",
+      "uncompressed_bytes": 7313561720
+    },
+    {
+      "name": "HOME_CSC_OXM_P613OXM8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT.tar.md5",
+      "uncompressed_bytes": 393031787
+    },
+    {
+      "name": "CSC_OXM_P613OXM8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT.tar.md5",
+      "uncompressed_bytes": 393062502
+    }
+  ],
+  "flashed": false
+}

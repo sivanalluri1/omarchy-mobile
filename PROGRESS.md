@@ -1,5 +1,7 @@
 # Progress
 
+Status: paused at the user's request while the external SSD is being prepared. Do not start further builds or move storage until the user resumes.
+
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
 - [x] Review Samsung restrictions and ROM installation/upgrade history.
@@ -26,7 +28,7 @@ The macOS checkout has case-colliding filenames. A fresh checkout from its Git o
 
 Step 3 passed: unchanged source compiled with LLVM 19.1.7 and external DTC 1.7.2. Image header, AArch64 ELF, both device-tree blobs and source cleanliness verified. The 52,684,824-byte Image and artifact hashes are recorded in docs/build-records/kernel-baseline-artifacts.json.
 
-Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and digest-verified. Boot/DTBO/recovery inventory recorded. User reports internal storage is backed up. Physical USB ADB verified. Exact installed boot/recovery/DTBO/vbmeta backed up and device hashes verified using existing Magisk root. Installed recovery identifies 23.2-20260820. Rebooted to Download Mode for transport checks; initial USB enumeration was delayed, then detection and a 90-entry PIT read succeeded. Physical exit and Android/ADB return verified. Named screen fields were not visible. Factory firmware download and validation remain pending. See docs/recovery-preparation.md. No flashing has been performed; one deliberate Download Mode reboot was issued.
+Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and digest-verified. Boot/DTBO/recovery inventory recorded. User reports internal storage is backed up. Physical USB ADB verified. Exact installed boot/recovery/DTBO/vbmeta backed up and device hashes verified using existing Magisk root. Installed recovery identifies 23.2-20260820. Rebooted to Download Mode for transport checks; initial USB enumeration was delayed, then detection and a 90-entry PIT read succeeded. Physical exit and Android/ADB return verified. Named screen fields were not visible. Matching factory firmware downloaded; archive SHA256 recorded and all ZIP members passed CRC checks. Nested TAR.MD5 validation and final restoration review remain pending. See docs/recovery-preparation.md. No flashing has been performed; one deliberate Download Mode reboot was issued.
 
 ## Build compatibility notes
 
@@ -45,3 +47,7 @@ Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and d
 - [x] Working Download Mode USB session and PIT read verified.
 - [x] Return to Android verified.
 - [ ] Complete restoration procedure and stock firmware availability verified.
+
+## Pause checkpoint
+
+Tablet returned to Android; USB ADB verified, sys.boot_completed=1 and flash.locked=0. No flashing or erase performed. Exact boot-chain backups, matching LineageOS release and factory firmware archive are local under ignored work/. Installed boot kernel/DTB match the ROM ZIP; ramdisk differs. Step 4 remains open for nested factory-package validation and final restoration review. Resume after the user attaches the SSD and supplies its volume name. No build/download process remains running.

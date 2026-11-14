@@ -35,4 +35,8 @@ This is a reviewed command mapping from tool help and the tablet PIT, not a test
 
 ## Factory recovery package
 
-Samsung's service lists SM-P613/XAC firmware P613XXS8CYE1/P613OXM8CYE1/P613XXS8CYE1/P613XXS8CYE1, matching the running bootloader. Download started into ignored work/research/stock; archive validation is pending. The factory package is a separate fallback from the exact rooted LineageOS partition captures.
+Samsung's service lists SM-P613/XAC firmware P613XXS8CYE1/P613OXM8CYE1/P613XXS8CYE1/P613XXS8CYE1, matching the running bootloader. Download completed into ignored work/research/stock. Archive SHA256 is recorded in build-records/factory-firmware-inventory.json and all ZIP entries passed CRC checks. Nested TAR.MD5 verification and package-content review remain pending. The factory package is a separate fallback from the exact rooted LineageOS partition captures.
+
+## Paused checkpoint
+
+Paused at the user's request pending the external SSD. No new build or storage move is authorized until resumption. Installed boot section comparison confirms kernel and DTB bytes match the LineageOS release; ramdisk differs. See build-records/installed-boot-section-comparison.json. Tablet is back in Android; no partition write or erase occurred.
