@@ -8,3 +8,5 @@ p613-audit-*/
 *.tar.md5
 *.zip
 .DS_Store
+__pycache__/
+*.pyc

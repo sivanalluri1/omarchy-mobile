@@ -1,0 +1,17 @@
+{
+  "kernel": {
+    "url": "https://github.com/gta4xlve-dev/android_kernel_samsung_gta4xlve.git",
+    "revision": "21b136df15332dfc3569223a3b5784f778ae8b40",
+    "status": "Exact commit reported by running kernel"
+  },
+  "device": {
+    "url": "https://github.com/gta4xlve-dev/android_device_samsung_gta4xlveu.git",
+    "revision": "20c5a3962c87f5c795049d880487eb7efdf39202",
+    "status": "lineage-23.2 branch snapshot; installed build provenance not yet proven"
+  },
+  "vendor": {
+    "url": "https://github.com/gta4xlve-dev/android_vendor_samsung_gta4xlveu.git",
+    "revision": "4388d72aed64812cf27496986bcf8fb3af64bf1d",
+    "status": "lineage-23.2 branch snapshot; installed build provenance not yet proven"
+  }
+}
