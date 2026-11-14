@@ -1,6 +1,6 @@
 # Local build environment
 
-Host: Apple M4 MacBook Air, 16 GB RAM, about 57 GiB free at initial inspection. Docker Desktop started successfully; daemon reports Linux/aarch64. No cloud server is required for initial bring-up.
+Host: Apple M4 MacBook Air, 16 GB RAM, about 57 GiB free at initial inspection. Docker Desktop started successfully; daemon reports Linux/aarch64. An Alpine Linux container successfully executed and reported aarch64. No cloud server is required for initial bring-up.
 
 ## Pinned source baseline
 
@@ -13,3 +13,7 @@ The kernel build.config.common references x86-host Android clang-r383902. This i
 ## Next gate
 
 Inspect the pinned tree, establish compiler and build dependencies, generate the vendor configuration and build the unchanged kernel. Only after that succeeds should a minimal-Linux configuration be introduced. Preserve the existing device tree and boot format initially. No flashing or boot-image testing is part of source setup.
+
+## Completed source validation
+
+The pinned kernel and device trees were fetched successfully with scripts/fetch-source.py; both HEAD revisions match sources.lock.json. Kernel sources are local under sources/kernel and are excluded from the project repository. The unchanged kernel has not been compiled yet.
