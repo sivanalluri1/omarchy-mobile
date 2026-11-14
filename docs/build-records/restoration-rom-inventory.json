@@ -1,0 +1,29 @@
+{
+  "release_url": "https://github.com/danielml3/releases/releases/tag/lineage-23.2-20260820-UNOFFICIAL-gta4xlveu-1787232911",
+  "archive_name": "lineage-23.2-20260820-UNOFFICIAL-gta4xlveu.zip",
+  "sha256": "fbcebd0e31ecac9c162f4549e70bbe797d4be4007cddbf924f819c9b6320e299",
+  "publisher_checksum_matches": true,
+  "github_digest_matches": true,
+  "images": [
+    {
+      "path": "boot.img",
+      "bytes": 100663296,
+      "sha256": "4910482b78ea240dcbcf46f14706f0c503fc8b83da9a1d2539937c2ebeb7cccb"
+    },
+    {
+      "path": "dtbo.img",
+      "bytes": 25165824,
+      "sha256": "11f8330c6fa619bc5871c68211260bded38090060a56b51ab485f183a3dc1c7d"
+    },
+    {
+      "path": "recovery.img",
+      "bytes": 100663296,
+      "sha256": "26aacf89678972f4d5b967cf027fc3ccb342213ab56966462bcb24219ec748c5"
+    },
+    {
+      "path": "unsparse_super_empty.img",
+      "bytes": 4644,
+      "sha256": "73a31de2368418eaa417a2be96a03c579d4d9b4442b70b7b1607e1a7efb6860a"
+    }
+  ]
+}

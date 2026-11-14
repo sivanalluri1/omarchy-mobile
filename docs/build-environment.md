@@ -17,3 +17,15 @@ Inspect the pinned tree, establish compiler and build dependencies, generate the
 ## Completed source validation
 
 The pinned kernel and device trees were fetched successfully with scripts/fetch-source.py; both HEAD revisions match sources.lock.json. Kernel sources are local under sources/kernel and are excluded from the project repository. The unchanged kernel has not been compiled yet.
+
+## Implementation update
+
+The running /proc/version identifies Android LLVM 21 (r563880c). A native ARM64 Debian LLVM 19.1.7 builder has passed executable and AArch64-object smoke checks. Vendor config generation matches all running-kernel config symbol values.
+
+The host source checkout contains filename case collisions and must not be compiled. The kernel's Git objects were cloned into the case-sensitive omarchy-p613-kernel-baseline Docker volume; this Linux checkout is verified clean at the pinned revision. The prior claim that checkout was fully verified was incomplete and is superseded by docs/build-records/linux-source-validation.txt.
+
+Build output uses a second case-sensitive Docker volume, omarchy-p613-build-baseline. The initial dtbo.img make target was invalid in this tree; the corrected targets are Image and dtbs, which include configured overlay blobs. Packing a flashable DTBO image belongs to the later packaging milestone.
+
+## Unchanged kernel build completed
+
+LLVM 19.1.7 built Image and dtbs successfully with the exact running kernel source and a vendor config matching all running symbol values. The bundled DTC failed on the tablet overlay; DTC_EXT=/usr/bin/dtc (Debian 1.7.2) resolved it without source modifications. See kernel-baseline-artifacts.json under build-records for validated outputs. There is no bootability claim and no flashable boot image yet.

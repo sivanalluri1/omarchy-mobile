@@ -2,7 +2,7 @@
 
 Experimental native Linux and Omarchy bring-up for the Samsung Galaxy Tab S6 Lite 2022 Wi-Fi (SM-P613 / gta4xlveu).
 
-Current milestone: hardware audit, source baseline and Samsung installation/boot-chain research complete. Implementation has resumed with the local builder and unchanged-kernel baseline. No native Linux image has been built or tested.
+Current milestone: local builder, matching vendor configuration and unchanged kernel/device-tree compilation verified. Recovery preparation is next; no native Linux image has been booted or flashed.
 
 - [Plan](PLAN.md) · [Architecture](ARCHITECTURE.md) · [Steps](STEPS.md) · [Progress](PROGRESS.md)
 - [Hardware baseline](docs/hardware-baseline.md)

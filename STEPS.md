@@ -25,3 +25,15 @@ Uses four jobs by default. Logs live in build/kernel-baseline; outputs remain in
 ## 4 onward
 
 Follow PLAN.md in sequence. Recovery preparation and hardware testing require evidence unavailable from a source build. Record the next dependency in PROGRESS.md; never advance its checkbox on the strength of a compile alone.
+
+Inspect a completed build:
+
+```sh
+docker run --rm --platform linux/arm64 \
+  --mount type=volume,src=omarchy-p613-kernel-baseline,dst=/checkout,readonly \
+  --mount type=volume,src=omarchy-p613-build-baseline,dst=/out,readonly \
+  --mount "type=bind,src=$PWD/scripts/inspect-kernel-build.py,dst=/inspect.py,readonly" \
+  omarchy-p613-builder:llvm19 python3 /inspect.py
+```
+
+The external DTC override in kernel-build.sh is required for this baseline. Kernel compilation creates raw Image and device-tree blobs, not a flashable boot.img or dtbo.img.

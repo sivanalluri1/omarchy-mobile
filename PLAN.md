@@ -4,7 +4,7 @@ Target: native Linux and eventually Omarchy on Samsung SM-P613 (gta4xlveu). Star
 
 1. Establish and validate a local ARM64 Linux build environment with recorded compiler provenance.
 2. Generate the unchanged vendor configuration and compare it with the running configuration.
-3. Compile the unchanged kernel, DTBs and DTBO; validate architecture, sizes and source cleanliness. A successful build does not establish bootability.
+3. Compile the unchanged kernel, DTBs and overlay blobs; validate architecture, sizes and source cleanliness. A successful build does not establish bootability.
 4. Complete recovery preparation: installed-image inspection, physical USB/Download Mode status and a reviewed restoration set. Requires a deliberate hardware session; no flashing is part of steps 1–3.
 5. Introduce a minimal Linux configuration and initramfs for USB NCM networking and authenticated SSH, with Android storage untouched.
 6. Package the experiment using verified Samsung boot/AVB/DTB conventions. Review exact partition changes and recovery procedure before hardware testing.
