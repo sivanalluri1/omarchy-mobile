@@ -26,7 +26,7 @@ The macOS checkout has case-colliding filenames. A fresh checkout from its Git o
 
 Step 3 passed: unchanged source compiled with LLVM 19.1.7 and external DTC 1.7.2. Image header, AArch64 ELF, both device-tree blobs and source cleanliness verified. The 52,684,824-byte Image and artifact hashes are recorded in docs/build-records/kernel-baseline-artifacts.json.
 
-Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and digest-verified. Boot/DTBO/recovery inventory recorded. User reports internal storage is backed up. Physical USB, installed recovery/vbmeta and Download Mode status remain to be checked. No flashing or reboot has been performed.
+Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and digest-verified. Boot/DTBO/recovery inventory recorded. User reports internal storage is backed up. The final ADB check found no connected device. Connect a USB data cable and authorize ADB before continuing. Installed recovery/vbmeta and Download Mode status remain to be checked. No flashing or reboot has been performed.
 
 ## Build compatibility notes
 
