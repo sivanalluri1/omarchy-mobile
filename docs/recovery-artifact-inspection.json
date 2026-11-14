@@ -1,0 +1,60 @@
+{
+  "archive": {
+    "release": "https://github.com/danielml3/releases/releases/tag/lineage-23.2-20260820-UNOFFICIAL-gta4xlveu-1787232911",
+    "name": "recovery-23.2-20260820-UNOFFICIAL-gta4xlveu.tar",
+    "url": "https://github.com/danielml3/releases/releases/download/lineage-23.2-20260820-UNOFFICIAL-gta4xlveu-1787232911/recovery-23.2-20260820-UNOFFICIAL-gta4xlveu.tar",
+    "size": 100730880,
+    "github_digest": "sha256:c4659d851feb21edfdcdf3c4c254fe75db5bd7deff7d78c84400f086a9517639"
+  },
+  "sha256": "c4659d851feb21edfdcdf3c4c254fe75db5bd7deff7d78c84400f086a9517639",
+  "github_digest_matches": true,
+  "members": [
+    {
+      "name": "recovery.img",
+      "size": 100663296,
+      "sha256": "572b7d198f97170430cca81cc8973d4467046ac146a15c08b17af596ff86ae69",
+      "kernel_size": 50587672,
+      "ramdisk_size": 14193063,
+      "page_size": 4096,
+      "header_version": 2,
+      "dtb_size": 381581,
+      "avb_footer": {
+        "version": [
+          1,
+          0
+        ],
+        "original_image_size": 65359872,
+        "vbmeta_offset": 65359872,
+        "vbmeta_size": 2240,
+        "algorithm_type": 2,
+        "rollback_index": 1,
+        "flags": 0,
+        "rollback_index_location": 0
+      },
+      "header_size": 1660,
+      "recovery_dtbo_size": 184320,
+      "recovery_dtbo_offset": 64790528,
+      "cmdline": "console=null androidboot.hardware=qcom androidboot.memcg=1 lpm_levels.sleep_disabled=1 msm_rtb.filter=0x237 service_locator.enable=1 swiotlb=1 androidboot.usbcontroller=a600000.dwc3 loop.max_part=7 printk.devkmsg=on firmware_class.path=/vendor/firmware_mnt/image kpti=off"
+    },
+    {
+      "name": "vbmeta.img",
+      "size": 65536,
+      "sha256": "084a9f484f21b514319327974c85ebe8792cf94756090a3ebe937f94cd663f77",
+      "required_avb_version": [
+        1,
+        0
+      ],
+      "algorithm_type": 2,
+      "rollback_index": 0,
+      "flags": 3,
+      "rollback_index_location": 0
+    }
+  ],
+  "checks": [
+    "Archive SHA256 equals GitHub release asset digest",
+    "Archive members are regular files",
+    "Android boot magic and AVB metadata magic match",
+    "Aligned header/kernel/ramdisk/DTBO/DTB sizes equal AVB original image size",
+    "Metadata inspected only; cryptographic image signatures not verified; installed partitions not compared"
+  ]
+}

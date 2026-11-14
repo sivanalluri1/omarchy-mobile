@@ -1,6 +1,6 @@
 # SM-P613 native Linux / Omarchy bring-up
 
-Status: source reconnaissance only; no tablet detected by ADB. No image built or flashed.
+Status: read-only ADB audit and pinned source setup complete. Samsung boot-chain research and recovery artifact inspection complete; see samsung-boot-research.md. Builds are deferred at the user's request. No image built or flashed.
 
 ## First step
 Connect the SM-P613 by USB, enable USB debugging and authorize this computer. Run:
@@ -25,7 +25,7 @@ AlfCraft07's default branch is oneui/android17. Treat it as an alternative for c
 4. Integration: validate selected Arch Linux ARM userspace against the actual kernel's required features. Bring up a minimal session before adding Omarchy Mobile packages and device integration. Validate touch, S Pen, Wi-Fi, Bluetooth, audio, battery/charging and suspend separately; record hardware evidence for each claim.
 
 ## Outstanding evidence
-No running-device audit, recovery artifacts, reproducible build, native boot, or graphics test yet. XDA DSU proof-of-concept page could not be fetched. Its title alone does not establish native Linux or Mesa/Wayland support: DSU Android success and native Linux graphics are separate milestones.
+Running-device audit completed; matching release recovery/vbmeta package inspected offline. XDA DSU thread reviewed in Chrome: it requires ROManitas base/kernel and is an abandoned Android desktop proof of concept. No reproducible kernel build, native boot, or graphics test yet. Actual installed recovery/vbmeta, Download Mode status and restoration procedure remain unverified.
 
 ## References
 - https://github.com/derekross/omarchy-mobile
