@@ -1,0 +1,10 @@
+work/
+sources/
+build/
+out/
+p613-audit-*/
+*.img
+*.tar
+*.tar.md5
+*.zip
+.DS_Store
