@@ -26,7 +26,7 @@ The macOS checkout has case-colliding filenames. A fresh checkout from its Git o
 
 Step 3 passed: unchanged source compiled with LLVM 19.1.7 and external DTC 1.7.2. Image header, AArch64 ELF, both device-tree blobs and source cleanliness verified. The 52,684,824-byte Image and artifact hashes are recorded in docs/build-records/kernel-baseline-artifacts.json.
 
-Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and digest-verified. Boot/DTBO/recovery inventory recorded. User reports internal storage is backed up. Physical USB ADB verified. Exact installed boot/recovery/DTBO/vbmeta backed up and device hashes verified using existing Magisk root. Installed recovery identifies 23.2-20260820. Rebooted to Download Mode for transport checks; initial samloader/Heimdall detection failed. Screen policy values, USB transport, PIT and return to Android remain pending. See docs/recovery-preparation.md. No flashing has been performed; one deliberate Download Mode reboot was issued.
+Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and digest-verified. Boot/DTBO/recovery inventory recorded. User reports internal storage is backed up. Physical USB ADB verified. Exact installed boot/recovery/DTBO/vbmeta backed up and device hashes verified using existing Magisk root. Installed recovery identifies 23.2-20260820. Rebooted to Download Mode for transport checks; initial USB enumeration was delayed, then detection and a 90-entry PIT read succeeded. Physical exit and Android/ADB return verified. Named screen fields were not visible. Factory firmware download and validation remain pending. See docs/recovery-preparation.md. No flashing has been performed; one deliberate Download Mode reboot was issued.
 
 ## Build compatibility notes
 
@@ -41,7 +41,7 @@ Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and d
 - [x] User confirms internal storage backup.
 - [x] Exact installed boot/recovery/DTBO/vbmeta captured and hash-verified.
 - [x] Installed recovery release and vbmeta flags inspected.
-- [ ] Download Mode screen policy values recorded.
-- [ ] Working Download Mode USB session and PIT read verified.
-- [ ] Return to Android verified.
+- [x] Available Download Mode observations recorded; named OEM/KG/FRP/SWREV fields not exposed.
+- [x] Working Download Mode USB session and PIT read verified.
+- [x] Return to Android verified.
 - [ ] Complete restoration procedure and stock firmware availability verified.

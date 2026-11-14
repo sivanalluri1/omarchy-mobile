@@ -1,0 +1,6 @@
+Model: SM-P613
+Region: XAC (from running ro.boot.sales_code)
+Query: samloader 2.2.0 check-update --model SM-P613 --region XAC --all
+Latest stable: P613XXS8CYE1/P613OXM8CYE1/P613XXS8CYE1/P613XXS8CYE1
+Matches running bootloader revision: P613XXS8CYE1
+Firmware package not downloaded or inspected yet.
