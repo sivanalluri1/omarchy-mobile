@@ -1,0 +1,16 @@
+Linux aarch64
+Debian clang version 19.1.7 (3+b1)
+Target: aarch64-unknown-linux-gnu
+Thread model: posix
+InstalledDir: /usr/lib/llvm-19/bin
+Debian LLD 19.1.7 (compatible with GNU linkers)
+GNU Make 4.4.1
+/tmp/probe.o: ELF 64-bit LSB relocatable, ARM aarch64, version 1 (SYSV), not stripped
+bison	2:3.8.2+dfsg-1+b2
+clang-19	1:19.1.7-3+b1
+flex	2.6.4-8.2+b4
+libssl-dev:arm64	3.5.7-1~deb13u3
+lld-19	1:19.1.7-3+b1
+llvm-19	1:19.1.7-3+b1
+make	4.4.1-2
+sha256:9514ae4a35ee8b8c97226c5212d091bef3bfcf92f64d087f5659c3d54ec675b6

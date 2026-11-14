@@ -19,7 +19,7 @@ export KBUILD_BUILD_USER=omarchy KBUILD_BUILD_HOST=p613-builder
 args=(O=/out ARCH=arm64 LLVM=1 LLVM_IAS=1 CROSS_COMPILE=aarch64-linux-gnu- CROSS_COMPILE_ARM32=arm-linux-gnueabi-)
 if [ "$MODE" = configure ]; then
   make "${args[@]}" vendor/atoll-perf_defconfig
-  bash scripts/kconfig/merge_config.sh -m -O /out /out/.config arch/arm64/configs/vendor/gta4xlve.config
+  (cd /out && bash /src/scripts/kconfig/merge_config.sh -m -O /out /out/.config /src/arch/arm64/configs/vendor/gta4xlve.config)
   make "${args[@]}" olddefconfig
 else
   [ -f /out/.config ] || { echo "Run configure first" >&2; exit 1; }
