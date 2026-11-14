@@ -1,0 +1,54 @@
+{
+  "model": "SM-P613",
+  "method": "USB ADB; existing Magisk su; read-only partition reads",
+  "images": [
+    {
+      "partition": "boot",
+      "bytes": 100663296,
+      "sha256": "15966f29996c7ab4c299d7b95f7a1e3ae04ef9ea788e4d11fc66f96eec2753ed",
+      "device_hash_matches": true,
+      "matches_rom_zip": false,
+      "matches_recovery_tar": false,
+      "boot_header": {
+        "version": 2,
+        "page_size": 4096,
+        "kernel_size": 50587672,
+        "ramdisk_size": 1422825
+      }
+    },
+    {
+      "partition": "recovery",
+      "bytes": 100663296,
+      "sha256": "26aacf89678972f4d5b967cf027fc3ccb342213ab56966462bcb24219ec748c5",
+      "device_hash_matches": true,
+      "matches_rom_zip": true,
+      "matches_recovery_tar": false,
+      "boot_header": {
+        "version": 2,
+        "page_size": 4096,
+        "kernel_size": 50587672,
+        "ramdisk_size": 14193063
+      }
+    },
+    {
+      "partition": "dtbo",
+      "bytes": 25165824,
+      "sha256": "11f8330c6fa619bc5871c68211260bded38090060a56b51ab485f183a3dc1c7d",
+      "device_hash_matches": true,
+      "matches_rom_zip": true,
+      "matches_recovery_tar": false
+    },
+    {
+      "partition": "vbmeta",
+      "bytes": 65536,
+      "sha256": "4f79fd04727c6ac30619acb1fad20ae8e18e2ec908198021a195eb83cd398138",
+      "device_hash_matches": true,
+      "matches_rom_zip": false,
+      "matches_recovery_tar": false,
+      "avb": {
+        "flags": 3,
+        "rollback_index": 0
+      }
+    }
+  ]
+}
