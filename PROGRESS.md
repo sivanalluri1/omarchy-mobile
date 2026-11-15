@@ -214,3 +214,17 @@ The extended session has started, not completed; no hour-long stability claim is
 - [ ] Validate edge accuracy, palm rejection, rotation and remaining hardware.
 
 The interactive desktop stalled in SquashFS reads under low available memory after a missed IPC response. Native recovery SSH remained available. Evidence is saved before reboot; root cause is not established. This is a partial milestone, not completion of step 9 or step 10. Details: docs/input-bringup.md and docs/build-records/hardware-test-08.json.
+
+
+### Step 9/10 — lifecycle failures reproduced and fixed in test runtime
+
+- [x] Pass a clean revision-4 home/launcher session and launch Foot via GIO.
+- [x] Reproduce recents closing failure: a live toplevel capture races a disappearing app.
+- [x] Add static recents app cards to the P613 profile while retaining switch/close behavior.
+- [x] Identify Turnip's missing closes of allocation DMA-BUF descriptors.
+- [x] Verify the driver fix on hardware: 64 allocation cycles changed from +64 leaked fds to zero.
+- [x] Repeat GPU readback with the repaired library.
+- [x] Complete ten actual Foot open/close cycles with recents visible, shell IPC and home-state checks.
+- [ ] Validate the combined fixes in a newly built immutable image.
+
+The ten-cycle result used verified RAM overlays; the new image is building. Both the original display driver and earlier root images remain preserved. Full systemd service integration, OSK and remaining hardware work are open. Step 10 input response/pressure is confirmed, but accuracy, palm rejection and rotation are not yet validated.

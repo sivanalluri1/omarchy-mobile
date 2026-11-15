@@ -1,0 +1,31 @@
+--- a/usr/share/omamobile/shell/plugins/omamobile.switcher/Switcher.qml
++++ b/usr/share/omamobile/shell/plugins/omamobile.switcher/Switcher.qml
+@@ -40,6 +40,8 @@
+ 
+   readonly property string pluginId: (manifest && manifest.id) || "omamobile.switcher"
+ 
++  // P613: opt in only after the toplevel-capture close race is fixed.
++  readonly property bool livePreviews: Quickshell.env("P613_SWITCHER_LIVE_PREVIEWS") === "1"
+   property bool opened: false
+ 
+   // Newest first, like Android's recents.
+@@ -375,8 +377,17 @@
+           ScreencopyView {
+             anchors.fill: parent
+             anchors.margins: card.border.width
+-            captureSource: root.opened ? slot.modelData : null
+-            live: true
++            captureSource: root.opened && root.livePreviews ? slot.modelData : null
++            live: root.livePreviews
++          }
++
++          Text {
++            visible: !root.livePreviews
++            anchors.centerIn: parent
++            text: root.appName(slot.modelData).slice(0, 1).toUpperCase()
++            color: root.foreground
++            font.family: Style.font.family
++            font.pixelSize: Style.font.body * 4
+           }
+ 
+           // Tap to switch; hold for "Show with…" and "Move to its own screen".

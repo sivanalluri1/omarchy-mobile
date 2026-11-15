@@ -12,6 +12,8 @@ case "${1:-}" in
 esac
 [ -f /run/arch-root-mounted ] || exit 1
 [ -x /tmp/display-test ] || exit 1
+qsg_loop=${P613_QSG_RENDER_LOOP:-threaded}
+case "$qsg_loop" in basic|threaded) ;; *) exit 2;; esac
 if [ "${P613_ENABLE_INPUT:-0}" = 1 ]; then
   chroot /arch /usr/bin/python /usr/local/libexec/p613/setup-input.py >/input-setup.log 2>&1
 fi
@@ -62,6 +64,8 @@ chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env \
   P613_ROOT_LABEL="$root_label" P613_HYPRLAND_CONFIG="${P613_HYPRLAND_CONFIG:-/etc/p613/hyprland-test.lua}" \
   P613_TEST_SECONDS="$seconds" \
   P613_EXPECT_OMARCHY="${P613_EXPECT_OMARCHY:-0}" \
+  P613_EXPECT_MOBILE="${P613_EXPECT_MOBILE:-0}" \
+  QSG_RENDER_LOOP="$qsg_loop" \
   HOME=/home/omarchy USER=omarchy LOGNAME=omarchy TZ=America/Phoenix \
   XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=Hyprland \
   LD_LIBRARY_PATH="$graphics_libraries" GBM_BACKENDS_PATH=/opt/p613-gpu/lib/gbm \

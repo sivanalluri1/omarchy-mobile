@@ -1,0 +1,29 @@
+{
+  "mesa_revision": "8899a7b4cf1e8b5dbce884f94b440e40e84ca26b",
+  "patch": {
+    "upstream_lock": "mesa.lock.json",
+    "source_file": "src/freedreno/vulkan/tu_knl_kgsl.cc",
+    "patch": "patches/mesa/0002-kgsl-close-allocation-dmabuf-fds.patch",
+    "upstream_file_sha256": "96d6612841517adc44c1ae07491da5a0958c58579582559010d90da9f1890674",
+    "patched_file_sha256": "bc5960ead98edda618f786a743c549fbadbc04d77a151592445600ad58003ba0",
+    "patch_sha256": "3891dd7f36fed7e95daa73fa12d88ded0205037ca057d686170a49b5bf168991",
+    "reason": "Allocation helpers retain original DMA-BUF fds although kgsl_bo_init_dmabuf duplicates them"
+  },
+  "library_sha256": "c0051c7823d64be174f883b823b0314880a183190fce9a760de06e5d7d550a86",
+  "library_bytes": 18324088,
+  "tablet_tested": true,
+  "date": "2026-11-15",
+  "timezone": "America/Phoenix",
+  "allocation_regression": {
+    "cycles": 64,
+    "original_fd_before": 14,
+    "original_fd_after": 78,
+    "original_delta": 64,
+    "patched_fd_before": 6,
+    "patched_fd_after": 6,
+    "patched_delta": 0
+  },
+  "gpu_render_readback_passed": true,
+  "desktop_lifecycle_repeat_pending": false,
+  "desktop_lifecycle_cycles_passed": 10
+}

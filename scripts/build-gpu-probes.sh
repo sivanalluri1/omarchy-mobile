@@ -20,6 +20,7 @@ gcc -O2 -Wall -Wextra -Werror -I/out /native/gpu-compute.c -lvulkan -o /out/gpu-
 gcc -O2 -Wall -Wextra -Werror /native/gpu-render.c -lEGL -lGLESv2 -o /out/gpu-render
 gcc -O2 -Wall -Wextra -Werror /native/gbm-probe.c -lgbm -lEGL -lGLESv2 -o /out/gbm-probe
 gcc -O2 -Wall -Wextra -Werror /native/udev-probe.c -ludev -o /out/udev-probe
-file /out/gpu-compute /out/gpu-render /out/gbm-probe /out/udev-probe
-sha256sum /out/gpu-compute /out/gpu-compute.spv /out/gpu-render /out/gbm-probe /out/udev-probe
+gcc -O2 -Wall -Wextra -Werror /native/gpu-memory-cycle.c -lvulkan -o /out/gpu-memory-cycle
+file /out/gpu-compute /out/gpu-render /out/gbm-probe /out/udev-probe /out/gpu-memory-cycle
+sha256sum /out/gpu-compute /out/gpu-compute.spv /out/gpu-render /out/gbm-probe /out/udev-probe /out/gpu-memory-cycle
 '

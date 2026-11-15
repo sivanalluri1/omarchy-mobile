@@ -1,0 +1,9 @@
+{
+  "upstream_lock": "mesa.lock.json",
+  "source_file": "src/freedreno/vulkan/tu_knl_kgsl.cc",
+  "patch": "patches/mesa/0002-kgsl-close-allocation-dmabuf-fds.patch",
+  "upstream_file_sha256": "96d6612841517adc44c1ae07491da5a0958c58579582559010d90da9f1890674",
+  "patched_file_sha256": "bc5960ead98edda618f786a743c549fbadbc04d77a151592445600ad58003ba0",
+  "patch_sha256": "3891dd7f36fed7e95daa73fa12d88ded0205037ca057d686170a49b5bf168991",
+  "reason": "Allocation helpers retain original DMA-BUF fds although kgsl_bo_init_dmabuf duplicates them"
+}

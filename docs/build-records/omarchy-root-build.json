@@ -1,10 +1,10 @@
 {
-  "bytes": 612364288,
-  "sha256": "f097a2c8bab5211b8e42eac4264e7104402a392608fe8e4ae2580ca222b76533",
-  "tablet_tested": true,
+  "bytes": 612716544,
+  "sha256": "41a6c307919e74095bbf5a93ffec53516b533a6454571304f759538f91f9f94a",
+  "tablet_tested": false,
   "systemd_pid1": false,
   "date": "2026-11-15",
-  "profile": "Omarchy shell host + mobile bar only",
+  "profile": "Omarchy host, mobile home, launcher, switcher and back gesture",
   "package_signatures_verified": true,
   "keyring_bootstrap": "Pinned HTTPS keyring, fingerprint checked",
   "quickshell_version": "0.3.2.r7.g2b4501a-1",
@@ -20,7 +20,9 @@
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
-  "revision": 3,
-  "previous_root_sha256": "38e5a7784ca758a1d7eaf540745d883de47ab887178474fcce35375060ae18b9",
-  "parent_side_forkfd_bootstrap": true
+  "revision": 4,
+  "previous_root_sha256": "f097a2c8bab5211b8e42eac4264e7104402a392608fe8e4ae2580ca222b76533",
+  "parent_side_forkfd_bootstrap": true,
+  "input_setup_in_image": true,
+  "direct_gio_desktop_launcher": true
 }

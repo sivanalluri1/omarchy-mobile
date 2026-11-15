@@ -64,3 +64,11 @@ shell=target/'usr/share/omarchy/shell'
 shutil.copy2(project/'configs/p613-shell-bootstrap.qml',shell/'shell.qml')
 
 subprocess.run(['patch','--batch','--fuzz=0','-p1','-d',str(target),'-i',str(project/'patches/omamobile/0001-p613-direct-desktop-launch.patch')],check=True)
+
+subprocess.run(['patch','--batch','--fuzz=0','-p1','-d',str(target),'-i',str(project/'patches/omamobile/0002-p613-static-recents-cards.patch')],check=True)
+
+# The allocation ownership fix is a separately preserved and validated build.
+source=Path('/mesa-fixed/libvulkan_freedreno.so')
+metadata=json.loads((project/'docs/build-records/mesa-fd-fix-build.json').read_text())
+assert hashlib.sha256(source.read_bytes()).hexdigest()==metadata['library_sha256']
+shutil.copy2(source,target/'opt/p613-gpu/lib/libvulkan_freedreno.so')

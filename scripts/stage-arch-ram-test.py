@@ -14,7 +14,10 @@ root=Path(__file__).resolve().parent.parent
 parser=argparse.ArgumentParser()
 parser.add_argument('--compat-udev',action='store_true',help='Stage the previously tested libudev 257 in a private RAM prefix')
 parser.add_argument('--profile',choices=['arch','omarchy'],default='arch')
+parser.add_argument('--test-number',type=int,help='Use a separate private hardware-test-NN/staging log directory')
 args=parser.parse_args()
+if args.test_number is not None and not 1<=args.test_number<=99:
+    parser.error('--test-number must be between 1 and 99')
 # The local SSD paths are private configuration, not a guessed system directory.
 lines=(root/'storage.local.env').read_text().splitlines()
 settings=dict(line.split('=',1) for line in lines if line and not line.startswith('#'))
@@ -23,6 +26,8 @@ assert (base/'.omarchy-storage').is_file()
 state=subprocess.check_output(['ifconfig','en5'],text=True)
 assert 'inet 192.168.77.2 ' in state and '02:61:30:00:00:02' in state
 log=root/('work/hardware-test-07' if args.profile=='omarchy' else 'work/hardware-test-06/reconnected')
+if args.test_number is not None:
+    log=root/f'work/hardware-test-{args.test_number:02d}/staging'
 log.mkdir(parents=True,exist_ok=True)
 ssh=['ssh','-T','-i',str(root/'work/keys/client_ed25519'),'-o','UserKnownHostsFile='+str(root/'work/keys/tablet_known_hosts'),'-o','StrictHostKeyChecking=yes','-o','BatchMode=yes','-o','ConnectTimeout=10','-o','ServerAliveInterval=3','-o','ServerAliveCountMax=2','root@192.168.77.1']
 def run(command,name,timeout=60):
