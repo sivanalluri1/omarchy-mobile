@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "bar": {
+    "id": "omamobile.bar",
+    "position": "top",
+    "clockFormat": "HH:mm:ss",
+    "showBatteryPercent": false,
+    "layout": {"left": [], "center": [], "right": []}
+  },
+  "idle": {"screensaver": 0, "lock": 0},
+  "plugins": []
+}

@@ -13,6 +13,7 @@ import tarfile
 root=Path(__file__).resolve().parent.parent
 parser=argparse.ArgumentParser()
 parser.add_argument('--compat-udev',action='store_true',help='Stage the previously tested libudev 257 in a private RAM prefix')
+parser.add_argument('--profile',choices=['arch','omarchy'],default='arch')
 args=parser.parse_args()
 # The local SSD paths are private configuration, not a guessed system directory.
 lines=(root/'storage.local.env').read_text().splitlines()
@@ -21,7 +22,7 @@ base=Path(settings['OMARCHY_LINUX_ROOT'])
 assert (base/'.omarchy-storage').is_file()
 state=subprocess.check_output(['ifconfig','en5'],text=True)
 assert 'inet 192.168.77.2 ' in state and '02:61:30:00:00:02' in state
-log=root/'work/hardware-test-06/reconnected'
+log=root/('work/hardware-test-07' if args.profile=='omarchy' else 'work/hardware-test-06/reconnected')
 log.mkdir(parents=True,exist_ok=True)
 ssh=['ssh','-T','-i',str(root/'work/keys/client_ed25519'),'-o','UserKnownHostsFile='+str(root/'work/keys/tablet_known_hosts'),'-o','StrictHostKeyChecking=yes','-o','BatchMode=yes','-o','ConnectTimeout=10','-o','ServerAliveInterval=3','-o','ServerAliveCountMax=2','root@192.168.77.1']
 def run(command,name,timeout=60):
@@ -55,8 +56,9 @@ for name in ['graphics-probe','display-test']:
     put(base/'build/graphics-probes'/name,'/tmp/'+name)
 run('/tmp/graphics-probe','native-gpu-enumeration.txt')
 print('Native BOOT, no-NBD kernel and GPU enumeration verified',flush=True)
-image=base/'build/arch-ram/arch-root.squashfs'
-expected=json.loads((root/'docs/build-records/arch-ram-root-build.json').read_text())['sha256']
+image=base/('build/arch-omarchy/root.squashfs' if args.profile=='omarchy' else 'build/arch-ram/arch-root.squashfs')
+validation=root/('docs/build-records/omarchy-root-build.json' if args.profile=='omarchy' else 'docs/build-records/arch-ram-root-build.json')
+expected=json.loads(validation.read_text())['sha256']
 assert hashlib.sha256(image.read_bytes()).hexdigest()==expected
 print('Transferring compressed Arch image into RAM',flush=True)
 put(image,'/arch-root.squashfs','600')

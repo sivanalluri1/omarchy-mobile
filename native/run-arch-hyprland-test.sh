@@ -38,8 +38,12 @@ while [ ! -S /arch/run/seatd.sock ]; do
 done
 graphics_libraries=/opt/p613-gpu/lib
 if [ "${P613_USE_UDEV_COMPAT:-0}" = 1 ]; then
-  [ -f /arch/tmp/p613-compat/libudev.so.1 ] || exit 1
-  graphics_libraries=/tmp/p613-compat:/opt/p613-gpu/lib
+  if [ -f /arch/opt/p613-compat/lib/libudev.so.1 ]; then
+    graphics_libraries=/opt/p613-compat/lib:/opt/p613-gpu/lib
+  else
+    [ -f /arch/tmp/p613-compat/libudev.so.1 ] || exit 1
+    graphics_libraries=/tmp/p613-compat:/opt/p613-gpu/lib
+  fi
 fi
 root_label="read-only developer image"
 if [ -f /run/arch-root-transport ]; then root_label=$(cat /run/arch-root-transport); fi

@@ -171,3 +171,14 @@ Android is currently restored and verified. The old NBD stall remains undiagnose
 - [ ] Integrate Omarchy components and resolve unsupported services.
 
 User confirmed the Hyprland terminal and updating clock were visible during the bounded session. Touch, pen and long-duration stability remain unvalidated. BusyBox remains PID 1; systemd 262 requires kernel >=5.10 and is unsupported on this 4.14 kernel. Step 9 remains open. Evidence: docs/build-records/hardware-test-06.json. Next: make the compatibility prefix reproducible in the RAM image, then inspect portable Omarchy shell dependencies before another bounded hardware test.
+
+
+### Step 9 — Omarchy shell image prepared
+
+- [x] Pin Omarchy 4.5.0-3 and its Quickshell runtime; verify detached signatures against the pinned HTTPS-bootstrapped keyring.
+- [x] Preserve the proven Arch image; build a separate 582 MiB RAM image with the compatibility libudev prefix.
+- [x] Include the real Omarchy shell host, mobile bar and an isolated profile with idle/lock disabled.
+- [x] Check Quickshell libraries/version and Hyprland profile offline.
+- [ ] Validate Omarchy host and mobile bar on the native tablet.
+
+User authorizes keeping the tablet in native Linux testing mode between tests; routine Android restoration is no longer required. Original recovery images remain retained. Systemd, input and hardware services remain unresolved. This image extracts runtime payloads without installing the full Omarchy package or running its installer/hooks. Evidence: docs/build-records/omarchy-root-build.json.

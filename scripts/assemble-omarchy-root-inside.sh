@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+mknod /dev/loop-control c 10 237
+for n in $(seq 0 63); do mknod "/dev/loop$n" b 7 "$n"; done
+loop=$(losetup --find --show /out/root.img)
+mkdir -p /target
+cleanup() {
+  if mountpoint -q /target; then
+    if [ -c /target/dev/null ]; then chroot /target /usr/bin/gpgconf --homedir /etc/pacman.d/gnupg --kill all || true; fi
+    umount -R /target
+  fi
+  losetup -d "$loop"
+}
+trap cleanup EXIT
+mount "$loop" /target
+mount --rbind /dev /target/dev
+mount --make-rslave /target/dev
+mount -t proc proc /target/proc
+cp /etc/resolv.conf /target/etc/resolv.conf
+python3 /project/scripts/stage-omarchy-payload.py
+# Verify signatures against the explicitly pinned TLS-bootstrapped Omarchy keyring.
+mkdir -m700 /tmp/omarchy-gnupg
+gpg --batch --homedir /tmp/omarchy-gnupg --import /tmp/usr/share/pacman/keyrings/omarchy.gpg
+gpg --batch --homedir /tmp/omarchy-gnupg --with-colons --fingerprint | grep -F "fpr:::::::::40DFB630FF42BCFFB047046CF0134EE680CAC571:"
+gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/omarchy.pkg.tar.zst.sig /inputs/omarchy.pkg.tar.zst
+gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/quickshell.pkg.tar.zst.sig /inputs/quickshell.pkg.tar.zst
+chroot /target /bin/bash -s <<'ARCH'
+set -euo pipefail
+pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python socat grim ttf-jetbrains-mono-nerd
+find /var/cache/pacman/pkg -mindepth 1 -maxdepth 1 -type f -delete
+pacman -Q > /root/p613-package-manifest.txt
+ARCH
+# Runtime-only payloads, not a dependency-bypassed installation of the full desktop.
+bsdtar -xf /inputs/quickshell.pkg.tar.zst -C /target --exclude='.PKGINFO' --exclude='.BUILDINFO' --exclude='.MTREE' --exclude='.INSTALL'
+install -Dm755 /project/native/p613-omarchy-session /target/usr/local/bin/p613-omarchy-session
+install -Dm644 /project/configs/hyprland-p613-omarchy.lua /target/etc/p613/hyprland-omarchy.lua
+install -Dm644 /project/configs/omarchy-p613-shell.json /target/etc/p613/shell.json
+chroot /target /usr/bin/qs --version
+chroot /target /usr/bin/env LD_LIBRARY_PATH=/opt/p613-compat/lib /usr/bin/ldd /usr/bin/quickshell > /out/quickshell-ldd.txt
+! grep -q 'not found' /out/quickshell-ldd.txt
+mkdir -p /target/tmp/p613-runtime
+chown 1000:1000 /target/tmp/p613-runtime
+chmod 700 /target/tmp/p613-runtime
+chroot /target /usr/bin/runuser -u omarchy -- /usr/bin/env XDG_RUNTIME_DIR=/tmp/p613-runtime /usr/bin/Hyprland --verify-config --config /etc/p613/hyprland-omarchy.lua
+chroot /target /usr/bin/pacman -Q > /out/package-versions.txt
+chroot /target /usr/bin/gpgconf --homedir /etc/pacman.d/gnupg --kill all || true
+umount /target/proc
+umount -R /target/dev
+sync
+mksquashfs /target /out/root.squashfs -noappend -comp xz -b 1048576 -processors 4 -no-progress -wildcards -e 'dev/*' 'proc/*' 'sys/*' 'run/*' 'tmp/*'
+python3 - <<'PY'
+import hashlib,json
+from pathlib import Path
+p=Path('/out/root.squashfs')
+assert p.stat().st_size < 768*1024*1024
+record={'bytes':p.stat().st_size,'sha256':hashlib.file_digest(p.open('rb'),'sha256').hexdigest(),'tablet_tested':False,'systemd_pid1':False}
+Path('/out/validation.json').write_text(json.dumps(record,indent=2)+'\n')
+print(json.dumps(record))
+PY

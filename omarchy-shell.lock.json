@@ -1,0 +1,7 @@
+{
+  "omarchy": {"version":"4.5.0-3", "sha256":"d367067c1e35d6e99f7cd921e0a55ec6e46cb0d2bc681b1a4b39254c8c0416e7", "url":"https://pkgs.omarchy.org/stable/aarch64/omarchy-4.5.0-3-aarch64.pkg.tar.zst"},
+  "quickshell": {"version":"0.3.2.r7.g2b4501a-1", "sha256":"e1227d2930f84b78284cdffab8331e6a47632b2f65ee64945d785da1eb659fef", "url":"https://pkgs.omarchy.org/stable/aarch64/quickshell-0.3.2.r7.g2b4501a-1-aarch64.pkg.tar.zst"},
+  "keyring": {"version":"20251027-1", "sha256":"cce48c07cfc2b97e198df1bc81705db2921685032fe39f18b4ddfd84264b5967", "url":"https://pkgs.omarchy.org/stable/aarch64/omarchy-keyring-20251027-1-any.pkg.tar.zst", "fingerprint":"40DFB630FF42BCFFB047046CF0134EE680CAC571"},
+  "trust_bootstrap":"Pinned hashes over HTTPS; detached package signatures verified against this TLS-bootstrapped keyring",
+  "scope":"Experimental runtime payload extraction; full Omarchy package dependencies and systemd services are not installed or claimed"
+}

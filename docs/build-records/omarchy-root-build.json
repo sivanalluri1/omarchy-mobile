@@ -1,0 +1,21 @@
+{
+  "bytes": 609816576,
+  "sha256": "8015650c15e70f40549d47fc35b3018a59433b99501773c7fa493a59429f6ca6",
+  "tablet_tested": false,
+  "systemd_pid1": false,
+  "date": "2026-11-15",
+  "profile": "Omarchy shell host + mobile bar only",
+  "package_signatures_verified": true,
+  "keyring_bootstrap": "Pinned HTTPS keyring, fingerprint checked",
+  "quickshell_version": "0.3.2.r7.g2b4501a-1",
+  "omarchy_version": "4.5.0-3",
+  "hyprland_config_valid": true,
+  "quickshell_libraries_resolved": true,
+  "libudev_compat_in_image": true,
+  "full_omarchy_package_installed": false,
+  "known_limitations": [
+    "systemd unsupported on 4.14",
+    "Touch and pen not configured",
+    "No audio/network/power service integration"
+  ]
+}
