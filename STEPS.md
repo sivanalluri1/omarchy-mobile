@@ -51,3 +51,6 @@ Read docs/graphics-bringup.md for hardware evidence and bounded display-test usa
 
 
 Step 9 hardware checkpoint (2026-11-15): read-only Arch SquashFS in RAM, non-root GPU readback and bounded Hyprland passed using an isolated libudev 257 prefix. Android restored and all four original partition hashes verified. Omarchy integration and service compatibility remain open; see docs/arch-userspace.md and docs/build-records/hardware-test-06.json.
+
+
+For the current Omarchy host/mobile-bar RAM profile, pinned inputs, parent-side Qt bootstrap and bounded/extended launcher, follow docs/omarchy-shell.md. The complete phone service graph and input validation remain subsequent work.

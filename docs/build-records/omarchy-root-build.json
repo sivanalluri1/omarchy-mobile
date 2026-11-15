@@ -1,7 +1,7 @@
 {
-  "bytes": 612368384,
-  "sha256": "38e5a7784ca758a1d7eaf540745d883de47ab887178474fcce35375060ae18b9",
-  "tablet_tested": false,
+  "bytes": 612364288,
+  "sha256": "f097a2c8bab5211b8e42eac4264e7104402a392608fe8e4ae2580ca222b76533",
+  "tablet_tested": true,
   "systemd_pid1": false,
   "date": "2026-11-15",
   "profile": "Omarchy shell host + mobile bar only",
@@ -20,6 +20,7 @@
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
-  "revision": 2,
-  "previous_root_sha256": "8015650c15e70f40549d47fc35b3018a59433b99501773c7fa493a59429f6ca6"
+  "revision": 3,
+  "previous_root_sha256": "38e5a7784ca758a1d7eaf540745d883de47ab887178474fcce35375060ae18b9",
+  "parent_side_forkfd_bootstrap": true
 }

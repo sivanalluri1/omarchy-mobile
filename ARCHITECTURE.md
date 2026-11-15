@@ -55,3 +55,6 @@ Hardware compute, offscreen graphics readback, GBM export/scanout handles and vi
 
 
 Step 9 hardware checkpoint (2026-11-15): read-only Arch SquashFS in RAM, non-root GPU readback and bounded Hyprland passed using an isolated libudev 257 prefix. Android restored and all four original partition hashes verified. Omarchy integration and service compatibility remain open; see docs/arch-userspace.md and docs/build-records/hardware-test-06.json.
+
+
+Omarchy shell integration uses a separate RAM image, an isolated libudev compatibility prefix and a parent-side Qt forkfd bootstrap before loading the unchanged upstream host. Seatd and a private D-Bus session are launched directly. Current systemd is not PID 1. The owner authorizes keeping native Linux testing mode active between experiments; see docs/omarchy-shell.md.

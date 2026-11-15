@@ -58,6 +58,7 @@ if [ -f /run/arch-root-transport ]; then root_label=$(cat /run/arch-root-transpo
 chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env \
   P613_ROOT_LABEL="$root_label" P613_HYPRLAND_CONFIG="${P613_HYPRLAND_CONFIG:-/etc/p613/hyprland-test.lua}" \
   P613_TEST_SECONDS="$seconds" \
+  P613_EXPECT_OMARCHY="${P613_EXPECT_OMARCHY:-0}" \
   HOME=/home/omarchy USER=omarchy LOGNAME=omarchy TZ=America/Phoenix \
   XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=Hyprland \
   LD_LIBRARY_PATH="$graphics_libraries" GBM_BACKENDS_PATH=/opt/p613-gpu/lib/gbm \

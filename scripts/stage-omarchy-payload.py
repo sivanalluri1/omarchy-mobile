@@ -54,3 +54,9 @@ assert hashlib.sha256(source.read_bytes()).hexdigest()=='717ba1949502290f8e47688
 dest=target/'usr/share/licenses/omarchy/LICENSE'
 dest.parent.mkdir(parents=True,exist_ok=True)
 shutil.copy2(source,dest)
+
+# Preserve the signed host byte-for-byte under a new name; make the minimal
+# parent-side forkfd bootstrap the default entry so IPC config paths stay stable.
+shell=target/'usr/share/omarchy/shell'
+(shell/'shell.qml').replace(shell/'p613-upstream-shell.qml')
+shutil.copy2(project/'configs/p613-shell-bootstrap.qml',shell/'shell.qml')

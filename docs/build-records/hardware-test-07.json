@@ -1,0 +1,58 @@
+{
+  "date": "2026-11-15",
+  "timezone": "America/Phoenix",
+  "model": "SM-P613",
+  "step": 9,
+  "result": "Omarchy host and mobile status bar passed a clean bounded session; native Linux retained",
+  "kernel": "4.14.357-openela-perf-g21b136df1533",
+  "boot_sha256": "e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6",
+  "root_sha256": "f097a2c8bab5211b8e42eac4264e7104402a392608fe8e4ae2580ca222b76533",
+  "root_bytes": 612364288,
+  "omarchy_version": "4.5.0-3",
+  "quickshell_version": "0.3.2.r7.g2b4501a-1",
+  "hyprland_version": "0.57.2-1",
+  "qt_base_version": "6.12.0-5",
+  "qt_declarative_version": "6.12.0-4",
+  "desktop_uid": 1000,
+  "bounded_session": {
+    "duration_seconds": 120,
+    "wrapper_exit": 0,
+    "shell_ipc_checked_every_seconds": 15,
+    "required_plugin": "omamobile.bar",
+    "plugin_active": true,
+    "screenshots_inspected": true,
+    "user_confirmed_visible_bar": true
+  },
+  "gpu_readback": {
+    "renderer": "Zink / Turnip Adreno 618",
+    "red_pixels": 1152,
+    "blue_pixels": 2944,
+    "fnv1a64": "a5974c516a3c7525",
+    "passed": true
+  },
+  "compatibility": {
+    "libudev": "Private 257 prefix; installed Arch library unchanged",
+    "qt": "Parent-side ordinary Process primes forkfd before loading upstream shell",
+    "diagnostic_preload_in_final_image": false,
+    "upstream_host_preserved_under_new_filename": true
+  },
+  "root_transport": "Read-only SquashFS in RAM, NBD disabled",
+  "android_filesystems_mounted": false,
+  "non_boot_partition_hashes_match_original": true,
+  "android_restored_after_test": false,
+  "owner_authorizes_retaining_linux_testing_mode": true,
+  "extended_session": {
+    "requested_seconds": 3600,
+    "started_after_bounded_pass": true,
+    "completed": false,
+    "purpose": "Leave desktop available in testing mode; no hour-long stability claim"
+  },
+  "package_inventory_sha256": "cbfbbbf6ce90bb4bedf6d317e15342e34687f36412d0ee66cbc88db12e796653",
+  "limitations": [
+    "Full Omarchy package and mobile home/app drawer not yet integrated",
+    "Systemd 262 unsupported on kernel 4.14; BusyBox remains PID 1",
+    "Touch, S Pen, Wi-Fi, audio and suspend remain unvalidated",
+    "No system D-Bus/UPower/NetworkManager/Bluetooth service integration"
+  ],
+  "raw_logs": "Ignored SSD work/hardware-test-07; earlier failed attempts retained privately"
+}

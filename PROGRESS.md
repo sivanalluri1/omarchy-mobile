@@ -179,8 +179,25 @@ User confirmed the Hyprland terminal and updating clock were visible during the 
 - [x] Preserve the proven Arch image; build a separate 582 MiB RAM image with the compatibility libudev prefix.
 - [x] Include the real Omarchy shell host, mobile bar and an isolated profile with idle/lock disabled.
 - [x] Check Quickshell libraries/version and Hyprland profile offline.
-- [ ] Validate Omarchy host and mobile bar on the native tablet.
+- [x] Validate Omarchy host and mobile bar on the native tablet.
 
 User authorizes keeping the tablet in native Linux testing mode between tests; routine Android restoration is no longer required. Original recovery images remain retained. Systemd, input and hardware services remain unresolved. This image extracts runtime payloads without installing the full Omarchy package or running its installer/hooks. Evidence: docs/build-records/omarchy-root-build.json.
 
 Omarchy image revision 2 adds the matching signature-verified settings data, helper scripts, inotify-tools and Python D-Bus/GObject dependencies (584 MiB). Revision 1 had an unresponsive startup; adding settings/helpers in RAM restored IPC, but plugin discovery still did not finish and helper children remained unreaped. Small valid/missing-command Quickshell probes continued ticking. No root cause is established yet; revision 2 hardware testing is in progress. Both previous compressed images are retained privately.
+
+
+### Step 9 — real Omarchy shell/mobile bar passed (2026-11-15)
+
+- [x] Include matching Omarchy/settings/Quickshell runtime payloads and a private libudev compatibility prefix.
+- [x] Trace the Qt startup failure; prime its old-kernel forkfd fallback in the parent before loading the real host.
+- [x] Build revision 3 (584 MiB), preserving the unmodified upstream host under a new filename.
+- [x] Stage a clean read-only RAM mount without diagnostic overlays or preload libraries.
+- [x] Pass the 120-second session with zero exit status and periodic shell IPC/active-bar checks.
+- [x] Inspect screenshots; user confirms the clock/status bar is visible above the terminal.
+- [x] Repeat non-root hardware GPU readback on the final image.
+- [x] Verify native BOOT readback and unchanged recovery/DTBO/vbmeta hashes.
+- [x] Leave an extended desktop session in native Linux testing mode, as authorized.
+- [ ] Add the mobile home/app drawer and finish service compatibility work.
+- [ ] Validate touch/S Pen and remaining hardware functions individually.
+
+The extended session has started, not completed; no hour-long stability claim is made. The completed result is the bounded two-minute test. Android is not restored after this test, per the owner's updated instruction. BusyBox remains PID 1; current systemd is unsupported on 4.14. Step 9 remains in progress. Evidence and reproduction: docs/omarchy-shell.md and docs/build-records/hardware-test-07.json.
