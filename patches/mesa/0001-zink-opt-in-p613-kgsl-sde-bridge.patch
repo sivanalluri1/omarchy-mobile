@@ -1,0 +1,30 @@
+--- a/src/gallium/drivers/zink/zink_screen.c
++++ b/src/gallium/drivers/zink/zink_screen.c
+@@ -1712,6 +1712,27 @@
+       if (drm_props.renderMajor == dev_major &&
+           drm_props.renderMinor == dev_minor)
+          return i;
++   }
++
++   /* Opt-in bring-up bridge for the SM-P613's separate SDE and KGSL nodes.
++    * KGSL has no DRM render-node identity to match above. Keep the display
++    * fd for PRIME/KMS handles; accept only this sole hardware Turnip device.
++    */
++   if (pdev_count == 1 && debug_get_bool_option("P613_ZINK_KGSL_SDE", false)) {
++      VkPhysicalDeviceDriverProperties driver = {
++         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DRIVER_PROPERTIES,
++      };
++      VkPhysicalDeviceProperties2 kgsl = {
++         .sType = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PROPERTIES_2,
++         .pNext = &driver,
++      };
++      VKSCR(GetPhysicalDeviceProperties2)(pdevs[0], &kgsl);
++      if (kgsl.properties.vendorID == 0x5143 &&
++          kgsl.properties.deviceID == 0x06010800 &&
++          kgsl.properties.deviceType == VK_PHYSICAL_DEVICE_TYPE_INTEGRATED_GPU &&
++          driver.driverID == VK_DRIVER_ID_MESA_TURNIP &&
++          !drm_props.hasRender)
++         return 0;
+    }
+ 
+    return -1;

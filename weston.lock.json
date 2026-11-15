@@ -1,0 +1,14 @@
+{
+  "version": "14.0.2",
+  "archive_url": "https://deb.debian.org/debian/pool/main/w/weston/weston_14.0.2.orig.tar.xz",
+  "archive_sha256": "b47216b3530da76d02a3a1acbf1846a9cd41d24caa86448f9c46f78f20b6e0ac",
+  "patches": [
+    "patches/weston/0001-drm-deduplicate-downstream-plane-formats.patch"
+  ],
+  "patch_sha256": {
+    "patches/weston/0001-drm-deduplicate-downstream-plane-formats.patch": "5c116277b81a94446203e5a9dc312f0bdef970855bf0f6cb9937ab5e7c26e35e"
+  },
+  "patched_files": {
+    "libweston/backend-drm/kms.c": "45f06f6bef1f73e838ffd0e8cc5bd13d630200b3095f75e025d8382fa11ad76b"
+  }
+}

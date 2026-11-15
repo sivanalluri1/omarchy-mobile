@@ -1,6 +1,6 @@
 # Progress
 
-Status: native display colour-bar test passed with user confirmation. Step 8 remains open for GPU rendering and accelerated Wayland.
+Status: step 8 graphics proof passed. Hardware compute, triangle readback, GBM sharing and continuously animated Weston output verified. Step 9 (compatible Arch/Hyprland/Omarchy userspace) is next.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -14,7 +14,7 @@ Status: native display colour-bar test passed with user confirmation. Step 8 rem
 - [x] 5. Build minimal Linux configuration/initramfs with NCM and SSH.
 - [x] 6. Validate candidate image packaging and review BOOT-only rollback.
 - [x] 7. Prove native boot and USB/SSH on hardware; restore Android afterward.
-- [ ] 8. Prove display and accelerated Wayland.
+- [x] 8. Prove display and accelerated Wayland.
 - [ ] 9. Integrate Arch Linux ARM and Omarchy.
 - [ ] 10. Validate remaining tablet hardware.
 
@@ -82,8 +82,8 @@ Step 8 remains incomplete: DRM/KGSL nodes and a connected DSI connector were obs
 - [x] Build static ARM64 DRM/KGSL enumeration and bounded display tools.
 - [x] Query real display modes and Adreno device information under native Linux.
 - [x] Display CPU-rendered colour bars at 1200 × 2000, 60 Hz; user confirmed visible output.
-- [ ] Prove GPU rendering through Turnip/KGSL without software fallback.
-- [ ] Prove GPU/display buffer sharing and accelerated Wayland.
+- [x] Prove GPU rendering through Turnip/KGSL without software fallback.
+- [x] Prove GPU/display buffer sharing and accelerated Wayland.
 
 The known-good BOOT candidate was reused. Firmware was copied from Android into the native RAM rootfs; no Android filesystem was mounted. DSI modesetting succeeded; KGSL device query succeeded. Evidence and source/build commands: docs/graphics-bringup.md and docs/build-records/hardware-test-02.json. Full step 8 is not yet complete.
 
@@ -105,3 +105,20 @@ Hardware shader execution remains pending at this checkpoint. See docs/build-rec
 - [x] Restore original Android BOOT and verify boot completion and all four original partition hashes after test 03.
 
 Hardware reports Turnip Adreno (TM) 618, Vulkan 1.3.354. This proves GPU shader execution, but graphics rasterization, GPU/display buffer sharing and accelerated Wayland remain open. Next: Zink/EGL rendering. Evidence: docs/build-records/hardware-test-03.json.
+
+
+## Step 8 completed — accelerated Wayland on hardware
+
+- [x] Render and verify every pixel of a GPU triangle through Zink/Turnip (1,152 red + 2,944 blue).
+- [x] Diagnose and patch repeated downstream DRM plane formats in Weston.
+- [x] Add an opt-in, hardware-restricted Zink bridge for separate KGSL/SDE identities.
+- [x] Verify GBM DMA-BUF export, valid scanout handles, EGL swap and front-buffer lock.
+- [x] Release Samsung's initial splash-plane reservation using the validated legacy modeset path.
+- [x] Run Weston GL on DSI-1 at 1200 × 2000 / 60 Hz with a Wayland EGL client.
+- [x] User confirms rotation, then continuous rotation during the automated repeat.
+- [x] Complete both bounded two-minute sessions with zero exit status, including automated splash handoff.
+- [x] Verify all 405 final runtime files by hash on the native tablet.
+
+Evidence: docs/graphics-bringup.md, docs/build-records/wayland-build.json and hardware-test-04.json. No Android filesystem was mounted. Initial repaint-clock warnings and a pending-flip shutdown message remain documented; no performance or long-duration stability claim is made. Input remains unconfigured in this minimal runtime. Hyprland/Arch/Omarchy have not run; step 9 must begin by checking userspace compatibility with kernel 4.14.
+
+After hardware test 04, the original BOOT was restored. Android boot completion and unlocked state were verified, and all four partition hashes match the original backups. No compositor or flash remains running. Step 8 is committed as complete; step 9 has not started.

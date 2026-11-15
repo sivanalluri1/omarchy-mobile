@@ -40,11 +40,11 @@ Inspect a kernel build by mounting the SSD checkout as /checkout, the desired bu
 Follow docs/boot-experiment.md once present. Packaging is separate from device writes. Before hardware testing, review the candidate hash, explicit BOOT target, backup hash, tool command and physical rollback path. Native boot and USB/SSH are checked off only after hardware evidence.
 
 
-## Graphics bring-up (step 8 in progress)
+## Graphics bring-up (step 8 hardware proof completed)
 
 ```sh
 docker build -t omarchy-p613-graphics:debian13 -f buildenv/graphics.Dockerfile .
 bash scripts/build-graphics-probes.sh
 ```
 
-Read docs/graphics-bringup.md for hardware evidence and bounded display-test usage. Native CPU colour bars are verified; GPU rendering and accelerated Wayland remain open.
+Read docs/graphics-bringup.md for hardware evidence and bounded display-test usage. Native CPU colour bars, hardware Vulkan compute, Zink/EGL triangle readback and continuously animated Weston output are verified. Follow the full patched-stack recipe in docs/graphics-bringup.md. Arch/Hyprland/Omarchy remain step 9 work.

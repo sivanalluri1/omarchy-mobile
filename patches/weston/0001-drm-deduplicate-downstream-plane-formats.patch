@@ -1,0 +1,37 @@
+--- a/libweston/backend-drm/kms.c
++++ b/libweston/backend-drm/kms.c
+@@ -592,8 +592,12 @@
+ 
+ 	while (drmModeFormatModifierBlobIterNext(blob, &drm_iter)) {
+ 		if (fmt_prev != drm_iter.fmt) {
+-			fmt = weston_drm_format_array_add_format(&plane->formats,
+-								 drm_iter.fmt);
++			/* Downstream SDE may repeat a FourCC in IN_FORMATS. */
++			fmt = weston_drm_format_array_find_format(&plane->formats,
++								  drm_iter.fmt);
++			if (!fmt)
++				fmt = weston_drm_format_array_add_format(&plane->formats,
++									 drm_iter.fmt);
+ 			if (!fmt) {
+ 				ret = -1;
+ 				goto out;
+@@ -602,6 +606,8 @@
+ 			fmt_prev = drm_iter.fmt;
+ 		}
+ 
++		if (weston_drm_format_has_modifier(fmt, drm_iter.mod))
++			continue;
+ 		ret = weston_drm_format_add_modifier(fmt, drm_iter.mod);
+ 		if (ret < 0)
+ 			goto out;
+@@ -615,6 +621,10 @@
+ fallback:
+ 	/* No IN_FORMATS blob available, so just use the old. */
+ 	for (i = 0; i < kplane->count_formats; i++) {
++		/* Keep one entry per FourCC from legacy downstream kernels. */
++		if (weston_drm_format_array_find_format(&plane->formats,
++						     kplane->formats[i]))
++			continue;
+ 		fmt = weston_drm_format_array_add_format(&plane->formats,
+ 							 kplane->formats[i]);
+ 		if (!fmt)

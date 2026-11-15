@@ -19,4 +19,4 @@ See ARCHITECTURE.md for boundaries and STEPS.md for local operations. See docs/s
 
 ## Current storage and execution gate
 
-Large artifacts and builds now use /Volumes/siva_ssd/Development/Omarchy through the case-sensitive SSD build image. The Git repository remains at its original path. Offline milestones 1–6 are complete; first hardware testing is a separate explicitly authorized BOOT-only experiment followed by restoration of Android. See docs/boot-experiment.md for concrete hashes and commands.
+Large artifacts and builds now use /Volumes/siva_ssd/Development/Omarchy through the case-sensitive SSD build image. The Git repository remains at its original path. Milestones 1–8 have passed, including native boot, CPU panel output, hardware compute/graphics and accelerated Weston. The original Android BOOT is restored after hardware tests. Step 9 starts with a compatibility audit of Arch Linux ARM, systemd and Hyprland against kernel 4.14; no full Omarchy installation has been attempted. See docs/boot-experiment.md for concrete hashes and commands.

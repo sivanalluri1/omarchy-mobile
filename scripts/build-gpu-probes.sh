@@ -17,6 +17,8 @@ b=pathlib.Path("/out/gpu-compute.spv").read_bytes()
 pathlib.Path("/out/gpu-compute-spv.h").write_text("static const uint32_t compute_spv[]={"+",".join(hex(x) for x in struct.unpack("<%dI"%(len(b)//4),b))+"};\n")
 PY
 gcc -O2 -Wall -Wextra -Werror -I/out /native/gpu-compute.c -lvulkan -o /out/gpu-compute
-file /out/gpu-compute
-sha256sum /out/gpu-compute /out/gpu-compute.spv
+gcc -O2 -Wall -Wextra -Werror /native/gpu-render.c -lEGL -lGLESv2 -o /out/gpu-render
+gcc -O2 -Wall -Wextra -Werror /native/gbm-probe.c -lgbm -lEGL -lGLESv2 -o /out/gbm-probe
+file /out/gpu-compute /out/gpu-render /out/gbm-probe
+sha256sum /out/gpu-compute /out/gpu-compute.spv /out/gpu-render /out/gbm-probe
 '

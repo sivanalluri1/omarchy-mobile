@@ -14,7 +14,7 @@ The first native experiment should target a small initramfs and USB NCM/SSH. Do 
 
 ## Desktop boundary
 
-Display/KMS, input and GPU acceleration are separate subsystems. The downstream msm_drm display nodes and Adreno KGSL interface are present under Android; a DRM render node alone does not establish Mesa support. Prove a small compositor before Hyprland/Omarchy integration.
+Display/KMS, input and GPU acceleration are separate subsystems. The downstream msm_drm display nodes and Adreno KGSL interface are present under Android; a DRM render node alone does not establish Mesa support. A small Weston compositor has now run through Zink/Turnip on the native panel (hardware test 04). Hyprland/Omarchy integration remains separate.
 
 ## Evidence and recovery
 
@@ -36,3 +36,19 @@ flowchart LR
 ```
 
 The initramfs uses a RAM log, USB-local DHCP and key-only SSH. No Android filesystem is mounted. Kernel 4.14 compatibility with a future complete Arch/systemd/Omarchy stack remains a separate gate; the minimal experiment does not establish it.
+
+
+## Verified graphics path (step 8)
+
+```mermaid
+flowchart LR
+  Client[Wayland EGL client] --> Weston[Weston GL compositor]
+  Weston --> Zink[OpenGL ES via Zink]
+  Zink --> Turnip[Turnip Vulkan]
+  Turnip --> KGSL[KGSL / Adreno 618]
+  KGSL --> Shared[ION-backed DMA-BUF / GBM]
+  Shared --> SDE[SDE DRM / KMS]
+  SDE --> Panel[DSI panel 1200 x 2000]
+```
+
+Hardware compute, offscreen graphics readback, GBM export/scanout handles and visible continuously animated Wayland output are verified. Two scoped userspace patches bridge duplicate downstream plane formats (Weston) and the separate KGSL/SDE identities (Zink). A bounded legacy modeset releases Samsung's splash-plane reservation before Weston starts. All runtime data lives in RAM, and the original Android BOOT is restored after testing. Details, pins and limitations: docs/graphics-bringup.md.

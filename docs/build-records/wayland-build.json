@@ -1,0 +1,135 @@
+{
+  "mesa": {
+    "revision": "8899a7b4cf1e8b5dbce884f94b440e40e84ca26b",
+    "version": "26.2.0-devel",
+    "archive_url": "https://chromium.googlesource.com/external/gitlab.freedesktop.org/mesa/mesa/+archive/8899a7b4cf1e8b5dbce884f94b440e40e84ca26b.tar.gz",
+    "archive_sha256": "7320576637a95b13cb5b811c33cc7f4a8d95edcea095f9cc80e4a049522c687c",
+    "backend": "kgsl"
+  },
+  "mesa_display_patch": {
+    "upstream_lock": "mesa.lock.json",
+    "patch": "patches/mesa/0001-zink-opt-in-p613-kgsl-sde-bridge.patch",
+    "patch_sha256": "b08559fab220e0a67916fda1a0d231eab0ca66925114852861d97b4a99a0bad1",
+    "source_file": "src/gallium/drivers/zink/zink_screen.c",
+    "upstream_file_sha256": "c698852b3b2d20f948b1e1ef56ac86979dc9779a236643efc6a64004e916a07c",
+    "patched_file_sha256": "ef62f86a170719764b391f078e04abfe0339fc5074a3e9c7f0a9c22148306926",
+    "opt_in_environment": "P613_ZINK_KGSL_SDE=1"
+  },
+  "weston": {
+    "version": "14.0.2",
+    "archive_url": "https://deb.debian.org/debian/pool/main/w/weston/weston_14.0.2.orig.tar.xz",
+    "archive_sha256": "b47216b3530da76d02a3a1acbf1846a9cd41d24caa86448f9c46f78f20b6e0ac",
+    "patches": [
+      "patches/weston/0001-drm-deduplicate-downstream-plane-formats.patch"
+    ],
+    "patch_sha256": {
+      "patches/weston/0001-drm-deduplicate-downstream-plane-formats.patch": "5c116277b81a94446203e5a9dc312f0bdef970855bf0f6cb9937ab5e7c26e35e"
+    },
+    "patched_files": {
+      "libweston/backend-drm/kms.c": "45f06f6bef1f73e838ffd0e8cc5bd13d630200b3095f75e025d8382fa11ad76b"
+    }
+  },
+  "runtime_manifest_sha256": "3379bff6f9ceeba36f96c6923ce1d346102b34513bddba2d58a9a62e6d76a96a",
+  "runtime_file_count": 405,
+  "critical_runtime_files": [
+    {
+      "path": "gpu/bin/display-test",
+      "bytes": 926208,
+      "sha256": "c969973cfa7605d5c892b3397b3c208ed6e237fe1fe58cd9f59908fd1014f9f5",
+      "symlink": null
+    },
+    {
+      "path": "gpu/bin/gbm-probe",
+      "bytes": 72440,
+      "sha256": "bc211ecc7455516c987835071014dc7ab9c5849f1b495b0988268cd7758bad54",
+      "symlink": null
+    },
+    {
+      "path": "gpu/bin/gpu-compute",
+      "bytes": 73360,
+      "sha256": "eff1929ee1cadc4d875157a49a7e5d6809764c3c425c1a31263f404b174d9262",
+      "symlink": null
+    },
+    {
+      "path": "gpu/bin/gpu-render",
+      "bytes": 72504,
+      "sha256": "e2fdb7e9b3d6ae7f377bcae53a84b463bb1717bdc0bb8cf1a3487a1815e768cd",
+      "symlink": null
+    },
+    {
+      "path": "gpu/bin/run-wayland-test.sh",
+      "bytes": 2497,
+      "sha256": "2ff0b9d121a38b913790bf2410d93bf654689b19d417ea4941e5ea9cdb719f75",
+      "symlink": null
+    },
+    {
+      "path": "gpu/bin/weston",
+      "bytes": 70408,
+      "sha256": "de81a4898257b61ca8faa9521525b577bb857ea1e698ef2b65092ddd74fb6ad1",
+      "symlink": null
+    },
+    {
+      "path": "gpu/bin/weston-simple-egl",
+      "bytes": 81928,
+      "sha256": "df41f2c5d1c074aa0b91be662e12d26ac1f80b118ae2b68ee79e4fbf48a862a8",
+      "symlink": null
+    },
+    {
+      "path": "gpu/lib/libEGL.so.1.0.0",
+      "bytes": 460568,
+      "sha256": "eddd6135f38081af512a7504f40902b2eafb22441b2223f3a0808679ed81b8ec",
+      "symlink": null
+    },
+    {
+      "path": "gpu/lib/libgallium-26.2.0-devel.so",
+      "bytes": 24566256,
+      "sha256": "f06222be7183ad867b2317cfc878e4f2f3c3f7ecc3efa72ff153689ae9bb8fb3",
+      "symlink": null
+    },
+    {
+      "path": "gpu/lib/libgbm.so.1.0.0",
+      "bytes": 75488,
+      "sha256": "c9de0b6c9de5fef81eb531fb23f979a386726f7a10a051bf41dda77caeba230b",
+      "symlink": null
+    },
+    {
+      "path": "gpu/lib/libvulkan_freedreno.so",
+      "bytes": 18323896,
+      "sha256": "6a344ed9f879dbaefb68a09fbfa839eb1c8fc271f65b460b7ec313c8dd753231",
+      "symlink": null
+    },
+    {
+      "path": "gpu/lib/libweston-14.so.0",
+      "bytes": 642904,
+      "sha256": "a030644ce9e32a1c7970dae20a255cc6b13c5429f82ad50f9deda35566367a2a",
+      "symlink": null
+    },
+    {
+      "path": "gpu/turnip.json",
+      "bytes": 135,
+      "sha256": "b9155a8d4fee15c668c7d81b9a413ec041535b8216bdc7f5b0bc403f39035672",
+      "symlink": null
+    },
+    {
+      "path": "gpu/weston-test.ini",
+      "bytes": 150,
+      "sha256": "2911fd903557bca0e12141c19cdea91a74bf94e2fea76b55ec2944b08ccef32b",
+      "symlink": null
+    },
+    {
+      "path": "usr/lib/aarch64-linux-gnu/libweston-14/drm-backend.so",
+      "bytes": 242624,
+      "sha256": "35cb6ce0e0c78e9ea5bba4d84e5575c67c6fc046500f3f479db4faa001be5406",
+      "symlink": null
+    },
+    {
+      "path": "usr/lib/aarch64-linux-gnu/libweston-14/gl-renderer.so",
+      "bytes": 155000,
+      "sha256": "c8d49d50cab3cc3edc275e9e0f71b33ee7d98a84c10cd5d514fffece5e4154ba",
+      "symlink": null
+    }
+  ],
+  "full_runtime_manifest_verified_on_native_tablet": true,
+  "no_software_gpu_driver_bundled": true,
+  "source_mounts_readonly": true
+}

@@ -1,5 +1,7 @@
 # Graphics bring-up — SM-P613
 
+Step 8 graphics proof passed: native panel output, hardware compute, graphics readback, GBM sharing and continuously animated Weston output. Arch/Hyprland/Omarchy and other tablet hardware remain separate milestones.
+
 ## Display milestone (hardware test 02)
 
 On November 14, 2026 (America/Phoenix), the same validated RAM-only Linux BOOT image from test 01 booted successfully again. No kernel, DTB or persistent userspace changes were required for this test.
@@ -42,7 +44,7 @@ On the already-authorized native test system, transfer tools and firmware into R
 
 Record the command's exit status as well as its log on future runs. Keep the known-good BOOT candidate and original BOOT backup unchanged. Follow the tested Download Mode / BOOT-only restoration procedure in `boot-experiment.md` afterward.
 
-## Next graphics gate
+## Graphics gate investigated
 
 The vendor kernel exposes separate SDE DRM and KGSL GPU interfaces. A DRM render node alone does not establish compatibility with a normal upstream Mesa/MSM driver.
 
@@ -50,14 +52,15 @@ Mesa's upstream `freedreno-kmds` option explicitly states that Gallium Freedreno
 
 Primary source: [Mesa meson.options at inspected revision](https://chromium.googlesource.com/external/gitlab.freedesktop.org/mesa/mesa/+/8899a7b4cf1e8b5dbce884f94b440e40e84ca26b/meson.options), [Turnip KGSL backend](https://chromium.googlesource.com/external/gitlab.freedesktop.org/mesa/mesa/+/8899a7b4cf1e8b5dbce884f94b440e40e84ca26b/src/freedreno/vulkan/tu_knl_kgsl.cc).
 
-Remaining work:
+These gates have now been verified in tests 03 and 04 below:
 
-- Build a pinned Mesa Turnip configuration with the KGSL backend.
-- Prove hardware Vulkan rendering with a verified image/readback, excluding software fallback.
-- Test DMA-BUF sharing and display scanout compatibility.
-- Run an accelerated Wayland compositor; then evaluate Zink/Hyprland and Arch userspace compatibility with kernel 4.14.
+- [x] Build pinned Mesa Turnip with KGSL.
+- [x] Prove hardware compute and graphics readback without software fallback.
+- [x] Prove GBM/DMA-BUF export, KMS handle import and visible scanout.
+- [x] Run an accelerated Wayland compositor with continuous visible animation.
+- [ ] Evaluate Hyprland and compatible Arch/Omarchy userspace on kernel 4.14 (step 9).
 
-Step 8 remains open until acceleration and Wayland have actually run. Raw test logs are private under ignored `work/hardware-test-02`.
+Raw test logs remain private under the ignored hardware-test directories.
 
 ## Turnip build milestone
 
@@ -77,4 +80,55 @@ bash scripts/build-gpu-probes.sh
 
 The native tablet loaded the checksum-verified Turnip-only runtime and reported `Turnip Adreno (TM) 618`, vendor `0x5143`, device `0x06010800`, integrated GPU, Vulkan 1.3.354. The compute pipeline compiled, dispatched and completed its fence. All 1,024 GPU-written values matched the CPU reference; the process returned zero. No CPU/software ICD was available in the runtime. This establishes real GPU shader execution, independently of display output.
 
-Original Android BOOT was restored afterward; boot completion, unlocked state and all four original partition hashes were verified. No Android filesystem was mounted during the experiment. Graphics rasterization and an accelerated compositor still require separate proof. Sanitized evidence: `build-records/hardware-test-03.json`.
+Original Android BOOT was restored afterward; boot completion, unlocked state and all four original partition hashes were verified. No Android filesystem was mounted during the experiment. At the test 03 checkpoint, graphics rasterization and an accelerated compositor still required separate proof; test 04 below supplies it. Sanitized evidence: `build-records/hardware-test-03.json`.
+
+## Hardware test 04 — accelerated rendering and Wayland
+
+The GPU rendered a 64 × 64 triangle through EGL 1.5 / OpenGL ES 3.2 using `zink Vulkan 1.3(Turnip Adreno (TM) 618 (MESA_TURNIP))`. Readback contained exactly 1,152 red triangle pixels and 2,944 blue background pixels. All 4,096 pixels passed the colour checks; FNV-1a64 was `a5974c516a3c7525`. The test refuses a non-Zink/non-Adreno renderer. Initial screen-selection warnings from the unpatched driver did not prevent the separate surfaceless rendering proof.
+
+The first on-screen attempts exposed three downstream compatibility requirements:
+
+1. **Repeated DRM formats.** All eight SDE planes advertised duplicate FourCC values. Plane 55 repeated ABGR8888, XBGR8888 and NV12; seven other planes repeated ABGR8888. Stock Weston 14.0.2 asserted while importing that list. The tracked Weston patch merges repeated formats and modifiers at the DRM backend boundary, retaining the global assertions. It handles both IN_FORMATS and legacy lists.
+2. **Separate GPU and display identities.** KGSL Turnip has no DRM render-node identity matching the SDE device. Stock Zink's DRM screen selection failed and GBM fell through to an unsuitable loader path. An opt-in Zink patch (`P613_ZINK_KGSL_SDE=1`) accepts a sole integrated GPU only when vendor `0x5143`, device `0x06010800` and driver ID `MESA_TURNIP` match, with no DRM render identity. It retains the SDE fd for PRIME/KMS handle import. It does not advertise a fake DRM device or permit CPU fallback. The GBM probe then passed DMA-BUF export, a valid KMS handle, EGL swap and front-buffer lock.
+3. **Samsung splash ownership.** The vendor kernel initially reserved plane 55 on CRTC 100 for its splash, while Weston chose CRTC 137. Atomic commits failed with the kernel's `used in cont-splash on crtc:100` error. A brief invocation of the already-tested legacy display tool, followed by disabling its CRTC, released that reservation. Weston could then present normally. The launcher automates this handoff once per native boot.
+
+The runtime also needs XKB keyboard-layout data even with input testing disabled. Those files are copied into the RAM overlay. Libseat's builtin seat manager runs with `SEATD_VTBOUND=0`; this kernel has no VT subsystem. No systemd session or Android filesystem is needed for this experiment. See [Weston's documented standalone/libseat setup](https://wayland.pages.freedesktop.org/weston/toc/running-weston.html).
+
+**The user confirmed the coloured triangle rotating on the tablet, then confirmed continuous rotation during the automated repeat.** Weston used its GL renderer on Zink/Turnip and enabled DSI-1 at 1200 × 2000 / 60 Hz with atomic modesetting. The virtual output was disabled. The bounded test session finished after 120 seconds with exit zero. This establishes the graphics proof required by step 8; it is not a Hyprland, Arch or Omarchy installation.
+
+### Rebuild the successful graphics stack
+
+```sh
+docker build -t omarchy-p613-graphics:debian13 -f buildenv/graphics.Dockerfile .
+bash scripts/build-graphics-probes.sh
+bash scripts/build-gpu-probes.sh
+bash scripts/build-zink.sh configure
+bash scripts/build-zink.sh build
+bash scripts/build-zink-display-bridge.sh
+
+docker build -t omarchy-p613-weston:debian13 -f buildenv/weston.Dockerfile .
+python3 scripts/prepare-weston.py /Volumes/OmarchyBuild
+bash scripts/build-weston.sh configure
+bash scripts/build-weston.sh build
+bash scripts/build-wayland-runtime.sh bridge final
+```
+
+The Mesa canonical source stays pristine. The display-bridge builder copies the baseline build cache to a separate SSD output and overlays one checksum-verified patched source file read-only in the container. Upstream/patched source and patch hashes are pinned in `mesa.lock.json`, `mesa-display.lock.json` and `weston.lock.json`. Weston has a separate patched checkout. Runtime assembly refuses to overwrite an existing named bundle; choose a new final bundle name when rebuilding it. Debian package versions are recorded, but package repositories are not frozen to a snapshot, so this does not promise byte-identical future binaries.
+
+Transfer the final RAM overlay and the privately captured firmware using the existing pinned-key SSH process, checking the generated manifest on the device before execution. Run the offscreen and GBM probes before the compositor. The on-device compositor command is:
+
+```sh
+/gpu/bin/run-wayland-test.sh --show-120-seconds
+```
+
+The launcher runs for at most two minutes after startup, stops its client/compositor and logs to RAM. The tested invocation additionally used BusyBox `timeout -s TERM -k 10 160` and captured the exit status separately. It requests the GL renderer explicitly; no Pixman fallback or software GPU driver is part of this bundle. Firmware, private keys, BOOT images and complete raw device logs remain excluded from Git.
+
+### Limits to carry into step 9
+
+- Weston logged an abnormal initial repaint-delay timestamp; presentation-clock behavior needs investigation before performance or suspend claims. The user still observed continuous animation.
+- Normal shutdown could report a pending flip while destroying the output; cleanup completed. This is not a clean long-duration stability certification.
+- No input devices were configured in the minimal runtime. Touch/S Pen interaction and all other tablet hardware remain unvalidated.
+- The Zink identity bridge is a scoped SM-P613 bring-up patch, not an upstream general solution for multiple GPUs.
+- Kernel 4.14 compatibility with current Arch Linux ARM packages, systemd and Hyprland remains a separate gate. Neither Hyprland nor Omarchy has run yet.
+
+After test 04, the exact original BOOT was restored. Android boot completion, unlocked state and all four original partition hashes were verified. No native test remains running. Sanitized hardware evidence: `build-records/hardware-test-04.json`; exact build/runtime evidence: `build-records/wayland-build.json`.

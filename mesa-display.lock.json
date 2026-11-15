@@ -1,0 +1,9 @@
+{
+  "upstream_lock": "mesa.lock.json",
+  "patch": "patches/mesa/0001-zink-opt-in-p613-kgsl-sde-bridge.patch",
+  "patch_sha256": "b08559fab220e0a67916fda1a0d231eab0ca66925114852861d97b4a99a0bad1",
+  "source_file": "src/gallium/drivers/zink/zink_screen.c",
+  "upstream_file_sha256": "c698852b3b2d20f948b1e1ef56ac86979dc9779a236643efc6a64004e916a07c",
+  "patched_file_sha256": "ef62f86a170719764b391f078e04abfe0339fc5074a3e9c7f0a9c22148306926",
+  "opt_in_environment": "P613_ZINK_KGSL_SDE=1"
+}

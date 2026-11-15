@@ -65,6 +65,27 @@ int main(void)
             }
             drmModeFreeResources(r);
         }
+        if (drmSetClientCap(fd, DRM_CLIENT_CAP_UNIVERSAL_PLANES, 1))
+            perror("universal planes capability");
+        drmModePlaneResPtr planes = drmModeGetPlaneResources(fd);
+        if (planes) {
+            for (uint32_t i=0; i<planes->count_planes; i++) {
+                drmModePlanePtr plane = drmModeGetPlane(fd, planes->planes[i]);
+                if (!plane) continue;
+                unsigned duplicates = 0;
+                for (uint32_t j=0; j<plane->count_formats; j++)
+                    for (uint32_t k=0; k<j; k++)
+                        if (plane->formats[j] == plane->formats[k]) {
+                            printf("plane=%u duplicate_format=%#x at=%u earlier=%u\n",
+                                   plane->plane_id, plane->formats[j], j, k);
+                            duplicates++; break;
+                        }
+                printf("plane=%u formats=%u duplicates=%u possible_crtcs=%#x\n",
+                       plane->plane_id, plane->count_formats, duplicates, plane->possible_crtcs);
+                drmModeFreePlane(plane);
+            }
+            drmModeFreePlaneResources(planes);
+        }
         close(fd);
     }
     fd = open("/dev/kgsl-3d0", O_RDWR | O_CLOEXEC);
