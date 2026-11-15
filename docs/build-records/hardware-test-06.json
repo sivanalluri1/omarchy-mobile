@@ -28,8 +28,9 @@
     "wayland_socket_created": true,
     "foot_window_mapped": true,
     "panel": "DSI-1, 1200x2000 at 60 Hz",
-    "physical_user_confirmation": false,
-    "touch_and_pen_validated": false
+    "physical_user_confirmation": true,
+    "touch_and_pen_validated": false,
+    "user_observation": "Terminal and updating clock visible during the bounded session"
   },
   "ssd_reconnection": {
     "outer_and_build_volume_checks_passed": true,

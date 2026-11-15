@@ -82,7 +82,7 @@ python3 scripts/package-boot-experiment.py ram-userspace
 
 ## RAM-root hardware result
 
-Test 06 passed native non-root GPU readback and a 120-second Hyprland 0.57.2 session. The Wayland socket appeared and foot mapped on DSI-1; the bounded wrapper exited zero. Physical user confirmation was not received. Input and sustained stability remain unvalidated.
+Test 06 passed native non-root GPU readback and a 120-second Hyprland 0.57.2 session. The Wayland socket appeared and foot mapped on DSI-1; the bounded wrapper exited zero. The user confirmed the terminal and updating clock were visible during this session. Input and sustained stability remain unvalidated.
 
 Arch libudev 262 failed DRM enumeration with -49 (Protocol driver not attached). The same probe, kernel and permissions succeeded with the previously hash-verified Debian libudev 257.13-1~deb13u1, including UID 1000. Only that leaf library is staged under `/tmp/p613-compat`; its dependencies resolve against Arch. Installed Arch libraries remain unchanged. This is an experimental compatibility workaround, not a full systemd fix.
 
