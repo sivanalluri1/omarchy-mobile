@@ -1,6 +1,6 @@
 # Progress
 
-Status: SSD configured; offline steps 1–6 complete. First BOOT-only hardware test awaits explicit authorization.
+Status: first native Linux BOOT-only test passed; Android restored and verified. Step 8 graphics bring-up is next.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -13,7 +13,7 @@ Status: SSD configured; offline steps 1–6 complete. First BOOT-only hardware t
 - [x] 4. Verify installed recovery, Download Mode status and restoration set.
 - [x] 5. Build minimal Linux configuration/initramfs with NCM and SSH.
 - [x] 6. Validate candidate image packaging and review BOOT-only rollback.
-- [ ] 7. Prove native boot and USB/SSH on hardware.
+- [x] 7. Prove native boot and USB/SSH on hardware; restore Android afterward.
 - [ ] 8. Prove display and accelerated Wayland.
 - [ ] 9. Integrate Arch Linux ARM and Omarchy.
 - [ ] 10. Validate remaining tablet hardware.
@@ -69,3 +69,9 @@ Next: step 6, inspect the BOOT-only candidate and review its exact hardware-test
 ## Step 6 completed — hardware gate
 
 BOOT-only candidate generated at 96 MiB and inspected. AOSP tools verified its AVB footer/hash; embedded kernel, initramfs and installed DTB match validated inputs. Load addresses, OS compatibility fields and command line are preserved. Current unsigned algorithm NONE / flags 3 retained. Exact candidate/rollback hashes and proposed commands are in docs/boot-experiment.md. No flash or native boot has occurred. Step 7 requires explicit authorization for the first BOOT-only test and restoration of Android afterward.
+
+## Step 7 completed — real hardware
+
+User authorized the first BOOT-only test and restoration. Candidate flashed and booted native Linux; on-device BOOT hash matched the candidate. USB NCM, DHCP and pinned-key SSH worked. PID 1 was the RAM-only /init and no Android filesystem was mounted. Recovery/DTBO/vbmeta remained unchanged. Re-entered Download Mode over native SSH, restored the exact original BOOT, and verified Android boot completion, USB ADB and all four original partition hashes. See docs/hardware-test-01.md and docs/build-records/hardware-test-01.json.
+
+Step 8 remains incomplete: DRM/KGSL nodes and a connected DSI connector were observed, but no visible display or GPU acceleration test has run. Tablet is currently back in its original rooted LineageOS installation. No further flash is running.

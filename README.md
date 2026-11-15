@@ -2,9 +2,10 @@
 
 Experimental native Linux and Omarchy bring-up for the Samsung Galaxy Tab S6 Lite 2022 Wi-Fi (SM-P613 / gta4xlveu).
 
-Current milestone: SSD storage, recovery inputs, minimal kernel/initramfs and BOOT-only candidate packaging verified offline. First hardware test awaits authorization; no experimental image has been flashed.
+Current milestone: native Linux boot, USB NCM/DHCP and key-only SSH verified on SM-P613. Original Android BOOT restored and all protected image hashes verified. Graphics/Wayland bring-up is next.
 
 - [Plan](PLAN.md) · [Architecture](ARCHITECTURE.md) · [Steps](STEPS.md) · [Progress](PROGRESS.md)
+- [Successful hardware test](docs/hardware-test-01.md)
 - [First boot experiment and rollback review](docs/boot-experiment.md)
 - [SSD storage](docs/storage.md)
 - [Hardware baseline](docs/hardware-baseline.md)

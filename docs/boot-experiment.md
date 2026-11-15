@@ -11,7 +11,7 @@
 - Exact installed DTB reused. Existing recovery, DTBO, vbmeta, bootloader and encrypted userdata are outside the planned write set.
 - Unsigned AVB algorithm NONE and flags 3 match the current Magisk-patched BOOT metadata. This is not a signed/trusted OS image. AOSP avbtool verified the footer and embedded SHA256 descriptor; it does not prove bootloader acceptance.
 
-Evidence: build-records/boot-experiment-validation.json. No image has been flashed and native boot/USB DHCP/SSH remain untested.
+Evidence: build-records/boot-experiment-validation.json. Update: the authorized first test passed on hardware and the exact original BOOT was restored. See hardware-test-01.md.
 
 ## Rebuild offline
 
@@ -29,7 +29,7 @@ Obtain the user's explicit go-ahead for a first BOOT-only experiment and restori
 
 The Download Mode transport/PIT read and physical return to Android were tested. A repeated protocol connection after print-pit --no-reboot failed once, so start each write from a fresh Download Mode entry and do not open a PIT session immediately before flashing. Named OEM/KG/FRP/SWREV screen fields were not visible. Do not treat their absence as a known policy state.
 
-## Proposed first test (not executed)
+## First test procedure (executed successfully)
 
 1. Enter Download Mode from the currently working Android ADB session. Wait for USB enumeration.
 2. Use the verified samloader binary's explicit BOOT mapping with the candidate:
@@ -55,4 +55,4 @@ From a fresh Download Mode entry, the reviewed narrow mapping is:
 
 If native USB is unavailable, use the documented Samsung physical button/USB method to enter Download Mode. Power + Volume Down forces a restart; it does not restore Android BOOT. The current custom BOOT image remains installed until the original image is written back. Do not relock. The matching full Samsung factory package is a separate fallback that can affect multiple partitions/data and is not the default rollback for this experiment.
 
-This rollback mapping is reviewed against tool help and the PIT but has not been exercised as a write. No hardware compatibility or guaranteed recovery claim is made.
+This narrow BOOT rollback was exercised successfully during the first test and verified by Android boot completion plus all four original partition hashes. That result applies to this image set and does not guarantee recovery from unrelated changes.

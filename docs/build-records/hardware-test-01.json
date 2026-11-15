@@ -1,0 +1,64 @@
+{
+  "test_date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "model": "SM-P613",
+  "result": "passed",
+  "candidate_sha256": "9b6355d7a4380b418d7491219c19dc54051a008e6ab1544fe3df5431d6a93be5",
+  "candidate_boot_readback_matches": true,
+  "kernel_release": "4.14.357-openela-perf-g21b136df1533",
+  "kernel_builder": "omarchy@p613-builder",
+  "compiler": "Debian clang/LLD 19.1.7",
+  "pid1": "/bin/sh /init",
+  "mount_filesystems": [
+    "configfs",
+    "devpts",
+    "devtmpfs",
+    "proc",
+    "rootfs",
+    "sysfs",
+    "tmpfs"
+  ],
+  "android_filesystems_mounted_by_experiment": false,
+  "usb_ncm_enumerated": true,
+  "mac_interface": "en5",
+  "usb_dhcp_lease_verified": true,
+  "usb_addresses": {
+    "tablet": "192.168.77.1/24",
+    "mac": "192.168.77.2/24"
+  },
+  "pinned_host_key_ssh_verified": true,
+  "public_key_authentication_verified": true,
+  "recovery_dtbo_vbmeta_unchanged_in_native_linux": true,
+  "native_download_mode_reboot_helper_verified": true,
+  "original_boot_restored": true,
+  "android_boot_completed_after_restore": true,
+  "android_version_after_restore": "LineageOS 23.2-20260820-UNOFFICIAL-gta4xlveu",
+  "bootloader_remains_unlocked": true,
+  "all_four_restored_hashes_match_preflight": true,
+  "restored_partition_hashes": {
+    "boot": "15966f29996c7ab4c299d7b95f7a1e3ae04ef9ea788e4d11fc66f96eec2753ed",
+    "recovery": "26aacf89678972f4d5b967cf027fc3ccb342213ab56966462bcb24219ec748c5",
+    "dtbo": "11f8330c6fa619bc5871c68211260bded38090060a56b51ab485f183a3dc1c7d",
+    "vbmeta": "4f79fd04727c6ac30619acb1fad20ae8e18e2ec908198021a195eb83cd398138"
+  },
+  "observations": {
+    "drm_nodes_present": true,
+    "kgsl_node_present": true,
+    "dsi_connector": "connected",
+    "touch_device_present": true,
+    "pen_device_present": true
+  },
+  "not_yet_verified": [
+    "Actual display rendering",
+    "GPU acceleration / Wayland",
+    "Touch and pen interaction",
+    "Wi-Fi, audio, charging, suspend",
+    "Full Arch/Omarchy userspace"
+  ],
+  "known_limits": [
+    "Native wall clock/log timestamps not configured",
+    "First-start DHCP lease-file warning was harmless; OFFER/ACK and SSH succeeded",
+    "SDE probe warnings need investigation before graphics claims"
+  ],
+  "raw_logs_location": "Ignored SSD work/hardware-test-01; not published"
+}
