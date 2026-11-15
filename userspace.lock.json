@@ -1,0 +1,17 @@
+{
+  "date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "arch_mirror": "https://fl.us.mirror.archlinuxarm.org",
+  "arch_archive_url": "https://fl.us.mirror.archlinuxarm.org/os/ArchLinuxARM-aarch64-latest.tar.gz",
+  "arch_archive_sha256": "42a4eeaa038994ffd31fa173256ef2f0ef511358eeb41b9ea1f8626391b9b319",
+  "upstream_omarchy_mobile": {
+    "revision": "1da3f04b1c9bb70d97ba4ce6a2510bf92d79bfe5",
+    "archive_sha256": "0654864ca46f734b75b5ce377cf68fb238a501f01dc832e35c258c46c09d0444"
+  },
+  "systemd_required_kernel": "5.10",
+  "systemd_version_inspected": "262.2",
+  "glibc_version_inspected": "2.43",
+  "glibc_elf_minimum_kernel": "3.7.0",
+  "tablet_kernel": "4.14.357",
+  "supported_current_systemd_boot": false
+}

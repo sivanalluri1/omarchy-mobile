@@ -122,3 +122,17 @@ Hardware reports Turnip Adreno (TM) 618, Vulkan 1.3.354. This proves GPU shader 
 Evidence: docs/graphics-bringup.md, docs/build-records/wayland-build.json and hardware-test-04.json. No Android filesystem was mounted. Initial repaint-clock warnings and a pending-flip shutdown message remain documented; no performance or long-duration stability claim is made. Input remains unconfigured in this minimal runtime. Hyprland/Arch/Omarchy have not run; step 9 must begin by checking userspace compatibility with kernel 4.14.
 
 After hardware test 04, the original BOOT was restored. Android boot completion and unlocked state were verified, and all four partition hashes match the original backups. No compositor or flash remains running. Step 8 is committed as complete; step 9 has not started.
+
+## Step 9 started — Arch compatibility and root image
+
+- [x] Inspect current Arch Linux ARM and pinned Omarchy Mobile sources.
+- [x] Confirm Arch glibc's declared minimum (3.7) and systemd's incompatible supported minimum (5.10).
+- [x] Build a metadata-correct SSD-backed ext4 root image; disable ext4 features too new for 4.14.
+- [x] Upgrade/install signature-checked Arch packages, including Hyprland 0.57.2 and Aquamarine 0.16.0.
+- [x] Verify Arch commands and package inventory inside the ARM64 build container.
+- [ ] Build/inspect NBD-enabled kernel and independently packaged BOOT candidate.
+- [ ] Prove read-only USB/SSD root access and Arch commands on the tablet.
+- [ ] Prove non-root Hyprland with the working KGSL/SDE Mesa stack.
+- [ ] Integrate portable Omarchy Mobile components and resolve unsupported services.
+
+Current systemd 262.2 does not support this 4.14 kernel. BusyBox remains PID 1 during userspace testing; no full supported Arch/systemd/Omarchy boot is claimed. Details: docs/arch-userspace.md; initial evidence: docs/build-records/arch-bootstrap.json. No step 9 BOOT image has been flashed at this checkpoint.

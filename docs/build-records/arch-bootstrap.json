@@ -1,0 +1,27 @@
+{
+  "date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "architecture": "aarch64",
+  "archive_sha256": "42a4eeaa038994ffd31fa173256ef2f0ef511358eeb41b9ea1f8626391b9b319",
+  "root_image_format": "ext4",
+  "root_image_logical_bytes": 17179869184,
+  "root_image_location": "Private SSD build/arch-userspace/arch-root.img",
+  "disabled_ext4_features": ["orphan_file", "metadata_csum_seed"],
+  "linux_loop_metadata_test": "passed",
+  "archive_extracted_with": "bsdtar",
+  "container_chroot_commands": "passed",
+  "distribution_package_signature_checks": "enabled; transaction passed",
+  "signed_package_upgrade_completed": true,
+  "post_upgrade_filesystem_inspection": "passed",
+  "systemd_package": "262.2-1",
+  "glibc_package": "2.43+r22+g8362e8ce10b2-2",
+  "hyprland_package": "0.57.2-1",
+  "aquamarine_package": "0.16.0-1",
+  "tablet_userspace_tested": false,
+  "supported_systemd_pid1_boot": false,
+  "notes": [
+    "Initial APFS extraction was rejected for Linux metadata errors; it is not used",
+    "A first GNU tar image was retained privately; active image was extracted with bsdtar",
+    "Package transaction succeeded, but detached GPG helpers initially made cleanup busy; cleanup was corrected and subsequent inspection/unmount passed"
+  ]
+}

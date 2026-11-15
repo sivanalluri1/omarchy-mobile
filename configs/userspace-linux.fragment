@@ -1,0 +1,3 @@
+# Host-SSD root filesystem over the already-tested private USB network.
+# No Android storage mount or write is needed for a full userspace tree.
+CONFIG_BLK_DEV_NBD=y

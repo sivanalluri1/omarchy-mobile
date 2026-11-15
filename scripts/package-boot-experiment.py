@@ -8,6 +8,9 @@ import struct
 import subprocess
 import sys
 
+variant = sys.argv[1] if len(sys.argv) > 1 else 'minimal'
+if variant not in ('minimal', 'userspace') or len(sys.argv) > 2:
+    raise SystemExit('Usage: package-boot-experiment.py [minimal|userspace]')
 root = Path(__file__).resolve().parent.parent
 subprocess.run([sys.executable, str(root / 'scripts/fetch-aosp-tools.py')], check=True)
 linux = Path(os.environ.get('OMARCHY_LINUX_ROOT', '/Volumes/OmarchyBuild'))
@@ -32,14 +35,14 @@ dtb_offset = page + align(ks) + align(rs)
 dtb = template[dtb_offset:dtb_offset + dtb_size]
 if dtb[:4] != b'\xd0\x0d\xfe\xed':
     raise SystemExit('Invalid template DTB')
-output = linux / 'build/boot-experiment'
+output = linux / ('build/boot-experiment' if variant == 'minimal' else 'build/boot-userspace')
 output.mkdir(parents=True, exist_ok=True)
 output.chmod(0o700)
 (output / 'installed.dtb').write_bytes(dtb)
-image = linux / 'build/kernel-minimal/arch/arm64/boot/Image'
+image = linux / f'build/kernel-{variant}/arch/arm64/boot/Image'
 ramdisk = linux / 'build/initramfs/initramfs.cpio.gz'
 # Require recorded, inspected inputs; do not accidentally package an old kernel.
-for filename, recordfile, field in ((image, 'kernel-minimal-artifacts.json', None),
+for filename, recordfile, field in ((image, f'kernel-{variant}-artifacts.json', None),
                                      (ramdisk, 'initramfs-validation.json', 'archive_sha256')):
     record = json.loads((root / 'docs/build-records' / recordfile).read_text())
     digest = record[field] if field else record['artifacts'][0]['sha256']
@@ -93,5 +96,5 @@ report = {'candidate_bytes': len(data), 'candidate_sha256': hashlib.sha256(data)
           'header_version': 2, 'page_size': page, 'template_header_addresses_os_fields_cmdline_preserved': True,
           'installed_dtb_preserved': True, 'avb_algorithm': 'NONE', 'avb_flags': 3,
           'planned_partition_change': ['BOOT'], 'flashed': False, 'hardware_boot_tested': False}
-(root / 'docs/build-records/boot-experiment-validation.json').write_text(json.dumps(report, indent=2) + '\n')
+(root / 'docs/build-records' / ('boot-experiment-validation.json' if variant == 'minimal' else 'boot-userspace-validation.json')).write_text(json.dumps(report, indent=2) + '\n')
 print(json.dumps(report, indent=2))
