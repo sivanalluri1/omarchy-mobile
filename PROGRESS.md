@@ -245,3 +245,12 @@ The ten-cycle result used verified RAM overlays; the new image is building. Both
 - [ ] Integrate on-screen keyboard, networking, audio and remaining services/hardware.
 
 Touch/pen response and pen pressure are confirmed. The final workload retained at least 1,548,816 KiB available in the five-second samples; sampled ION heap usage reached 520,108 KiB. These samples are bounded observations, not performance or long-duration guarantees. Current systemd is unsupported on 4.14; BusyBox remains PID 1. Full steps 9 and 10 remain open. Evidence: docs/build-records/hardware-test-08.json and docs/input-bringup.md.
+
+
+### Paused at owner request — 2026-11-15
+
+Desktop/test-user processes and seatd were stopped, the Arch RAM root was unmounted, filesystems synced, and native power-off requested. The tablet disappeared from the Mac USB inventory afterward. No project containers or host test/flash/staging processes were running. The SSD is being detached/ejected for storage.
+
+Resume from commit ec10d79's validated revision-5 image (SHA256 4d509fa2f13482c0de36d60458957f050ef8cd3796b35f2356fc16a1d515eb07), not an earlier root. The repaired Turnip library SHA256 is c0051c7823d64be174f883b823b0314880a183190fce9a760de06e5d7d550a86. Native BOOT remains installed (e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6); Android was not restored, as authorized. RAM session state is lost at power-off.
+
+When the owner reconnects the tablet and SSD and requests continuation, verify both devices, mount the case-sensitive build sparsebundle, boot/check native Linux and restage the revision-5 RAM image using the pinned-key staging helper. Enable the compatibility/input/mobile checks in the launcher. Next development work remains on-screen keyboard and service/hardware integration. Do not resume automatically while paused.
