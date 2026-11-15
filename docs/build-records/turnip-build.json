@@ -1,0 +1,83 @@
+{
+  "mesa": {
+    "revision": "8899a7b4cf1e8b5dbce884f94b440e40e84ca26b",
+    "version": "26.2.0-devel",
+    "archive_url": "https://chromium.googlesource.com/external/gitlab.freedesktop.org/mesa/mesa/+archive/8899a7b4cf1e8b5dbce884f94b440e40e84ca26b.tar.gz",
+    "archive_sha256": "7320576637a95b13cb5b811c33cc7f4a8d95edcea095f9cc80e4a049522c687c",
+    "backend": "kgsl"
+  },
+  "target": "linux/aarch64",
+  "vulkan_driver": "freedreno",
+  "kernel_backend": "kgsl",
+  "gallium_drivers": [],
+  "llvm_enabled": false,
+  "native_build_completed": true,
+  "runtime_files": [
+    {
+      "path": "bin/gpu-compute",
+      "bytes": 73360,
+      "sha256": "eff1929ee1cadc4d875157a49a7e5d6809764c3c425c1a31263f404b174d9262"
+    },
+    {
+      "path": "lib/ld-linux-aarch64.so.1",
+      "bytes": 201344,
+      "sha256": "1b882eddacd494b060413a8aa4f0a4754ee3f84775e68cecbf8a86092b59cca6"
+    },
+    {
+      "path": "lib/libc.so.6",
+      "bytes": 1716616,
+      "sha256": "70fa4c4cf57eabeb96097cce47582d02379c4cd1de3db3e98ade4dd7089a1b13"
+    },
+    {
+      "path": "lib/libexpat.so.1",
+      "bytes": 198856,
+      "sha256": "9852d754604063d671c14e66817b2d55d70883ac83208af3d85a8b847e66c522"
+    },
+    {
+      "path": "lib/libgcc_s.so.1",
+      "bytes": 133768,
+      "sha256": "9a146967dc38c3820c5dc21c3209812655f66b6551264072b187bd0e787947e0"
+    },
+    {
+      "path": "lib/libm.so.6",
+      "bytes": 591960,
+      "sha256": "a8afb2d1f4a0c5e14c0fc82f794ec839eafe29738907aa92895410f57630bbe2"
+    },
+    {
+      "path": "lib/libstdc++.so.6",
+      "bytes": 2502136,
+      "sha256": "fff1f0050a33ddf29c44634c7639ac16e2573a61e3daab4fcc4c007b432ccf19"
+    },
+    {
+      "path": "lib/libvulkan.so.1",
+      "bytes": 592496,
+      "sha256": "22b6ce3145007566e3e47ce1f379135ba9b83e734cba2edc2d0c3e1b28ffeea7"
+    },
+    {
+      "path": "lib/libvulkan_freedreno.so",
+      "bytes": 18087672,
+      "sha256": "ba259d7cef4350e87c37fb050e6f740ce901033208e4589c09fea95d72a4999a"
+    },
+    {
+      "path": "lib/libz.so.1",
+      "bytes": 133600,
+      "sha256": "ac4b7f163145ca73ddba8e657cc35c5b5380ce01f75cbf3b65f8deeebd9c1e72"
+    },
+    {
+      "path": "lib/libzstd.so.1",
+      "bytes": 723048,
+      "sha256": "1279c4edfbfb08878b5b7fb40d392c1bdc9b30100d9b7a019d4aefaf10d2046c"
+    },
+    {
+      "path": "turnip.json",
+      "bytes": 135,
+      "sha256": "b9155a8d4fee15c668c7d81b9a413ec041535b8216bdc7f5b0bc403f39035672"
+    }
+  ],
+  "container_negative_test": {
+    "result": "expected failure",
+    "message": "vkEnumeratePhysicalDevices failed: -3",
+    "software_driver_in_bundle": false
+  },
+  "hardware_execution_tested": false
+}

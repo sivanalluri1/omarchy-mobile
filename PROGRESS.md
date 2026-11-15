@@ -88,3 +88,11 @@ Step 8 remains incomplete: DRM/KGSL nodes and a connected DSI connector were obs
 The known-good BOOT candidate was reused. Firmware was copied from Android into the native RAM rootfs; no Android filesystem was mounted. DSI modesetting succeeded; KGSL device query succeeded. Evidence and source/build commands: docs/graphics-bringup.md and docs/build-records/hardware-test-02.json. Full step 8 is not yet complete.
 
 After test 02, the exact original BOOT was restored. Android boot completion and unlocked state were verified; BOOT/recovery/DTBO/vbmeta all match their preflight hashes. No hardware test remains running.
+
+### Step 8 — Turnip build
+
+- [x] Build pinned Mesa Turnip with the KGSL backend for AArch64.
+- [x] Build bounded GPU compute dispatch/readback probe and Turnip-only runtime.
+- [x] Verify no-device container test fails instead of selecting a software driver.
+
+Hardware shader execution remains pending at this checkpoint. See docs/build-records/turnip-build.json.

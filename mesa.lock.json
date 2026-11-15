@@ -1,0 +1,7 @@
+{
+  "revision": "8899a7b4cf1e8b5dbce884f94b440e40e84ca26b",
+  "version": "26.2.0-devel",
+  "archive_url": "https://chromium.googlesource.com/external/gitlab.freedesktop.org/mesa/mesa/+archive/8899a7b4cf1e8b5dbce884f94b440e40e84ca26b.tar.gz",
+  "archive_sha256": "7320576637a95b13cb5b811c33cc7f4a8d95edcea095f9cc80e4a049522c687c",
+  "backend": "kgsl"
+}

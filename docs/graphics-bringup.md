@@ -58,3 +58,16 @@ Remaining work:
 - Run an accelerated Wayland compositor; then evaluate Zink/Hyprland and Arch userspace compatibility with kernel 4.14.
 
 Step 8 remains open until acceleration and Wayland have actually run. Raw test logs are private under ignored `work/hardware-test-02`.
+
+## Turnip build milestone
+
+Pinned Mesa Turnip compiled for Linux AArch64 with `freedreno-kmds=kgsl`, no Gallium drivers and LLVM disabled. Source archive URL/revision/hash: `mesa.lock.json`. Preparation verifies existing source files against the checksum-verified archive. Build commands:
+
+```sh
+python3 scripts/prepare-mesa.py /Volumes/OmarchyBuild
+bash scripts/build-turnip.sh configure
+bash scripts/build-turnip.sh build
+bash scripts/build-gpu-probes.sh
+```
+
+`native/gpu-compute.comp` writes 1,024 deterministic uint32 values. Its Vulkan host program refuses CPU/non-Qualcomm devices, submits a compute dispatch, waits on a bounded fence, invalidates mapped memory and checks every result. A forced Turnip-only ICD file prevents loading a software ICD. The runtime assembler copies the driver, loader and shared-library dependency closure into a RAM-transfer bundle. The no-device container test returned Vulkan initialization failure, as expected; it did not silently use software rendering. Build evidence: `build-records/turnip-build.json`. Actual tablet execution is recorded separately.
