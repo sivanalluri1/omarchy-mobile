@@ -16,3 +16,7 @@ Target: native Linux and eventually Omarchy on Samsung SM-P613 (gta4xlveu). Star
 Storage: about 59 GiB is free on the internal disk at setup. Use bounded build parallelism and one source/output baseline. Request the external SSD before a full Android checkout, additional large toolchains, or when free space approaches 20 GiB. Keep toolchains and output disposable; track metadata and scripts in Git.
 
 See ARCHITECTURE.md for boundaries and STEPS.md for local operations. See docs/samsung-boot-research.md for evidence and unresolved boot restrictions.
+
+## Current storage and execution gate
+
+Large artifacts and builds now use /Volumes/siva_ssd/Development/Omarchy through the case-sensitive SSD build image. The Git repository remains at its original path. Offline milestones 1–6 are complete; first hardware testing is a separate explicitly authorized BOOT-only experiment followed by restoration of Android. See docs/boot-experiment.md for concrete hashes and commands.

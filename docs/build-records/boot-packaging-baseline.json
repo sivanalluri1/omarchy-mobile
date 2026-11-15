@@ -1,0 +1,14 @@
+{
+  "page_size": 4096,
+  "header_version": 2,
+  "os_version_raw": 536871336,
+  "kernel_addr": 32768,
+  "ramdisk_addr": 16777216,
+  "tags_addr": 256,
+  "dtb_addr": 32505856,
+  "avb_footer_present": true,
+  "avb_algorithm_type": 0,
+  "avb_flags": 3,
+  "running_cmdline_has_skip_initramfs": false,
+  "running_cmdline_has_init_argument": false
+}
