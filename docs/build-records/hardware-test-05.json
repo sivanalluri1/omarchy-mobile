@@ -3,7 +3,7 @@
   "timezone": "America/Phoenix",
   "model": "SM-P613",
   "step": 9,
-  "result": "partial; recovery pending",
+  "result": "partial; Android restored",
   "candidate_sha256": "71543681fdd66b0d5eab02065d5a61f10c808574ec6172991f6b0e3a9e5f0a70",
   "candidate_boot_readback_matched": true,
   "kernel_config_delta_from_step8": {
@@ -35,10 +35,22 @@
   "failure": "USB network and SSH became unresponsive during subsequent NBD connection/mount attempt in the same native boot",
   "root_cause": "unknown; no saved kernel log retrieved yet",
   "android_filesystems_mounted": false,
-  "original_android_boot_restored_after_test": false,
-  "recovery_status": "Awaiting physical Download Mode; original BOOT backup ready",
+  "original_android_boot_restored_after_test": true,
+  "recovery_status": "Original BOOT restored; Android boot and all four original hashes verified",
   "containment": "Refuse second NBD connection in one native boot until diagnosed",
   "known_systemd_support_gap": "Current systemd requires kernel >=5.10; kernel here is 4.14",
   "raw_logs": "Ignored SSD work/hardware-test-05",
-  "root_image_sha256_after_loader_fix": "83c99eb7725949a137cac8087064a827b8ac82734a46048c45a6b595b296158e"
+  "root_image_sha256_after_loader_fix": "83c99eb7725949a137cac8087064a827b8ac82734a46048c45a6b595b296158e",
+  "android_boot_completed_after_restore": true,
+  "bootloader_remains_unlocked": true,
+  "all_four_restored_hashes_match_preflight": true,
+  "pstore_files_saved": 1,
+  "pstore_diagnostic_result": "Corrupted/incomplete console; no reliable NBD-stall trace established",
+  "nbd_export_running": false,
+  "restored_partition_hashes": {
+    "boot": "15966f29996c7ab4c299d7b95f7a1e3ae04ef9ea788e4d11fc66f96eec2753ed",
+    "recovery": "26aacf89678972f4d5b967cf027fc3ccb342213ab56966462bcb24219ec748c5",
+    "dtbo": "11f8330c6fa619bc5871c68211260bded38090060a56b51ab485f183a3dc1c7d",
+    "vbmeta": "4f79fd04727c6ac30619acb1fad20ae8e18e2ec908198021a195eb83cd398138"
+  }
 }

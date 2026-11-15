@@ -1,6 +1,6 @@
 # Progress
 
-Status: step 9 in progress. First native Arch read-only SSD-root connection and commands passed. A subsequent NBD connection/mount attempt lost USB/SSH responsiveness; physical Download Mode recovery is pending. Step 8 graphics proof remains valid.
+Status: step 9 in progress. First native Arch read-only SSD-root connection and commands passed. A subsequent NBD connection/mount attempt lost USB/SSH responsiveness; Android is restored and all four original hashes verified. Step 8 graphics proof remains valid.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -145,3 +145,5 @@ Step 9 offline checkpoint: NBD-only config delta verified; new BOOT candidate st
 The NBD-enabled BOOT booted and matched its readback hash. The initial read-only NBD/ext4 mount worked; native Arch glibc 2.43, bash, pacman queries and UID 1000 user were verified. The first graphics probe exited for a missing Vulkan loader. That signed package was added offline after unmounting/stopping the export. The subsequent NBD connection/mount attempt in the same boot lost USB/SSH responsiveness before another GPU probe started. Root cause is unknown. The mount helper now refuses a second connection per boot as containment, not as a proven fix.
 
 Android filesystems were not mounted. Original BOOT has NOT yet been restored after test 05: physical Download Mode is required, and the user has been given the button sequence. Keep step 9 open. Evidence: docs/build-records/hardware-test-05.json. Next recovery work: restore original BOOT, verify Android and all four original hashes, and inspect pstore/last-kernel logs privately before further hardware experiments.
+
+Test 05 recovery completed: user entered Download Mode; original BOOT restored, Android boot completion/unlocked state and all four original partition hashes verified. One pstore console was saved privately but is corrupted/incomplete and does not establish the stall cause. The NBD export is stopped. Next approach: prepare a compressed RAM-only Arch root while Android stays running; retain NBD evidence as an incomplete transport experiment.
