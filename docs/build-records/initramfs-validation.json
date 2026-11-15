@@ -1,7 +1,7 @@
 {
-  "archive_bytes": 2953718,
-  "archive_sha256": "02717218dfeb24470dcb4378ca92596ac1d21b3cb8daeb506deae532d8965b30",
-  "cpio_entries": 311,
+  "archive_bytes": 2953784,
+  "archive_sha256": "7ceb695a21ee64f1c696ebddf2a024dbdcbaff17c3f39003ad1476101ddb5f02",
+  "cpio_entries": 312,
   "all_entries_uid_gid_zero": true,
   "init_executable": true,
   "console_device_node_present": true,
@@ -19,5 +19,8 @@
     "Gzip integrity and CPIO structure/ownership/device node inspection"
   ],
   "hardware_boot_tested": false,
-  "usb_ncm_tested_on_tablet": false
+  "usb_ncm_tested_on_tablet": false,
+  "init_script_sha256": "81e263ca86497da15573176ab336f0a80d3d2bb1fbef48011f70d4a086531046",
+  "usb_dhcp_configured": true,
+  "usb_dhcp_hardware_tested": false
 }

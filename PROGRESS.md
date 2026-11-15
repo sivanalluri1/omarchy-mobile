@@ -11,7 +11,7 @@ Status: resumed. External SSD storage is being configured under /Volumes/siva_ss
 - [x] 2. Generate and compare unchanged vendor configuration.
 - [x] 3. Compile and inspect unchanged kernel/device-tree outputs.
 - [x] 4. Verify installed recovery, Download Mode status and restoration set.
-- [ ] 5. Build minimal Linux configuration/initramfs with NCM and SSH.
+- [x] 5. Build minimal Linux configuration/initramfs with NCM and SSH.
 - [ ] 6. Validate experimental Samsung image packaging and recovery procedure.
 - [ ] 7. Prove native boot and USB/SSH on hardware.
 - [ ] 8. Prove display and accelerated Wayland.
@@ -48,7 +48,7 @@ Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and d
 - [x] Return to Android verified.
 - [x] Restoration inputs and BOOT-only rollback mapping reviewed; factory archive and all four nested TAR.MD5 payloads verified. Actual restore writes remain untested.
 
-## Pause checkpoint
+## Previous pause checkpoint (resumed)
 
 Tablet returned to Android; USB ADB verified, sys.boot_completed=1 and flash.locked=0. No flashing or erase performed. Exact boot-chain backups, matching LineageOS release and factory firmware archive are local under ignored work/. Installed boot kernel/DTB match the ROM ZIP; ramdisk differs. Step 4 remains open for nested factory-package validation and final restoration review. Resume after the user attaches the SSD and supplies its volume name. No build/download process remains running.
 
@@ -59,3 +59,9 @@ SSD storage configured under /Volumes/siva_ssd/Development/Omarchy. A case-sensi
 Step 4 complete for offline development readiness: exact installed images, recovery identity, Download Mode PIT/read-only transport and return to Android verified; matching factory ZIP and four nested TAR.MD5 payloads checked. Named OEM/KG/FRP/SWREV text was not exposed and a restore write has not been tested. Those limits remain part of the later hardware test review.
 
 Step 5 in progress: minimal Linux kernel configuration and a RAM-only USB NCM / key-only SSH initramfs. No flashing or device reboot in this resumed session.
+
+## Step 5 completed
+
+Minimal kernel compiled successfully from clean pinned sources on SSD; Image/ELF/device-tree/config hashes inspected. Only DEVTMPFS, DEVTMPFS_MOUNT and FHANDLE differ from the running vendor config. RAM-only initramfs built; native ARM64 BusyBox, chroot shell and real key-only SSH remote command passed in an isolated container. Archive ownership/modes/device nodes inspected and client private key excluded. USB NCM/DHCP and tablet boot remain untested. Source: docs/minimal-linux.md; evidence: docs/build-records/kernel-minimal-artifacts.json and initramfs-validation.json.
+
+Next: step 6, inspect the BOOT-only candidate and review its exact hardware-test/rollback scope. No image has been flashed.

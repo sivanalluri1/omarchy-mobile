@@ -1,0 +1,30 @@
+{
+  "source_revision": "21b136df15332dfc3569223a3b5784f778ae8b40",
+  "source_clean": true,
+  "compiler": "Debian clang version 19.1.7 (3+b1)",
+  "config_sha256": "e9b345a9789d529c04e63b1437b7520f0d21df9cea464dbefee48774da03d983",
+  "image_header_valid": true,
+  "vmlinux_architecture": "AArch64 ELF64 little-endian",
+  "artifacts": [
+    {
+      "path": "arch/arm64/boot/Image",
+      "bytes": 52684824,
+      "sha256": "327e94f35f99ad731a965b4ba9b6706f8de1eec07e01b4690f2305bb627fad37"
+    },
+    {
+      "path": "vmlinux",
+      "bytes": 1260696512,
+      "sha256": "1b4c1af7659a90e30783f1adb5fff28846d322f5c1738b1813a6a1cf6f5e2ea5"
+    }
+  ],
+  "device_tree_blob_count": 2,
+  "tablet_device_trees": [
+    {
+      "path": "arch/arm64/boot/dts/samsung/atoll-sec-gta4xlve-eur-overlay-r00.dtbo",
+      "bytes": 183333,
+      "sha256": "f7de3d04d4717f6c000430e2d568621ab6546a64c92a6d4ea4dbccaa0b54056e"
+    }
+  ],
+  "hardware_tested": false,
+  "flashable_boot_image_created": false
+}

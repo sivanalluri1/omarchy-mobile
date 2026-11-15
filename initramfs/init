@@ -1,7 +1,8 @@
 #!/bin/sh
 # RAM-only bring-up. No block-device mount or partition write commands.
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin HOME=/root
-exec >/dev/console 2>&1
+# Android uses console=null; keep an early log in RAM without requiring a console.
+exec >/bringup.log 2>&1
 log() { echo "[p613-init] $*"; }
 fail() { log "$*"; while :; do sleep 60; done; }
 mount -t proc proc /proc || fail 'Cannot mount proc'
@@ -50,6 +51,8 @@ done
 [ -e /sys/class/net/usb0 ] || fail 'NCM network interface missing'
 ip addr add 192.168.77.1/24 dev usb0 || fail 'Cannot set USB address'
 ip link set usb0 up || fail 'Cannot enable USB interface'
+# Offer the Mac a USB-local address without changing its default route or DNS.
+udhcpd -f /etc/udhcpd.conf &
 log 'Starting public-key-only SSH on 192.168.77.1:22; Android storage stays unmounted'
 # Disable passwords and forwarding; bind only to the USB address.
 while :; do

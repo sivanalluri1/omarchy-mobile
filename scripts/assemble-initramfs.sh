@@ -16,6 +16,7 @@ for source in re.findall(r'/[^\s()]+',subprocess.check_output(['ldd','/usr/sbin/
         shutil.copy2(path,target)
 PY
 cp /project-init/init /rootfs/init
+cp /project-init/udhcpd.conf /rootfs/etc/udhcpd.conf
 chmod 755 /rootfs/init
 printf 'root::0:0:root:/root:/bin/sh\n' > /rootfs/etc/passwd
 printf 'root:x:0:\n' > /rootfs/etc/group
@@ -28,6 +29,7 @@ chmod 600 /rootfs/root/.ssh/authorized_keys
 if [ ! -f /keys/dropbear_ed25519_host_key ]; then
   dropbearkey -t ed25519 -f /keys/dropbear_ed25519_host_key >/dev/null
 fi
+dropbearkey -y -f /keys/dropbear_ed25519_host_key | awk '/^ssh-ed25519 / { print "192.168.77.1 " $0 }' > /keys/tablet_known_hosts
 cp /keys/dropbear_ed25519_host_key /rootfs/etc/dropbear/
 chmod 600 /rootfs/etc/dropbear/dropbear_ed25519_host_key
 mknod /rootfs/dev/console c 5 1
@@ -56,6 +58,7 @@ trap - EXIT
 # Fixed archive metadata; keys are generated once per project and remain private.
 find /rootfs -exec touch -h -d @0 {} +
 (cd /rootfs && find . -print0 | LC_ALL=C sort -z | cpio --null -o --format=newc --owner=0:0 --quiet | gzip -n -9 > /out/initramfs.cpio.gz)
+chmod 600 /out/initramfs.cpio.gz
 gzip -t /out/initramfs.cpio.gz
 sha256sum /out/initramfs.cpio.gz > /out/initramfs.sha256
 printf 'Chroot shell check, native busybox and public-key SSH self-test passed.\n'
