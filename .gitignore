@@ -10,3 +10,6 @@ p613-audit-*/
 .DS_Store
 __pycache__/
 *.pyc
+storage.local.env
+work.internal/
+/work

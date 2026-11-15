@@ -23,9 +23,9 @@ The official samloader 2.2.0 universal macOS ZIP digest was verified as 74578787
 
 ## Restoration design constraints
 
-The first kernel experiment should change only its reviewed target image and preserve known-good recovery, DTBO and vbmeta. Keep the exact captured boot image for returning to the current rooted installation; the stock ROM ZIP boot image is different. A rollback procedure is not validated until the transfer tool and Download Mode connection work. Matching full stock Samsung firmware is not yet downloaded or verified, so a complete factory-restoration set is also outstanding.
+The first kernel experiment should change only its reviewed target image and preserve known-good recovery, DTBO and vbmeta. Keep the exact captured boot image for returning to the current rooted installation; the stock ROM ZIP boot image is different. A rollback procedure is not validated until the transfer tool and Download Mode connection work. Matching factory firmware has now been downloaded and its ZIP CRC plus all four nested TAR.MD5 payloads verified. The BOOT-only rollback remains a reviewed mapping, not an exercised write.
 
-No partition write or data erase has been performed. Step 4 remains incomplete.
+No partition write or data erase has been performed. Step 4 is complete for offline development readiness; actual restore writes and named Download Mode policy fields remain unverified.
 
 ## Reviewed BOOT-only rollback draft
 
@@ -35,8 +35,12 @@ This is a reviewed command mapping from tool help and the tablet PIT, not a test
 
 ## Factory recovery package
 
-Samsung's service lists SM-P613/XAC firmware P613XXS8CYE1/P613OXM8CYE1/P613XXS8CYE1/P613XXS8CYE1, matching the running bootloader. Download completed into ignored work/research/stock. Archive SHA256 is recorded in build-records/factory-firmware-inventory.json and all ZIP entries passed CRC checks. Nested TAR.MD5 verification and package-content review remain pending. The factory package is a separate fallback from the exact rooted LineageOS partition captures.
+Samsung's service lists SM-P613/XAC firmware P613XXS8CYE1/P613OXM8CYE1/P613XXS8CYE1/P613XXS8CYE1, matching the running bootloader. Download completed into ignored work/research/stock. Archive SHA256 is recorded in build-records/factory-firmware-inventory.json and all ZIP entries passed CRC checks. All four nested TAR.MD5 payloads were independently hashed and matched their appended checksums. Package-content review confirms AP includes userdata and CSC includes a PIT; a full factory restore is broader than the intended BOOT-only experiment. The factory package is a separate fallback from the exact rooted LineageOS partition captures.
 
 ## Paused checkpoint
 
 Paused at the user's request pending the external SSD. No new build or storage move is authorized until resumption. Installed boot section comparison confirms kernel and DTB bytes match the LineageOS release; ramdisk differs. See build-records/installed-boot-section-comparison.json. Tablet is back in Android; no partition write or erase occurred.
+
+## SSD resumption
+
+User supplied /Volumes/siva_ssd/Development. Firmware, backups and tools now live under its Omarchy/artifacts/work folder, reached through the repository work/ symlink. Original local copies remain available. No factory or custom image has been flashed.

@@ -1,6 +1,6 @@
 # Progress
 
-Status: paused at the user's request while the external SSD is being prepared. Do not start further builds or move storage until the user resumes.
+Status: resumed. External SSD storage is being configured under /Volumes/siva_ssd/Development/Omarchy.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -10,7 +10,7 @@ Status: paused at the user's request while the external SSD is being prepared. D
 - [x] 1. Validate local ARM64 Linux kernel builder.
 - [x] 2. Generate and compare unchanged vendor configuration.
 - [x] 3. Compile and inspect unchanged kernel/device-tree outputs.
-- [ ] 4. Verify installed recovery, Download Mode status and restoration set.
+- [x] 4. Verify installed recovery, Download Mode status and restoration set.
 - [ ] 5. Build minimal Linux configuration/initramfs with NCM and SSH.
 - [ ] 6. Validate experimental Samsung image packaging and recovery procedure.
 - [ ] 7. Prove native boot and USB/SSH on hardware.
@@ -46,8 +46,16 @@ Step 4 in progress: matching LineageOS ROM ZIP and recovery TAR downloaded and d
 - [x] Available Download Mode observations recorded; named OEM/KG/FRP/SWREV fields not exposed.
 - [x] Working Download Mode USB session and PIT read verified.
 - [x] Return to Android verified.
-- [ ] Complete restoration procedure and stock firmware availability verified.
+- [x] Restoration inputs and BOOT-only rollback mapping reviewed; factory archive and all four nested TAR.MD5 payloads verified. Actual restore writes remain untested.
 
 ## Pause checkpoint
 
 Tablet returned to Android; USB ADB verified, sys.boot_completed=1 and flash.locked=0. No flashing or erase performed. Exact boot-chain backups, matching LineageOS release and factory firmware archive are local under ignored work/. Installed boot kernel/DTB match the ROM ZIP; ramdisk differs. Step 4 remains open for nested factory-package validation and final restoration review. Resume after the user attaches the SSD and supplies its volume name. No build/download process remains running.
+
+## Resumed on SSD
+
+SSD storage configured under /Volumes/siva_ssd/Development/Omarchy. A case-sensitive APFS sparsebundle mounts at /Volumes/OmarchyBuild. Source cleanliness and baseline hashes match after migration; work/ is now an SSD symlink after checksum comparison. Original internal work copy and Docker volumes remain intact as fallbacks.
+
+Step 4 complete for offline development readiness: exact installed images, recovery identity, Download Mode PIT/read-only transport and return to Android verified; matching factory ZIP and four nested TAR.MD5 payloads checked. Named OEM/KG/FRP/SWREV text was not exposed and a restore write has not been tested. Those limits remain part of the later hardware test review.
+
+Step 5 in progress: minimal Linux kernel configuration and a RAM-only USB NCM / key-only SSH initramfs. No flashing or device reboot in this resumed session.

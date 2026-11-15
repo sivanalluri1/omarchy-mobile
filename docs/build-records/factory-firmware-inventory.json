@@ -9,20 +9,233 @@
   "members": [
     {
       "name": "BL_P613XXS8CYE1_P613XXS8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT.tar.md5",
-      "uncompressed_bytes": 62136430
+      "uncompressed_bytes": 62136430,
+      "tar_entries": [
+        {
+          "name": "abl.elf.lz4",
+          "bytes": 619306
+        },
+        {
+          "name": "xbl.elf.lz4",
+          "bytes": 2951685
+        },
+        {
+          "name": "xbl_config.elf.lz4",
+          "bytes": 20910
+        },
+        {
+          "name": "tz.mbn.lz4",
+          "bytes": 1521494
+        },
+        {
+          "name": "hyp.mbn.lz4",
+          "bytes": 272273
+        },
+        {
+          "name": "devcfg.mbn.lz4",
+          "bytes": 21659
+        },
+        {
+          "name": "bksecapp.mbn.lz4",
+          "bytes": 52229
+        },
+        {
+          "name": "aop.mbn.lz4",
+          "bytes": 107795
+        },
+        {
+          "name": "cmnlib.mbn.lz4",
+          "bytes": 304903
+        },
+        {
+          "name": "cmnlib64.mbn.lz4",
+          "bytes": 357855
+        },
+        {
+          "name": "km4.mbn.lz4",
+          "bytes": 148235
+        },
+        {
+          "name": "qupv3fw.elf.lz4",
+          "bytes": 23736
+        },
+        {
+          "name": "storsec.mbn.lz4",
+          "bytes": 9631
+        },
+        {
+          "name": "NON-HLOS.bin.lz4",
+          "bytes": 35762391
+        },
+        {
+          "name": "dspso.bin.lz4",
+          "bytes": 16396511
+        },
+        {
+          "name": "uefi_sec.mbn.lz4",
+          "bytes": 69979
+        },
+        {
+          "name": "sec.elf.lz4",
+          "bytes": 3568
+        },
+        {
+          "name": "apdp.mbn.lz4",
+          "bytes": 3262
+        },
+        {
+          "name": "vbmeta.img.lz4",
+          "bytes": 3327
+        },
+        {
+          "name": "vaultkeeper.mbn.lz4",
+          "bytes": 823448
+        },
+        {
+          "name": "tz_kg.mbn.lz4",
+          "bytes": 828817
+        },
+        {
+          "name": "tz_hdm.mbn.lz4",
+          "bytes": 763584
+        },
+        {
+          "name": "imagefv.elf.lz4",
+          "bytes": 1045483
+        },
+        {
+          "name": "quest.fv.lz4",
+          "bytes": 2736
+        }
+      ],
+      "md5_payload_bytes": 62136320,
+      "md5_expected": "e30b9b93c9fde2555bebbf2e02c9d7f8",
+      "md5_matches": true
     },
     {
       "name": "AP_P613XXS8CYE1_P613XXS8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT_meta_OS14.tar.md5",
-      "uncompressed_bytes": 7313561720
+      "uncompressed_bytes": 7313561720,
+      "tar_entries": [
+        {
+          "name": "boot.img.lz4",
+          "bytes": 20259201
+        },
+        {
+          "name": "recovery.img.lz4",
+          "bytes": 30752607
+        },
+        {
+          "name": "dtbo.img.lz4",
+          "bytes": 168755
+        },
+        {
+          "name": "super.img.lz4",
+          "bytes": 5085977417
+        },
+        {
+          "name": "userdata.img.lz4",
+          "bytes": 1047434579
+        },
+        {
+          "name": "persist.img.lz4",
+          "bytes": 1644
+        },
+        {
+          "name": "misc.bin.lz4",
+          "bytes": 2530
+        },
+        {
+          "name": "vbmeta.img.lz4",
+          "bytes": 3327
+        },
+        {
+          "name": "vbmeta_system.img.lz4",
+          "bytes": 2596
+        },
+        {
+          "name": "modem.bin.lz4",
+          "bytes": 47251149
+        },
+        {
+          "name": "meta-data",
+          "bytes": 0
+        },
+        {
+          "name": "meta-data/fota.zip",
+          "bytes": 1081694507
+        }
+      ],
+      "md5_payload_bytes": 7313561600,
+      "md5_expected": "26b3b0b1a115307e5ae49646b7d525ac",
+      "md5_matches": true
     },
     {
       "name": "HOME_CSC_OXM_P613OXM8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT.tar.md5",
-      "uncompressed_bytes": 393031787
+      "uncompressed_bytes": 393031787,
+      "tar_entries": [
+        {
+          "name": "cache.img.lz4",
+          "bytes": 1511
+        },
+        {
+          "name": "prism.img.lz4",
+          "bytes": 392900824
+        },
+        {
+          "name": "optics.img.lz4",
+          "bytes": 116910
+        },
+        {
+          "name": "meta-data",
+          "bytes": 0
+        },
+        {
+          "name": "meta-data/download-list.txt",
+          "bytes": 366
+        }
+      ],
+      "md5_payload_bytes": 393031680,
+      "md5_expected": "1affdde314b5ab86111c23616e4f7303",
+      "md5_matches": true
     },
     {
       "name": "CSC_OXM_P613OXM8CYE1_MQB95910613_REV00_user_low_ship_MULTI_CERT.tar.md5",
-      "uncompressed_bytes": 393062502
+      "uncompressed_bytes": 393062502,
+      "tar_entries": [
+        {
+          "name": "GTA4XLVEWIFI_EUR_OPEN.pit",
+          "bytes": 12420
+        },
+        {
+          "name": "cache.img.lz4",
+          "bytes": 1538
+        },
+        {
+          "name": "omr.img.lz4",
+          "bytes": 1314
+        },
+        {
+          "name": "prism.img.lz4",
+          "bytes": 392900824
+        },
+        {
+          "name": "optics.img.lz4",
+          "bytes": 116910
+        },
+        {
+          "name": "meta-data",
+          "bytes": 0
+        },
+        {
+          "name": "meta-data/fota.zip",
+          "bytes": 14323
+        }
+      ],
+      "md5_payload_bytes": 393062400,
+      "md5_expected": "a55ba94ba06138e9e4d15a04c4fd5269",
+      "md5_matches": true
     }
   ],
-  "flashed": false
+  "flashed": false,
+  "nested_tar_md5_checks_passed": true
 }
