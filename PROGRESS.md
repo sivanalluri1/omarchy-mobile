@@ -201,3 +201,16 @@ Omarchy image revision 2 adds the matching signature-verified settings data, hel
 - [ ] Validate touch/S Pen and remaining hardware functions individually.
 
 The extended session has started, not completed; no hour-long stability claim is made. The completed result is the bounded two-minute test. Android is not restored after this test, per the owner's updated instruction. BusyBox remains PID 1; current systemd is unsupported on 4.14. Step 9 remains in progress. Evidence and reproduction: docs/omarchy-shell.md and docs/build-records/hardware-test-07.json.
+
+
+### Steps 9/10 — mobile home and real input checkpoint (2026-11-15)
+
+- [x] Render the upstream mobile home and launcher from a RAM overlay.
+- [x] Classify touchscreen/pen/key devices in the RAM udev database.
+- [x] Supply missing pen resolution using panel dimensions and verified ranges.
+- [x] Enumerate touch and tablet devices in libinput and Hyprland.
+- [x] Capture actual touch, pen tip/proximity/motion and variable pressure; owner confirms both inputs respond.
+- [ ] Verify desktop-entry app launch and complete a stable interactive repeat.
+- [ ] Validate edge accuracy, palm rejection, rotation and remaining hardware.
+
+The interactive desktop stalled in SquashFS reads under low available memory after a missed IPC response. Native recovery SSH remained available. Evidence is saved before reboot; root cause is not established. This is a partial milestone, not completion of step 9 or step 10. Details: docs/input-bringup.md and docs/build-records/hardware-test-08.json.

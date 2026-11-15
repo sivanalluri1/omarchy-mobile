@@ -1,0 +1,16 @@
+#!/usr/bin/python3
+"""Launch a desktop entry directly in the manually supervised Wayland session."""
+import re
+import sys
+import gi
+gi.require_version('Gio','2.0')
+from gi.repository import Gio
+
+if len(sys.argv)!=2 or not re.fullmatch(r'[A-Za-z0-9_.-]+',sys.argv[1]):
+    raise SystemExit('Usage: p613-launch-desktop DESKTOP_ID')
+name=sys.argv[1]
+entry=Gio.DesktopAppInfo.new(name if name.endswith('.desktop') else name+'.desktop')
+if entry is None:
+    raise SystemExit('Desktop entry not found: '+name)
+if not entry.launch([],None):
+    raise SystemExit('Desktop entry could not be launched: '+name)

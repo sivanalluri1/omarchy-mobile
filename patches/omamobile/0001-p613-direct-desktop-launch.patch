@@ -1,0 +1,11 @@
+--- a/usr/bin/omamobile-launch
++++ b/usr/bin/omamobile-launch
+@@ -351,7 +351,7 @@
+     # Omarchy's own launch path (AppLibrary.launch): gtk-launch resolves the
+     # entry, in a scope under app-graphical.slice. The suffix keeps ids such
+     # as org.telegram.desktop resolving.
+-    return 0 if launch(["uwsm-app", "--", "gtk-launch", app_id + ".desktop"]) else 1
++    return 0 if launch(["p613-launch-desktop", app_id]) else 1
+ 
+ 
+ def cmd_cmd(args):

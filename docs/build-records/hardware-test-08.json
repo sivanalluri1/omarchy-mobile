@@ -1,0 +1,31 @@
+{
+  "date": "2026-11-15",
+  "timezone": "America/Phoenix",
+  "model": "SM-P613",
+  "result": "Input and home rendering passed; interactive session stalled",
+  "root_sha256": "f097a2c8bab5211b8e42eac4264e7104402a392608fe8e4ae2580ca222b76533",
+  "runtime_overlay_used": true,
+  "touch_and_pen_enumerated_by_hyprland": true,
+  "user_confirms_finger_and_pen_response": true,
+  "observer_seconds": 120,
+  "observer_exit": 0,
+  "events": {
+    "touch_down": 44,
+    "touch_motion": 325,
+    "touch_up": 44,
+    "pen_proximity": 26,
+    "pen_tip": 52,
+    "pen_motion": 2492,
+    "pressure_min": 0.0,
+    "pressure_max": 0.9687
+  },
+  "pen_resolution_units_per_mm": 100,
+  "pen_ranges_preserved": true,
+  "home_screenshot_inspected": true,
+  "desktop_app_launch_verified": false,
+  "interactive_stability_passed": false,
+  "stall_observation": "SquashFS page fault/decompression waits with approximately 200 MiB available; root cause unproven",
+  "native_ssh_available": true,
+  "android_filesystems_mounted": false,
+  "raw_logs": "Ignored SSD work/hardware-test-08"
+}

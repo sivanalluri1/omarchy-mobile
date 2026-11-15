@@ -8,5 +8,10 @@
     "layout": {"left": [], "center": [], "right": []}
   },
   "idle": {"screensaver": 0, "lock": 0},
-  "plugins": []
+  "plugins": [
+    {"id": "omamobile.home"},
+    {"id": "omamobile.launcher"},
+    {"id": "omamobile.switcher"},
+    {"id": "omamobile.back"}
+  ]
 }

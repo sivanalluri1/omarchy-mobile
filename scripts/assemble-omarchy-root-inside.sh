@@ -34,6 +34,8 @@ ARCH
 # Runtime-only payloads, not a dependency-bypassed installation of the full desktop.
 bsdtar -xf /inputs/quickshell.pkg.tar.zst -C /target --exclude='.PKGINFO' --exclude='.BUILDINFO' --exclude='.MTREE' --exclude='.INSTALL'
 install -Dm755 /project/native/p613-omarchy-session /target/usr/local/bin/p613-omarchy-session
+install -Dm755 /project/native/p613-launch-desktop /target/usr/local/bin/p613-launch-desktop
+install -Dm755 /project/native/setup-p613-input.py /target/usr/local/libexec/p613/setup-input.py
 install -Dm644 /project/configs/hyprland-p613-omarchy.lua /target/etc/p613/hyprland-omarchy.lua
 install -Dm644 /project/configs/omarchy-p613-shell.json /target/etc/p613/shell.json
 chroot /target /usr/bin/qs --version

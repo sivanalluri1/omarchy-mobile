@@ -12,6 +12,9 @@ case "${1:-}" in
 esac
 [ -f /run/arch-root-mounted ] || exit 1
 [ -x /tmp/display-test ] || exit 1
+if [ "${P613_ENABLE_INPUT:-0}" = 1 ]; then
+  chroot /arch /usr/bin/python /usr/local/libexec/p613/setup-input.py >/input-setup.log 2>&1
+fi
 seat_pid=
 cleanup() {
   trap - EXIT INT TERM

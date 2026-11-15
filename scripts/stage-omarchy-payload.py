@@ -35,17 +35,19 @@ assert hashlib.sha256(archive.read_bytes()).hexdigest()==pin['archive_sha256']
 with tarfile.open(archive) as tar:
     prefix=tar.getmembers()[0].name.split('/')[0]+'/packages/omamobile-shell/'
     for member in tar.getmembers():
-        if member.isfile() and member.name.startswith(prefix+'plugins/omamobile.bar/'):
+        if member.isfile() and member.name.startswith(prefix+'plugins/'):
             relative=Path(member.name.removeprefix(prefix))
             assert '..' not in relative.parts
             dest=target/'usr/share/omamobile/shell'/relative
             dest.parent.mkdir(parents=True,exist_ok=True)
             dest.write_bytes(tar.extractfile(member).read())
             dest.chmod(0o644)
-    for name in ['omamobile-cell-watch','omamobile-call-watch']:
-        dest=target/'usr/bin'/name
-        dest.write_bytes(tar.extractfile(prefix+'bin/'+name).read())
-        dest.chmod(0o755)
+    for member in tar.getmembers():
+        if member.isfile() and member.name.startswith(prefix+'bin/'):
+            name=Path(member.name).name
+            dest=target/'usr/bin'/name
+            dest.write_bytes(tar.extractfile(member).read())
+            dest.chmod(0o755)
     license=target/'usr/share/licenses/omamobile-shell/LICENSE'
     license.parent.mkdir(parents=True,exist_ok=True)
     license.write_bytes(tar.extractfile(prefix+'LICENSE').read())
@@ -60,3 +62,5 @@ shutil.copy2(source,dest)
 shell=target/'usr/share/omarchy/shell'
 (shell/'shell.qml').replace(shell/'p613-upstream-shell.qml')
 shutil.copy2(project/'configs/p613-shell-bootstrap.qml',shell/'shell.qml')
+
+subprocess.run(['patch','--batch','--fuzz=0','-p1','-d',str(target),'-i',str(project/'patches/omamobile/0001-p613-direct-desktop-launch.patch')],check=True)

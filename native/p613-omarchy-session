@@ -9,6 +9,8 @@ export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
 mkdir -p "$HOME/.config/omarchy/plugins" "$HOME/.local/state/omarchy/current" "$HOME/.local/state/omarchy/toggles"
 touch "$HOME/.local/state/omarchy/toggles/background-intros-off"
 cp /etc/p613/shell.json "$HOME/.config/omarchy/shell.json"
-ln -sfn /usr/share/omamobile/shell/plugins/omamobile.bar "$HOME/.config/omarchy/plugins/omamobile.bar"
+for plugin in /usr/share/omamobile/shell/plugins/omamobile.*; do
+  ln -sfn "$plugin" "$HOME/.config/omarchy/plugins/${plugin##*/}"
+done
 ln -sfn "$OMARCHY_PATH/themes/tokyo-night" "$HOME/.local/state/omarchy/current/theme"
 exec /usr/bin/qs -n -p "$OMARCHY_PATH/shell/shell.qml" > /tmp/omarchy-shell.log 2>&1
