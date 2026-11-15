@@ -8,7 +8,7 @@ pacman -Sy --noconfirm --needed archlinuxarm-keyring archlinux-keyring
 if pacman -Q linux-aarch64 >/dev/null 2>&1; then
   pacman -Rdd --noconfirm linux-aarch64
 fi
-pacman -Syu --noconfirm --needed hyprland dbus seatd foot wayland-utils procps-ng
+pacman -Syu --noconfirm --needed hyprland dbus seatd foot wayland-utils procps-ng ttf-dejavu vulkan-icd-loader
 if ! id omarchy >/dev/null 2>&1; then
   if id alarm >/dev/null 2>&1 && [ "$(id -u alarm)" = 1000 ]; then
     usermod -l omarchy -d /home/omarchy -m alarm

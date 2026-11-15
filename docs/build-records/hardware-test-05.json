@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "model": "SM-P613",
+  "step": 9,
+  "result": "partial; recovery pending",
+  "candidate_sha256": "71543681fdd66b0d5eab02065d5a61f10c808574ec6172991f6b0e3a9e5f0a70",
+  "candidate_boot_readback_matched": true,
+  "kernel_config_delta_from_step8": {
+    "CONFIG_BLK_DEV_NBD": [
+      "n",
+      "y"
+    ]
+  },
+  "first_nbd_connection": {
+    "passed": true,
+    "server_bound_to": "192.168.77.2:10809",
+    "server_read_only": true,
+    "device_read_only_flag_verified": true,
+    "mount_options": "ro,noload",
+    "image_logical_bytes": 17179869184
+  },
+  "native_arch_commands": {
+    "passed": true,
+    "glibc": "2.43",
+    "systemd_package_only": "262.2-1",
+    "hyprland_package": "0.57.2-1",
+    "aquamarine_package": "0.16.0-1",
+    "desktop_uid": 1000,
+    "pid1_remained_busybox_ram_init": true
+  },
+  "graphics_probe_1": "Stopped cleanly: Vulkan loader missing",
+  "loader_fix": "Signed Arch vulkan-icd-loader package installed offline after unmount/export stop",
+  "graphics_probe_2_started": false,
+  "failure": "USB network and SSH became unresponsive during subsequent NBD connection/mount attempt in the same native boot",
+  "root_cause": "unknown; no saved kernel log retrieved yet",
+  "android_filesystems_mounted": false,
+  "original_android_boot_restored_after_test": false,
+  "recovery_status": "Awaiting physical Download Mode; original BOOT backup ready",
+  "containment": "Refuse second NBD connection in one native boot until diagnosed",
+  "known_systemd_support_gap": "Current systemd requires kernel >=5.10; kernel here is 4.14",
+  "raw_logs": "Ignored SSD work/hardware-test-05",
+  "root_image_sha256_after_loader_fix": "83c99eb7725949a137cac8087064a827b8ac82734a46048c45a6b595b296158e"
+}

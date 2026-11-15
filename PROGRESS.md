@@ -1,6 +1,6 @@
 # Progress
 
-Status: step 8 graphics proof passed. Hardware compute, triangle readback, GBM sharing and continuously animated Weston output verified. Step 9 (compatible Arch/Hyprland/Omarchy userspace) is next.
+Status: step 9 in progress. First native Arch read-only SSD-root connection and commands passed. A subsequent NBD connection/mount attempt lost USB/SSH responsiveness; physical Download Mode recovery is pending. Step 8 graphics proof remains valid.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -131,10 +131,17 @@ After hardware test 04, the original BOOT was restored. Android boot completion 
 - [x] Upgrade/install signature-checked Arch packages, including Hyprland 0.57.2 and Aquamarine 0.16.0.
 - [x] Verify Arch commands and package inventory inside the ARM64 build container.
 - [x] Build/inspect NBD-enabled kernel and independently packaged BOOT candidate.
-- [ ] Prove read-only USB/SSD root access and Arch commands on the tablet.
+- [x] Prove initial read-only USB/SSD root access and Arch commands on the tablet.
 - [ ] Prove non-root Hyprland with the working KGSL/SDE Mesa stack.
 - [ ] Integrate portable Omarchy Mobile components and resolve unsupported services.
 
 Current systemd 262.2 does not support this 4.14 kernel. BusyBox remains PID 1 during userspace testing; no full supported Arch/systemd/Omarchy boot is claimed. Details: docs/arch-userspace.md; initial evidence: docs/build-records/arch-bootstrap.json. No step 9 BOOT image has been flashed at this checkpoint.
 
 Step 9 offline checkpoint: NBD-only config delta verified; new BOOT candidate structurally validated and previous candidate retained. Arch filesystem/NBD-server checks and non-root Hyprland config validation passed. The hardware test remains pending. Evidence: docs/build-records/arch-offline-validation.json.
+
+
+### Step 9 hardware test 05 — partial success, recovery pending
+
+The NBD-enabled BOOT booted and matched its readback hash. The initial read-only NBD/ext4 mount worked; native Arch glibc 2.43, bash, pacman queries and UID 1000 user were verified. The first graphics probe exited for a missing Vulkan loader. That signed package was added offline after unmounting/stopping the export. The subsequent NBD connection/mount attempt in the same boot lost USB/SSH responsiveness before another GPU probe started. Root cause is unknown. The mount helper now refuses a second connection per boot as containment, not as a proven fix.
+
+Android filesystems were not mounted. Original BOOT has NOT yet been restored after test 05: physical Download Mode is required, and the user has been given the button sequence. Keep step 9 open. Evidence: docs/build-records/hardware-test-05.json. Next recovery work: restore original BOOT, verify Android and all four original hashes, and inspect pstore/last-kernel logs privately before further hardware experiments.

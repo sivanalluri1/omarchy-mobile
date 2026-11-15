@@ -42,3 +42,12 @@ The NBD kernel built from unchanged sources and differs from the step 8 kernel c
 The signed Arch root upgrade, ext4 filesystem check and read-only NBD server test passed. Hyprland's minimal Lua profile passed its non-root `--verify-config` check in the build container. The custom Mesa prefix resolves libc/libstdc++ and other core dependencies from Arch. One leaf compatibility library, libdisplay-info.so.2 from the already-validated Debian graphics runtime, is required alongside Arch's .so.3; it is private to the Mesa prefix and recorded by hash. No older libc or C++ runtime is injected.
 
 The desktop user has locked password authentication. PID 1/SSH remain in RAM; read-only NBD root, RAM session directories, a root seatd broker and a non-root D-Bus/Hyprland session form the hardware experiment. These are offline checks, not yet tablet proof at this checkpoint.
+
+
+## Hardware test 05 checkpoint — transport failure
+
+The new kernel booted, and its BOOT readback matched the candidate. The first read-only NBD connection and ext4 mount succeeded. On the tablet, Arch glibc 2.43, bash, pacman package queries and the UID 1000 desktop user worked. Systemd was queried as a package, not run as PID 1.
+
+The first graphics probe stopped cleanly because the Vulkan loader package was missing. The image was unmounted/disconnected, its export stopped, and the signed Arch vulkan-icd-loader package was installed offline. On the subsequent connection/mount attempt in the same native boot, USB networking and SSH stopped responding. The second GPU probe had **not** started. The cause is not yet established; this is not evidence that the Arch GPU renderer failed. Physical Download Mode recovery and original-BOOT restoration are required before further hardware work.
+
+Until diagnosed, the mount helper refuses a second NBD connection in the same boot. Exported image changes must be made between native boots. This is a containment measure, not a proven fix. The image is exported read-only and mounted ro,noload; Android filesystems were not mounted. The existing recovery init stays separate from Arch userspace, but a kernel-level stall can still take USB/SSH down, as observed here.

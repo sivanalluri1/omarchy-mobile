@@ -267,6 +267,7 @@ util-linux 2.42.4-1
 util-linux-libs 2.42.4-1
 vim 9.2.1178-1
 vim-runtime 9.2.1178-1
+vulkan-icd-loader 1.4.363.0-1
 wayland 1.26.0-1
 wayland-protocols 1.50-1
 wayland-utils 1.3.0-1

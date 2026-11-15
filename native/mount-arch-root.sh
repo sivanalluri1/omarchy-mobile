@@ -6,6 +6,10 @@ case "$1" in *[!0-9a-f]*|'') echo 'Invalid export name' >&2; exit 2;; esac
 [ "${#1}" -eq 48 ] || exit 2
 [ -b /dev/nbd0 ] || { echo 'NBD kernel support is required' >&2; exit 1; }
 [ ! -e /run/arch-root-mounted ] || exit 1
+# Test 05 lost kernel/USB responsiveness on reconnect. Until diagnosed, never
+# reconnect or change the exported filesystem within one native boot.
+[ ! -e /run/arch-root-connection-used ] || { echo 'Fresh native boot required before another NBD connection' >&2; exit 1; }
+touch /run/arch-root-connection-used
 mkdir -p /arch
 nbd-client -N "$1" -t 30 192.168.77.2 10809 /dev/nbd0
 [ "$(blockdev --getro /dev/nbd0)" = 1 ] || { echo 'Export is not read-only' >&2; nbd-client -d /dev/nbd0; exit 1; }
