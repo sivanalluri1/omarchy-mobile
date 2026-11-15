@@ -1,0 +1,11 @@
+{
+  "bytes": 344121344,
+  "sha256": "31507452a40b4f6656767cb69b908a28d2de65561874b1518847338729fab7ca",
+  "compression": "xz",
+  "block_size": 1048576,
+  "generic_firmware_packages_removed": true,
+  "package_cache_removed": true,
+  "device_firmware_validated_and_included": true,
+  "metadata_preserved": true,
+  "tablet_tested": false
+}

@@ -6,8 +6,12 @@ source "$root/scripts/storage.sh"
 require_ssd_storage
 mode=${1:-configure}
 variant=${2:-baseline}
-case "$variant" in baseline|minimal|userspace) ;; *) echo "Unknown build variant" >&2; exit 2;; esac
+case "$variant" in baseline|minimal|userspace|ram-userspace) ;; *) echo "Unknown build variant" >&2; exit 2;; esac
 output="$OMARCHY_LINUX_ROOT/build/kernel-$variant"
+if [ "$variant" = ram-userspace ] && [ ! -e "$output" ]; then
+  # Reuse the completed build cache in a separate APFS clone; preserve test 05.
+  cp -cpR "$OMARCHY_LINUX_ROOT/build/kernel-userspace" "$output"
+fi
 mkdir -p "$output"
 case "$mode" in configure|build) ;; *) echo 'Usage: kernel-build.sh configure|build' >&2; exit 2;; esac
 expected=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["kernel"]["revision"])' "$root/sources.lock.json")
@@ -28,11 +32,14 @@ args=(O=/out ARCH=arm64 DTC_EXT=/usr/bin/dtc LLVM=1 LLVM_IAS=1 CROSS_COMPILE=aar
 if [ "$MODE" = configure ]; then
   make "${args[@]}" vendor/atoll-perf_defconfig
   (cd /out && bash /checkout/kernel/scripts/kconfig/merge_config.sh -m -O /out /out/.config /checkout/kernel/arch/arm64/configs/vendor/gta4xlve.config)
-  if [ "$VARIANT" = minimal ] || [ "$VARIANT" = userspace ]; then
+  if [ "$VARIANT" = minimal ] || [ "$VARIANT" = userspace ] || [ "$VARIANT" = ram-userspace ]; then
     (cd /out && bash /checkout/kernel/scripts/kconfig/merge_config.sh -m -O /out /out/.config /configs/minimal-linux.fragment)
   fi
   if [ "$VARIANT" = userspace ]; then
     (cd /out && bash /checkout/kernel/scripts/kconfig/merge_config.sh -m -O /out /out/.config /configs/userspace-linux.fragment)
+  fi
+  if [ "$VARIANT" = ram-userspace ]; then
+    (cd /out && bash /checkout/kernel/scripts/kconfig/merge_config.sh -m -O /out /out/.config /configs/ram-userspace.fragment)
   fi
   make "${args[@]}" olddefconfig
 else

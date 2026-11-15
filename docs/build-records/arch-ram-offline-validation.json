@@ -1,0 +1,120 @@
+{
+  "date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "kernel_config_delta_from_step8": {
+    "CONFIG_SQUASHFS": [
+      "n",
+      "y"
+    ],
+    "CONFIG_SQUASHFS_4K_DEVBLK_SIZE": [
+      null,
+      "n"
+    ],
+    "CONFIG_SQUASHFS_DECOMP_MULTI": [
+      null,
+      "n"
+    ],
+    "CONFIG_SQUASHFS_DECOMP_MULTI_PERCPU": [
+      null,
+      "n"
+    ],
+    "CONFIG_SQUASHFS_DECOMP_SINGLE": [
+      null,
+      "y"
+    ],
+    "CONFIG_SQUASHFS_EMBEDDED": [
+      null,
+      "n"
+    ],
+    "CONFIG_SQUASHFS_FILE_CACHE": [
+      null,
+      "y"
+    ],
+    "CONFIG_SQUASHFS_FILE_DIRECT": [
+      null,
+      "n"
+    ],
+    "CONFIG_SQUASHFS_FRAGMENT_CACHE_SIZE": [
+      null,
+      "3"
+    ],
+    "CONFIG_SQUASHFS_LZ4": [
+      null,
+      "n"
+    ],
+    "CONFIG_SQUASHFS_LZO": [
+      null,
+      "n"
+    ],
+    "CONFIG_SQUASHFS_XATTR": [
+      null,
+      "y"
+    ],
+    "CONFIG_SQUASHFS_XZ": [
+      null,
+      "y"
+    ],
+    "CONFIG_SQUASHFS_ZLIB": [
+      null,
+      "y"
+    ],
+    "CONFIG_SQUASHFS_ZSTD": [
+      null,
+      "n"
+    ],
+    "CONFIG_XZ_DEC": [
+      "n",
+      "y"
+    ],
+    "CONFIG_XZ_DEC_ARM": [
+      null,
+      "y"
+    ],
+    "CONFIG_XZ_DEC_ARMTHUMB": [
+      null,
+      "y"
+    ],
+    "CONFIG_XZ_DEC_BCJ": [
+      "n",
+      "y"
+    ],
+    "CONFIG_XZ_DEC_IA64": [
+      null,
+      "y"
+    ],
+    "CONFIG_XZ_DEC_POWERPC": [
+      null,
+      "y"
+    ],
+    "CONFIG_XZ_DEC_SPARC": [
+      null,
+      "y"
+    ],
+    "CONFIG_XZ_DEC_TEST": [
+      null,
+      "n"
+    ],
+    "CONFIG_XZ_DEC_X86": [
+      null,
+      "y"
+    ]
+  },
+  "nbd_enabled": false,
+  "root_image": {
+    "bytes": 344121344,
+    "sha256": "31507452a40b4f6656767cb69b908a28d2de65561874b1518847338729fab7ca",
+    "compression": "xz",
+    "block_size": 1048576,
+    "generic_firmware_packages_removed": true,
+    "package_cache_removed": true,
+    "device_firmware_validated_and_included": true,
+    "metadata_preserved": true,
+    "tablet_tested": false
+  },
+  "squashfs_loop_mount_in_container": "passed",
+  "arch_commands_in_squashfs_chroot": "passed",
+  "nonroot_hyprland_config": "passed; config-only IPC socket warning observed",
+  "nonroot_pty_test": "passed",
+  "graphics_dependency_resolution": "passed",
+  "tablet_tested": false
+}

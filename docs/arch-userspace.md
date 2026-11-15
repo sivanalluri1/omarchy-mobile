@@ -53,3 +53,28 @@ The first graphics probe stopped cleanly because the Vulkan loader package was m
 Until diagnosed, the mount helper refuses a second NBD connection in the same boot. Exported image changes must be made between native boots. This is a containment measure, not a proven fix. The image is exported read-only and mounted ro,noload; Android filesystems were not mounted. The existing recovery init stays separate from Arch userspace, but a kernel-level stall can still take USB/SSH down, as observed here.
 
 Test 05 recovery is complete: original BOOT and Android startup restored, all four original partition hashes matched, and the export stopped. Saved pstore is corrupted/incomplete and cannot establish the stall cause. Further graphics work will use a compressed RAM-backed root, avoiding NBD. The existing NBD helpers remain experimental and are not the next hardware path.
+
+
+## RAM-root replacement — offline validation
+
+A separate APFS-cloned preparation image retains Arch, Hyprland and the verified Mesa stack, removes generic firmware packages and package caches, and adds the six hash-verified tablet GPU firmware files to both expected search paths. The original NBD image is retained unchanged. SquashFS/XZ output is 344,121,344 bytes (about 328 MiB), below the 768 MiB budget. SHA256: `31507452a40b4f6656767cb69b908a28d2de65561874b1518847338729fab7ca`.
+
+The replacement kernel enables SquashFS/XZ/xattrs and disables NBD. Its BOOT candidate is separate from both previous images: SHA256 `e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6`. Installed DTB, header and AVB metadata remain preserved.
+
+The compressed image mounted through a read-only loop device in the Linux build container. Arch commands, non-root Hyprland config parsing, graphics-library resolution and a real non-root pseudo-terminal test passed. Config-only verification logged an IPC socket warning; it is not treated as a running compositor. Device firmware is included privately; the compressed image is not published.
+
+The native helper will verify the RAM file hash, attach a read-only loop device, mount SquashFS, and provide RAM /run, /tmp and home directories. devpts and shared-memory mounts are explicitly bound into the chroot. No disk is served over USB, no NBD driver is enabled, and Android filesystems are not used. This removes the failed transport from the test path; it does not establish the old stall's cause or solve the systemd support gap.
+
+Build/validation commands:
+
+```sh
+docker build -t omarchy-p613-ram-root:debian13 -f buildenv/ram-root.Dockerfile .
+bash scripts/build-arch-ram-root.sh prepare
+bash scripts/validate-arch-ram-root.sh
+bash scripts/kernel-build.sh configure ram-userspace
+bash scripts/kernel-build.sh build ram-userspace
+# Inspect kernel outputs, then:
+python3 scripts/package-boot-experiment.py ram-userspace
+```
+
+`prepare` refuses an existing preparation image; `resume` continues an incomplete build before a compressed artifact exists. All image paths are developer files on the SSD, not physical disks. Offline evidence: `build-records/arch-ram-offline-validation.json`.

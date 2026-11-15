@@ -147,3 +147,14 @@ The NBD-enabled BOOT booted and matched its readback hash. The initial read-only
 Android filesystems were not mounted. Original BOOT has NOT yet been restored after test 05: physical Download Mode is required, and the user has been given the button sequence. Keep step 9 open. Evidence: docs/build-records/hardware-test-05.json. Next recovery work: restore original BOOT, verify Android and all four original hashes, and inspect pstore/last-kernel logs privately before further hardware experiments.
 
 Test 05 recovery completed: user entered Download Mode; original BOOT restored, Android boot completion/unlocked state and all four original partition hashes verified. One pstore console was saved privately but is corrupted/incomplete and does not establish the stall cause. The NBD export is stopped. Next approach: prepare a compressed RAM-only Arch root while Android stays running; retain NBD evidence as an incomplete transport experiment.
+
+
+### Step 9 — RAM-root offline checkpoint
+
+- [x] Preserve the original NBD image and build a separate compressed RAM root.
+- [x] Trim generic firmware/cache; include privately captured, hash-verified tablet GPU firmware.
+- [x] Build the 328 MiB SquashFS/XZ image and pass read-only loop/chroot, non-root PTY/config and library checks.
+- [x] Build and structurally validate a separate SquashFS kernel/BOOT candidate with NBD disabled.
+- [ ] Run the RAM-root Arch/Hyprland test on the tablet.
+
+Android is currently restored and verified. The old NBD stall remains undiagnosed; it is removed from the new experiment path. Current systemd remains unsupported on kernel 4.14. Evidence: docs/build-records/arch-ram-offline-validation.json.

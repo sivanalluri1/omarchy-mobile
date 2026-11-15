@@ -13,3 +13,5 @@ __pycache__/
 storage.local.env
 work.internal/
 /work
+
+*.squashfs

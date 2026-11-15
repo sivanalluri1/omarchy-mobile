@@ -36,7 +36,10 @@ while [ ! -S /arch/run/seatd.sock ]; do
   i=$((i+1)); [ "$i" -lt 20 ] || exit 1
   sleep 1
 done
+root_label="read-only developer image"
+if [ -f /run/arch-root-transport ]; then root_label=$(cat /run/arch-root-transport); fi
 chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env \
+  P613_ROOT_LABEL="$root_label" \
   HOME=/home/omarchy USER=omarchy LOGNAME=omarchy TZ=America/Phoenix \
   XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=Hyprland \
   LD_LIBRARY_PATH=/opt/p613-gpu/lib GBM_BACKENDS_PATH=/opt/p613-gpu/lib/gbm \
