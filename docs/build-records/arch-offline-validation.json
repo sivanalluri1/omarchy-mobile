@@ -1,0 +1,36 @@
+{
+  "date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "kernel_effective_config_changes_from_minimal": {
+    "CONFIG_BLK_DEV_NBD": [
+      "n",
+      "y"
+    ]
+  },
+  "kernel_build_passed": true,
+  "candidate": {
+    "candidate_bytes": 100663296,
+    "candidate_sha256": "71543681fdd66b0d5eab02065d5a61f10c808574ec6172991f6b0e3a9e5f0a70",
+    "header_version": 2,
+    "page_size": 4096,
+    "template_header_addresses_os_fields_cmdline_preserved": true,
+    "installed_dtb_preserved": true,
+    "avb_algorithm": "NONE",
+    "avb_flags": 3,
+    "planned_partition_change": [
+      "BOOT"
+    ],
+    "flashed": false,
+    "hardware_boot_tested": false
+  },
+  "root_image_filesystem_check": "e2fsck -fn passed",
+  "nbd_server_offline_test": {
+    "passed": true,
+    "read_only": true,
+    "logical_bytes": 17179869184
+  },
+  "hyprland_config_validation_as_nonroot_user": "passed",
+  "custom_mesa_dependencies": "resolved using Arch core libraries plus private libdisplay-info.so.2 compatibility library",
+  "compat_library_sha256": "f0eb42a867019d823099d5f50b943c54e47a06dfe0729ebc83ead2271ffbc49d",
+  "tablet_tested": false
+}

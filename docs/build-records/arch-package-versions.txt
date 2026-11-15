@@ -261,6 +261,7 @@ tar 1.35-5
 tdb 1.4.15-2
 tomlplusplus 3.4.0-3
 tpm2-tss 4.2.1-2
+ttf-dejavu 2.37+18+g9b5d1b2f-8
 tzdata 2026f-1
 util-linux 2.42.4-1
 util-linux-libs 2.42.4-1
@@ -287,19 +288,3 @@ xorgproto 2026.1-1
 xz 5.8.4-1
 zlib 1:1.4-1
 zstd 1.5.7-3
-ldd (GNU libc) 2.43
-gpgconf: Fatal: failed to open '/dev/null': No such file or directory
-gpgconf: error running '/usr/bin/gpg-connect-agent': exit status 2
-gpgconf: error running '/usr/bin/gpg-connect-agent KILLDIRMNGR': General error
-gpgconf: Fatal: failed to open '/dev/null': No such file or directory
-gpgconf: error running '/usr/bin/gpg-connect-agent': exit status 2
-gpgconf: error running '/usr/bin/gpg-connect-agent scd killtpm2cd': General error
-gpgconf: Fatal: failed to open '/dev/null': No such file or directory
-gpgconf: error running '/usr/bin/gpg-connect-agent': exit status 2
-gpgconf: error running '/usr/bin/gpg-connect-agent scd killscd': General error
-gpgconf: Fatal: failed to open '/dev/null': No such file or directory
-gpgconf: error running '/usr/bin/gpg-connect-agent': exit status 2
-gpgconf: error running '/usr/bin/gpg-connect-agent KILLAGENT': General error
-gpgconf: Fatal: failed to open '/dev/null': No such file or directory
-gpgconf: error running '/usr/bin/gpg-connect-agent': exit status 2
-gpgconf: error running '/usr/bin/gpg-connect-agent KILLKEYBOXD': General error

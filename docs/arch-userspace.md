@@ -24,8 +24,8 @@ The generic AArch64 archive was obtained using valid HTTPS from the fixed Arch L
 
 ## Next gates
 
-- [ ] Build a metadata-correct Arch root image and verify signed package installation.
-- [ ] Build and inspect the NBD-enabled kernel and a separately named BOOT candidate.
+- [x] Build a metadata-correct Arch root image and verify signed package installation.
+- [x] Build and inspect the NBD-enabled kernel and a separately named BOOT candidate.
 - [ ] Prove read-only SSD-root access and Arch commands on the actual 4.14 tablet.
 - [ ] Reuse the patched KGSL/SDE Mesa stack with Arch's libraries (do not inject the old Debian libc/libstdc++ runtime).
 - [ ] Prove Hyprland on the native panel, with a non-root desktop session.
@@ -33,3 +33,12 @@ The generic AArch64 archive was obtained using valid HTTPS from the fixed Arch L
 - [ ] Resolve the kernel/systemd support gap before calling this a complete supported Omarchy installation.
 
 Completed sub-gates will be checked off only with build or device evidence.
+
+
+## Offline userspace checkpoint
+
+The NBD kernel built from unchanged sources and differs from the step 8 kernel configuration only by CONFIG_BLK_DEV_NBD=y. A separately named 96 MiB BOOT candidate preserves the installed DTB, header and AVB policy. SHA256: `71543681fdd66b0d5eab02065d5a61f10c808574ec6172991f6b0e3a9e5f0a70`. The original step 8 image is retained separately.
+
+The signed Arch root upgrade, ext4 filesystem check and read-only NBD server test passed. Hyprland's minimal Lua profile passed its non-root `--verify-config` check in the build container. The custom Mesa prefix resolves libc/libstdc++ and other core dependencies from Arch. One leaf compatibility library, libdisplay-info.so.2 from the already-validated Debian graphics runtime, is required alongside Arch's .so.3; it is private to the Mesa prefix and recorded by hash. No older libc or C++ runtime is injected.
+
+The desktop user has locked password authentication. PID 1/SSH remain in RAM; read-only NBD root, RAM session directories, a root seatd broker and a non-root D-Bus/Hyprland session form the hardware experiment. These are offline checks, not yet tablet proof at this checkpoint.

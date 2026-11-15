@@ -130,9 +130,11 @@ After hardware test 04, the original BOOT was restored. Android boot completion 
 - [x] Build a metadata-correct SSD-backed ext4 root image; disable ext4 features too new for 4.14.
 - [x] Upgrade/install signature-checked Arch packages, including Hyprland 0.57.2 and Aquamarine 0.16.0.
 - [x] Verify Arch commands and package inventory inside the ARM64 build container.
-- [ ] Build/inspect NBD-enabled kernel and independently packaged BOOT candidate.
+- [x] Build/inspect NBD-enabled kernel and independently packaged BOOT candidate.
 - [ ] Prove read-only USB/SSD root access and Arch commands on the tablet.
 - [ ] Prove non-root Hyprland with the working KGSL/SDE Mesa stack.
 - [ ] Integrate portable Omarchy Mobile components and resolve unsupported services.
 
 Current systemd 262.2 does not support this 4.14 kernel. BusyBox remains PID 1 during userspace testing; no full supported Arch/systemd/Omarchy boot is claimed. Details: docs/arch-userspace.md; initial evidence: docs/build-records/arch-bootstrap.json. No step 9 BOOT image has been flashed at this checkpoint.
+
+Step 9 offline checkpoint: NBD-only config delta verified; new BOOT candidate structurally validated and previous candidate retained. Arch filesystem/NBD-server checks and non-root Hyprland config validation passed. The hardware test remains pending. Evidence: docs/build-records/arch-offline-validation.json.

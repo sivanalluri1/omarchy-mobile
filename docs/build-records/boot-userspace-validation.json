@@ -1,0 +1,15 @@
+{
+  "candidate_bytes": 100663296,
+  "candidate_sha256": "71543681fdd66b0d5eab02065d5a61f10c808574ec6172991f6b0e3a9e5f0a70",
+  "header_version": 2,
+  "page_size": 4096,
+  "template_header_addresses_os_fields_cmdline_preserved": true,
+  "installed_dtb_preserved": true,
+  "avb_algorithm": "NONE",
+  "avb_flags": 3,
+  "planned_partition_change": [
+    "BOOT"
+  ],
+  "flashed": false,
+  "hardware_boot_tested": false
+}

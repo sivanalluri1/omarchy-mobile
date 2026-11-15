@@ -1,0 +1,12 @@
+#!/bin/bash
+set -eu
+printf '\033[2J\033[H\033[1;36mNative Arch Linux ARM\033[0m\n\n'
+printf 'Samsung Galaxy Tab S6 Lite 2022 / SM-P613\n'
+printf 'Hyprland desktop validation\n\n'
+uname -r
+pacman -Q glibc hyprland aquamarine
+printf '\nRoot filesystem: SSD over USB, read-only\nSession data: RAM\n\n'
+while true; do
+  printf '\rRunning: %s   ' "$(date '+%H:%M:%S')"
+  sleep 1
+done
