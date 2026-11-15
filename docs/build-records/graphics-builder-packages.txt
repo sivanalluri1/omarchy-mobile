@@ -1,0 +1,6 @@
+gcc	4:14.2.0-1
+libc6-dev:arm64	2.41-12+deb13u4
+libdrm-dev:arm64	2.4.124-2
+libvulkan-dev:arm64	1.4.309.0-1
+meson	1.7.0-1
+vulkan-tools	1.4.304.0+dfsg1-1

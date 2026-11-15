@@ -1,6 +1,6 @@
 # Progress
 
-Status: first native Linux BOOT-only test passed; Android restored and verified. Step 8 graphics bring-up is next.
+Status: native display colour-bar test passed with user confirmation. Step 8 remains open for GPU rendering and accelerated Wayland.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -75,3 +75,16 @@ BOOT-only candidate generated at 96 MiB and inspected. AOSP tools verified its A
 User authorized the first BOOT-only test and restoration. Candidate flashed and booted native Linux; on-device BOOT hash matched the candidate. USB NCM, DHCP and pinned-key SSH worked. PID 1 was the RAM-only /init and no Android filesystem was mounted. Recovery/DTBO/vbmeta remained unchanged. Re-entered Download Mode over native SSH, restored the exact original BOOT, and verified Android boot completion, USB ADB and all four original partition hashes. See docs/hardware-test-01.md and docs/build-records/hardware-test-01.json.
 
 Step 8 remains incomplete: DRM/KGSL nodes and a connected DSI connector were observed, but no visible display or GPU acceleration test has run. Tablet is currently back in its original rooted LineageOS installation. No further flash is running.
+
+
+## Step 8 — display milestone
+
+- [x] Build static ARM64 DRM/KGSL enumeration and bounded display tools.
+- [x] Query real display modes and Adreno device information under native Linux.
+- [x] Display CPU-rendered colour bars at 1200 × 2000, 60 Hz; user confirmed visible output.
+- [ ] Prove GPU rendering through Turnip/KGSL without software fallback.
+- [ ] Prove GPU/display buffer sharing and accelerated Wayland.
+
+The known-good BOOT candidate was reused. Firmware was copied from Android into the native RAM rootfs; no Android filesystem was mounted. DSI modesetting succeeded; KGSL device query succeeded. Evidence and source/build commands: docs/graphics-bringup.md and docs/build-records/hardware-test-02.json. Full step 8 is not yet complete.
+
+After test 02, the exact original BOOT was restored. Android boot completion and unlocked state were verified; BOOT/recovery/DTBO/vbmeta all match their preflight hashes. No hardware test remains running.

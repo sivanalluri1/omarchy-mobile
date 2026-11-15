@@ -1,0 +1,53 @@
+{
+  "test_date": "2026-11-14",
+  "timezone": "America/Phoenix",
+  "model": "SM-P613",
+  "milestone": "native CPU-rendered display",
+  "result": "passed",
+  "candidate_sha256": "9b6355d7a4380b418d7491219c19dc54051a008e6ab1544fe3df5431d6a93be5",
+  "candidate_boot_readback_matches": true,
+  "drm_driver": "msm_drm 1.2.0",
+  "dumb_buffer_support": true,
+  "prime_capability_bits": 3,
+  "dsi": {
+    "connector": 28,
+    "encoder": 27,
+    "crtc": 100,
+    "width": 1200,
+    "height": 2000,
+    "refresh_hz": 60,
+    "pixel_clock_khz": 157996
+  },
+  "kgsl": {
+    "chip_id": "0x06010800",
+    "gmem_bytes": 524288,
+    "query_succeeded": true
+  },
+  "display": {
+    "format": "XRGB8888",
+    "rendering": "CPU dumb buffer",
+    "legacy_modeset_succeeded": true,
+    "user_confirmed_visible_colour_bars": true,
+    "maximum_duration_seconds": 120,
+    "stopped_after_confirmation": true,
+    "cleanup_log_errors": false,
+    "background_exit_status_captured": false
+  },
+  "probe_sha256": "04a67235e6f47466eaef582c456db6cfec7f416b6d0ed10f9742bcf3a2b14dcd",
+  "display_test_sha256": "c969973cfa7605d5c892b3397b3c208ed6e237fe1fe58cd9f59908fd1014f9f5",
+  "android_filesystems_mounted_by_experiment": false,
+  "recovery_dtbo_vbmeta_unchanged_in_native_linux": true,
+  "gpu_rendering_verified": false,
+  "accelerated_wayland_verified": false,
+  "raw_logs_location": "Ignored SSD work/hardware-test-02; not published",
+  "original_boot_restored": true,
+  "android_boot_completed_after_restore": true,
+  "bootloader_remains_unlocked": true,
+  "all_four_restored_hashes_match_preflight": true,
+  "restored_partition_hashes": {
+    "boot": "15966f29996c7ab4c299d7b95f7a1e3ae04ef9ea788e4d11fc66f96eec2753ed",
+    "recovery": "26aacf89678972f4d5b967cf027fc3ccb342213ab56966462bcb24219ec748c5",
+    "dtbo": "11f8330c6fa619bc5871c68211260bded38090060a56b51ab485f183a3dc1c7d",
+    "vbmeta": "4f79fd04727c6ac30619acb1fad20ae8e18e2ec908198021a195eb83cd398138"
+  }
+}

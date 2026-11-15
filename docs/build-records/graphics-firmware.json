@@ -1,0 +1,38 @@
+[
+  {
+    "name": "a630_sqe.fw",
+    "source": "/vendor/firmware/a630_sqe.fw",
+    "bytes": 32304,
+    "sha256": "a0e1b583f620fabe32729ce367959d1960638663244d7d0cfc21b9a5215a018b"
+  },
+  {
+    "name": "a618_gmu.bin",
+    "source": "/vendor/firmware/a618_gmu.bin",
+    "bytes": 32768,
+    "sha256": "9ef10b2b179054fb57af25008e29feb24300c2eaaeabf907bd741786bbacbf2e"
+  },
+  {
+    "name": "a615_zap.mdt",
+    "source": "/vendor/firmware_mnt/image/a615_zap.mdt",
+    "bytes": 6860,
+    "sha256": "6580bc90786aadfc0726410e47ec319a0e4ef562f68268ad3eb6396322ee67bd"
+  },
+  {
+    "name": "a615_zap.b00",
+    "source": "/vendor/firmware_mnt/image/a615_zap.b00",
+    "bytes": 148,
+    "sha256": "ee96dc28c5ff4259f50fbcd068389de56a8f233a1f150976a101fed5d1d279fe"
+  },
+  {
+    "name": "a615_zap.b01",
+    "source": "/vendor/firmware_mnt/image/a615_zap.b01",
+    "bytes": 6712,
+    "sha256": "12741a1de0b1dab1e4a65ba4906966f1233d9ab9627255fa270f6e33c05827f4"
+  },
+  {
+    "name": "a615_zap.b02",
+    "source": "/vendor/firmware_mnt/image/a615_zap.b02",
+    "bytes": 1984,
+    "sha256": "61be42f041eb6051eb9f56beb1f98ed97ab21faf2ef2df6b9151ba1a46aae878"
+  }
+]
