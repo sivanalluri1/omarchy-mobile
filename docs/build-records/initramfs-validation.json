@@ -1,0 +1,23 @@
+{
+  "archive_bytes": 2953718,
+  "archive_sha256": "02717218dfeb24470dcb4378ca92596ac1d21b3cb8daeb506deae532d8965b30",
+  "cpio_entries": 311,
+  "all_entries_uid_gid_zero": true,
+  "init_executable": true,
+  "console_device_node_present": true,
+  "client_private_key_excluded": true,
+  "builder_image_id": "sha256:0d87c4c5ce871db4058e5deaeab8890b2a810a285c88050ee694a403ba76992e",
+  "packages": [
+    "busybox-static\t1:1.37.0-6+b9",
+    "dropbear-bin\t2025.89-1~deb13u1",
+    "libc6:arm64\t2.41-12+deb13u4"
+  ],
+  "checks": [
+    "Shell syntax in chroot",
+    "Native ARM64 BusyBox execution",
+    "Public-key SSH login and remote command through rootfs Dropbear over isolated container loopback",
+    "Gzip integrity and CPIO structure/ownership/device node inspection"
+  ],
+  "hardware_boot_tested": false,
+  "usb_ncm_tested_on_tablet": false
+}

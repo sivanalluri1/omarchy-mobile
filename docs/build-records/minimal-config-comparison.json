@@ -1,0 +1,20 @@
+{
+  "config_sha256": "e9b345a9789d529c04e63b1437b7520f0d21df9cea464dbefee48774da03d983",
+  "differences": [
+    {
+      "symbol": "CONFIG_DEVTMPFS",
+      "baseline": "n",
+      "minimal": "y"
+    },
+    {
+      "symbol": "CONFIG_DEVTMPFS_MOUNT",
+      "baseline": null,
+      "minimal": "y"
+    },
+    {
+      "symbol": "CONFIG_FHANDLE",
+      "baseline": "n",
+      "minimal": "y"
+    }
+  ]
+}

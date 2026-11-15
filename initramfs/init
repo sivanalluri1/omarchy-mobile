@@ -1,0 +1,59 @@
+#!/bin/sh
+# RAM-only bring-up. No block-device mount or partition write commands.
+export PATH=/bin:/sbin:/usr/bin:/usr/sbin HOME=/root
+exec >/dev/console 2>&1
+log() { echo "[p613-init] $*"; }
+fail() { log "$*"; while :; do sleep 60; done; }
+mount -t proc proc /proc || fail 'Cannot mount proc'
+mount -t sysfs sysfs /sys || fail 'Cannot mount sysfs'
+mount -t devtmpfs devtmpfs /dev || fail 'Cannot mount devtmpfs'
+mkdir -p /dev/pts /sys/kernel/config /run /tmp
+mount -t devpts -o mode=0620,ptmxmode=0666 devpts /dev/pts || fail 'Cannot mount devpts'
+mount -t tmpfs -o mode=0755,size=16m tmpfs /run || fail 'Cannot mount run'
+mount -t tmpfs -o mode=1777,size=32m tmpfs /tmp || fail 'Cannot mount tmp'
+ip link set lo up
+mount -t configfs configfs /sys/kernel/config || fail 'Cannot mount configfs'
+log 'Waiting for USB device controller'
+udc=''
+tries=0
+while [ "$tries" -lt 60 ]; do
+  for candidate in /sys/class/udc/*; do
+    if [ -e "$candidate" ]; then udc=${candidate##*/}; break; fi
+  done
+  [ -n "$udc" ] && break
+  sleep 1
+  tries=$((tries + 1))
+done
+[ -n "$udc" ] || fail 'No USB device controller appeared'
+g=/sys/kernel/config/usb_gadget/p613
+mkdir "$g" || fail 'Cannot create USB gadget'
+echo 0x1d6b > "$g/idVendor"
+echo 0x0104 > "$g/idProduct"
+echo 0x0200 > "$g/bcdUSB"
+echo 0x0100 > "$g/bcdDevice"
+mkdir -p "$g/strings/0x409" "$g/configs/c.1/strings/0x409"
+echo p613-linux-bringup > "$g/strings/0x409/serialnumber"
+echo Omarchy > "$g/strings/0x409/manufacturer"
+echo 'SM-P613 Linux bring-up' > "$g/strings/0x409/product"
+echo 'USB NCM' > "$g/configs/c.1/strings/0x409/configuration"
+echo 100 > "$g/configs/c.1/MaxPower"
+mkdir "$g/functions/ncm.usb0" || fail 'NCM function unavailable'
+echo 02:61:30:00:00:01 > "$g/functions/ncm.usb0/dev_addr"
+echo 02:61:30:00:00:02 > "$g/functions/ncm.usb0/host_addr"
+ln -s "$g/functions/ncm.usb0" "$g/configs/c.1/ncm.usb0"
+echo "$udc" > "$g/UDC" || fail 'Cannot bind USB gadget'
+tries=0
+while [ ! -e /sys/class/net/usb0 ] && [ "$tries" -lt 30 ]; do
+  sleep 1
+  tries=$((tries + 1))
+done
+[ -e /sys/class/net/usb0 ] || fail 'NCM network interface missing'
+ip addr add 192.168.77.1/24 dev usb0 || fail 'Cannot set USB address'
+ip link set usb0 up || fail 'Cannot enable USB interface'
+log 'Starting public-key-only SSH on 192.168.77.1:22; Android storage stays unmounted'
+# Disable passwords and forwarding; bind only to the USB address.
+while :; do
+  /usr/sbin/dropbear -F -E -s -j -k -r /etc/dropbear/dropbear_ed25519_host_key -p 192.168.77.1:22
+  log 'SSH exited; restarting in five seconds'
+  sleep 5
+done
