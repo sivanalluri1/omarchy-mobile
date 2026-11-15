@@ -2,6 +2,8 @@
 # Run as the unprivileged desktop user inside Arch, under dbus-run-session.
 set -eu
 config=${P613_HYPRLAND_CONFIG:-/etc/p613/hyprland-test.lua}
+seconds=${P613_TEST_SECONDS:-120}
+[[ $seconds =~ ^[0-9]+$ ]] && ((seconds>=120 && seconds<=3600)) || exit 2
 Hyprland --config "$config" >/tmp/hyprland-test.log 2>&1 &
 compositor=$!
 cleanup() {
@@ -16,8 +18,8 @@ for ((i=0;i<60;i++)); do
   sleep 1
 done
 find "$XDG_RUNTIME_DIR" -maxdepth 1 -type s -name 'wayland-*' | grep -q . || { echo 'Wayland socket timeout'; exit 1; }
-echo "ARCH_HYPRLAND_ACTIVE pid=$compositor duration=120s"
-for ((i=0;i<120;i++)); do
+echo "ARCH_HYPRLAND_ACTIVE pid=$compositor duration=${seconds}s"
+for ((i=0;i<seconds;i++)); do
   kill -0 "$compositor" 2>/dev/null || { echo 'Hyprland exited during test'; exit 1; }
   sleep 1
 done

@@ -22,7 +22,7 @@ def fetch(url,name,digest=None):
         temp.unlink()
         raise ValueError('SHA256 mismatch: '+name)
     temp.replace(dest)
-for name in ['omarchy','quickshell','keyring']:
+for name in ['omarchy','quickshell','keyring','settings']:
     entry=lock[name]
     fetch(entry['url'],name+'.pkg.tar.zst',entry['sha256'])
     if name!='keyring':

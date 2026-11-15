@@ -1,7 +1,15 @@
 #!/bin/sh
 # Invoke from RAM init only, after mounting the verified read-only Arch root.
 set -eu
-[ "${1:-}" = --show-120-seconds ] || { echo 'Usage: run-arch-hyprland-test.sh --show-120-seconds' >&2; exit 2; }
+case "${1:-}" in
+--show-120-seconds) seconds=120;;
+--show-extended-test)
+  seconds=${P613_TEST_SECONDS:-600}
+  case "$seconds" in ''|*[!0-9]*) exit 2;; esac
+  [ "$seconds" -ge 300 ] && [ "$seconds" -le 3600 ] || exit 2
+  ;;
+*) echo 'Usage: run-arch-hyprland-test.sh --show-120-seconds|--show-extended-test' >&2; exit 2;;
+esac
 [ -f /run/arch-root-mounted ] || exit 1
 [ -x /tmp/display-test ] || exit 1
 seat_pid=
@@ -49,6 +57,7 @@ root_label="read-only developer image"
 if [ -f /run/arch-root-transport ]; then root_label=$(cat /run/arch-root-transport); fi
 chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env \
   P613_ROOT_LABEL="$root_label" P613_HYPRLAND_CONFIG="${P613_HYPRLAND_CONFIG:-/etc/p613/hyprland-test.lua}" \
+  P613_TEST_SECONDS="$seconds" \
   HOME=/home/omarchy USER=omarchy LOGNAME=omarchy TZ=America/Phoenix \
   XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=Hyprland \
   LD_LIBRARY_PATH="$graphics_libraries" GBM_BACKENDS_PATH=/opt/p613-gpu/lib/gbm \

@@ -1,11 +1,13 @@
 #!/bin/bash
 # UI-only bring-up. No package setup hooks, systemd, lock or power actions.
 set -euo pipefail
+export LANG=C.UTF-8
 export OMARCHY_PATH=/usr/share/omarchy
 export QT_QPA_PLATFORM=wayland
 export QSG_RHI_BACKEND=opengl
 export QT_WAYLAND_DISABLE_WINDOWDECORATION=1
-mkdir -p "$HOME/.config/omarchy/plugins" "$HOME/.local/state/omarchy/current"
+mkdir -p "$HOME/.config/omarchy/plugins" "$HOME/.local/state/omarchy/current" "$HOME/.local/state/omarchy/toggles"
+touch "$HOME/.local/state/omarchy/toggles/background-intros-off"
 cp /etc/p613/shell.json "$HOME/.config/omarchy/shell.json"
 ln -sfn /usr/share/omamobile/shell/plugins/omamobile.bar "$HOME/.config/omarchy/plugins/omamobile.bar"
 ln -sfn "$OMARCHY_PATH/themes/tokyo-night" "$HOME/.local/state/omarchy/current/theme"

@@ -24,9 +24,10 @@ gpg --batch --homedir /tmp/omarchy-gnupg --import /tmp/usr/share/pacman/keyrings
 gpg --batch --homedir /tmp/omarchy-gnupg --with-colons --fingerprint | grep -F "fpr:::::::::40DFB630FF42BCFFB047046CF0134EE680CAC571:"
 gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/omarchy.pkg.tar.zst.sig /inputs/omarchy.pkg.tar.zst
 gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/quickshell.pkg.tar.zst.sig /inputs/quickshell.pkg.tar.zst
+gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/settings.pkg.tar.zst.sig /inputs/settings.pkg.tar.zst
 chroot /target /bin/bash -s <<'ARCH'
 set -euo pipefail
-pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python socat grim ttf-jetbrains-mono-nerd
+pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python python-dbus python-gobject inotify-tools socat grim ttf-jetbrains-mono-nerd
 find /var/cache/pacman/pkg -mindepth 1 -maxdepth 1 -type f -delete
 pacman -Q > /root/p613-package-manifest.txt
 ARCH

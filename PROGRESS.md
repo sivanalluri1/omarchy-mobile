@@ -182,3 +182,5 @@ User confirmed the Hyprland terminal and updating clock were visible during the 
 - [ ] Validate Omarchy host and mobile bar on the native tablet.
 
 User authorizes keeping the tablet in native Linux testing mode between tests; routine Android restoration is no longer required. Original recovery images remain retained. Systemd, input and hardware services remain unresolved. This image extracts runtime payloads without installing the full Omarchy package or running its installer/hooks. Evidence: docs/build-records/omarchy-root-build.json.
+
+Omarchy image revision 2 adds the matching signature-verified settings data, helper scripts, inotify-tools and Python D-Bus/GObject dependencies (584 MiB). Revision 1 had an unresponsive startup; adding settings/helpers in RAM restored IPC, but plugin discovery still did not finish and helper children remained unreaped. Small valid/missing-command Quickshell probes continued ticking. No root cause is established yet; revision 2 hardware testing is in progress. Both previous compressed images are retained privately.

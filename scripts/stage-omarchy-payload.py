@@ -10,7 +10,7 @@ import tarfile
 project=Path('/project')
 target=Path('/target')
 lock=json.loads((project/'omarchy-shell.lock.json').read_text())
-for name in ['omarchy','quickshell','keyring']:
+for name in ['omarchy','quickshell','keyring','settings']:
     source=Path('/inputs')/(name+'.pkg.tar.zst')
     with source.open('rb') as stream:
         assert hashlib.file_digest(stream,'sha256').hexdigest()==lock[name]['sha256'],name
@@ -18,7 +18,8 @@ for name in ['omarchy','quickshell','keyring']:
 subprocess.run(['bsdtar','-xf','/inputs/keyring.pkg.tar.zst','-C','/tmp'],check=True)
 # Data-only extraction: do not run the complete Omarchy installer or package hooks.
 subprocess.run(['bsdtar','-xf','/inputs/omarchy.pkg.tar.zst','-C',str(target),
-                'usr/share/omarchy','usr/bin/omarchy-shell'],check=True)
+                'usr/share/omarchy','usr/bin'],check=True)
+subprocess.run(['bsdtar','-xf','/inputs/settings.pkg.tar.zst','-C',str(target),'usr/share/omarchy'],check=True)
 metadata=json.loads((project/'docs/build-records/wayland-build.json').read_text())
 runtime=Path('/runtime')
 assert hashlib.sha256((runtime/'manifest.json').read_bytes()).hexdigest()==metadata['runtime_manifest_sha256']
@@ -41,6 +42,10 @@ with tarfile.open(archive) as tar:
             dest.parent.mkdir(parents=True,exist_ok=True)
             dest.write_bytes(tar.extractfile(member).read())
             dest.chmod(0o644)
+    for name in ['omamobile-cell-watch','omamobile-call-watch']:
+        dest=target/'usr/bin'/name
+        dest.write_bytes(tar.extractfile(prefix+'bin/'+name).read())
+        dest.chmod(0o755)
     license=target/'usr/share/licenses/omamobile-shell/LICENSE'
     license.parent.mkdir(parents=True,exist_ok=True)
     license.write_bytes(tar.extractfile(prefix+'LICENSE').read())
