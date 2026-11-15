@@ -1,7 +1,8 @@
 #!/bin/bash
 # Run as the unprivileged desktop user inside Arch, under dbus-run-session.
 set -eu
-Hyprland --config /etc/p613/hyprland-test.lua >/tmp/hyprland-test.log 2>&1 &
+config=${P613_HYPRLAND_CONFIG:-/etc/p613/hyprland-test.lua}
+Hyprland --config "$config" >/tmp/hyprland-test.log 2>&1 &
 compositor=$!
 cleanup() {
   trap - EXIT INT TERM

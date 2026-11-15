@@ -52,3 +52,6 @@ flowchart LR
 ```
 
 Hardware compute, offscreen graphics readback, GBM export/scanout handles and visible continuously animated Wayland output are verified. Two scoped userspace patches bridge duplicate downstream plane formats (Weston) and the separate KGSL/SDE identities (Zink). A bounded legacy modeset releases Samsung's splash-plane reservation before Weston starts. All runtime data lives in RAM, and the original Android BOOT is restored after testing. Details, pins and limitations: docs/graphics-bringup.md.
+
+
+Step 9 hardware checkpoint (2026-11-15): read-only Arch SquashFS in RAM, non-root GPU readback and bounded Hyprland passed using an isolated libudev 257 prefix. Android restored and all four original partition hashes verified. Omarchy integration and service compatibility remain open; see docs/arch-userspace.md and docs/build-records/hardware-test-06.json.

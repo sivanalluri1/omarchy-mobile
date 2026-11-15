@@ -78,3 +78,14 @@ python3 scripts/package-boot-experiment.py ram-userspace
 ```
 
 `prepare` refuses an existing preparation image; `resume` continues an incomplete build before a compressed artifact exists. All image paths are developer files on the SSD, not physical disks. Offline evidence: `build-records/arch-ram-offline-validation.json`.
+
+
+## RAM-root hardware result
+
+Test 06 passed native non-root GPU readback and a 120-second Hyprland 0.57.2 session. The Wayland socket appeared and foot mapped on DSI-1; the bounded wrapper exited zero. Physical user confirmation was not received. Input and sustained stability remain unvalidated.
+
+Arch libudev 262 failed DRM enumeration with -49 (Protocol driver not attached). The same probe, kernel and permissions succeeded with the previously hash-verified Debian libudev 257.13-1~deb13u1, including UID 1000. Only that leaf library is staged under `/tmp/p613-compat`; its dependencies resolve against Arch. Installed Arch libraries remain unchanged. This is an experimental compatibility workaround, not a full systemd fix.
+
+`scripts/stage-arch-ram-test.py --compat-udev` verifies BOOT, root and firmware hashes, stages the RAM root and tools, and validates the compatibility library against the pinned step-8 runtime manifest. It neither flashes nor starts a compositor. The bounded launcher requires `P613_USE_UDEV_COMPAT=1`; `P613_HYPRLAND_CONFIG=/tmp/hyprland-debug.lua` enables startup logs. Explicit devpts and shared-memory bind mounts are required inside the chroot. Native helpers use BusyBox mount-table checks because this initramfs lacks a standalone mountpoint command.
+
+After the test, original BOOT was restored and Android startup, unlocked state and all four original hashes were verified. Evidence: `build-records/hardware-test-06.json`. The reconnected SSD and build volume passed filesystem verification and critical artifact hashes matched. Omarchy components are still pending; BusyBox remains PID 1.

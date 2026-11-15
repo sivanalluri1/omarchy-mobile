@@ -132,7 +132,7 @@ After hardware test 04, the original BOOT was restored. Android boot completion 
 - [x] Verify Arch commands and package inventory inside the ARM64 build container.
 - [x] Build/inspect NBD-enabled kernel and independently packaged BOOT candidate.
 - [x] Prove initial read-only USB/SSD root access and Arch commands on the tablet.
-- [ ] Prove non-root Hyprland with the working KGSL/SDE Mesa stack.
+- [x] Prove non-root Hyprland with the working KGSL/SDE Mesa stack.
 - [ ] Integrate portable Omarchy Mobile components and resolve unsupported services.
 
 Current systemd 262.2 does not support this 4.14 kernel. BusyBox remains PID 1 during userspace testing; no full supported Arch/systemd/Omarchy boot is claimed. Details: docs/arch-userspace.md; initial evidence: docs/build-records/arch-bootstrap.json. No step 9 BOOT image has been flashed at this checkpoint.
@@ -155,6 +155,19 @@ Test 05 recovery completed: user entered Download Mode; original BOOT restored, 
 - [x] Trim generic firmware/cache; include privately captured, hash-verified tablet GPU firmware.
 - [x] Build the 328 MiB SquashFS/XZ image and pass read-only loop/chroot, non-root PTY/config and library checks.
 - [x] Build and structurally validate a separate SquashFS kernel/BOOT candidate with NBD disabled.
-- [ ] Run the RAM-root Arch/Hyprland test on the tablet.
+- [x] Run the RAM-root Arch/Hyprland test on the tablet.
 
 Android is currently restored and verified. The old NBD stall remains undiagnosed; it is removed from the new experiment path. Current systemd remains unsupported on kernel 4.14. Evidence: docs/build-records/arch-ram-offline-validation.json.
+
+
+### Step 9 — native Arch and Hyprland hardware checkpoint (2026-11-15)
+
+- [x] Verify reconnected SSD volumes and critical image hashes.
+- [x] Boot the SquashFS-enabled kernel with NBD disabled; mount verified Arch root entirely in RAM.
+- [x] Pass non-root Zink/Turnip GPU readback: 1,152 red pixels, 2,944 blue pixels.
+- [x] Diagnose DRM enumeration: Arch libudev 262 returns -49; isolated libudev 257 enumerates card0 as root and UID 1000.
+- [x] Run Hyprland 0.57.2 as UID 1000 for 120 seconds with a mapped foot terminal; wrapper exits zero.
+- [x] Restore Android; verify boot completion, unlocked state and all four original partition hashes.
+- [ ] Integrate Omarchy components and resolve unsupported services.
+
+Physical confirmation of the Hyprland terminal was not received. Touch, pen and long-duration stability remain unvalidated. BusyBox remains PID 1; systemd 262 requires kernel >=5.10 and is unsupported on this 4.14 kernel. Step 9 remains open. Evidence: docs/build-records/hardware-test-06.json. Next: make the compatibility prefix reproducible in the RAM image, then inspect portable Omarchy shell dependencies before another bounded hardware test.

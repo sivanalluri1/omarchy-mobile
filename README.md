@@ -2,7 +2,7 @@
 
 Experimental native Linux and Omarchy bring-up for the Samsung Galaxy Tab S6 Lite 2022 Wi-Fi (SM-P613 / gta4xlveu).
 
-Current milestone: step 8 passed on SM-P613 — native Linux, USB/SSH, GPU compute, verified graphics readback and continuously animated Weston on the 1200 × 2000 panel. Android was restored and all four protected image hashes verified after step 8. Step 9 is in progress: initial native Arch SSD-root access passed, but an NBD reconnect/mount attempt lost USB/SSH; Android has been restored and all four original hashes verified. A RAM-only Arch root is being prepared to remove NBD from further graphics tests.
+Current milestone: native Linux and accelerated Weston passed on SM-P613. Step 9 now also passes native Arch GPU readback and a bounded two-minute non-root Hyprland session using a RAM-only root and an isolated libudev compatibility library. Android is restored, with boot completion and all four original partition hashes verified. Omarchy integration remains in progress; current systemd does not support the tablet's 4.14 kernel. Touch and pen remain unvalidated.
 
 - [Plan](PLAN.md) · [Architecture](ARCHITECTURE.md) · [Steps](STEPS.md) · [Progress](PROGRESS.md)
 - [Graphics and accelerated Wayland results](docs/graphics-bringup.md)

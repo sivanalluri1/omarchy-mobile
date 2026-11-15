@@ -18,7 +18,7 @@ mount -t ext4 -o ro,noload /dev/nbd0 /arch
 [ -f /arch/etc/arch-release ] || { umount /arch; nbd-client -d /dev/nbd0; exit 1; }
 mount --bind /dev /arch/dev
 mount --bind /dev/pts /arch/dev/pts
-if mountpoint -q /dev/shm; then mount --bind /dev/shm /arch/dev/shm; fi
+if /bin/busybox grep -qs ' /dev/shm ' /proc/mounts; then mount --bind /dev/shm /arch/dev/shm; fi
 mount -t proc proc /arch/proc
 mount -t sysfs -o ro sysfs /arch/sys
 mount -t tmpfs -o size=64m,mode=755 tmpfs /arch/run

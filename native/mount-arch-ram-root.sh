@@ -15,10 +15,10 @@ mkdir -p /arch
 mount -t squashfs -o ro "$loop" /arch
 [ -f /arch/etc/arch-release ] || { umount /arch; losetup -d "$loop"; exit 1; }
 mkdir -p /dev/shm
-mountpoint -q /dev/shm || mount -t tmpfs -o size=64m,mode=1777 tmpfs /dev/shm
+/bin/busybox grep -qs ' /dev/shm ' /proc/mounts || mount -t tmpfs -o size=64m,mode=1777 tmpfs /dev/shm
 mount --bind /dev /arch/dev
 mount --bind /dev/pts /arch/dev/pts
-if mountpoint -q /dev/shm; then mount --bind /dev/shm /arch/dev/shm; fi
+if /bin/busybox grep -qs ' /dev/shm ' /proc/mounts; then mount --bind /dev/shm /arch/dev/shm; fi
 mount -t proc proc /arch/proc
 mount -t sysfs -o ro sysfs /arch/sys
 mount -t tmpfs -o size=64m,mode=755 tmpfs /arch/run

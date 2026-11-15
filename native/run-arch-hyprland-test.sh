@@ -1,5 +1,5 @@
 #!/bin/sh
-# Invoke from RAM init only, after mounting the known read-only Arch NBD root.
+# Invoke from RAM init only, after mounting the verified read-only Arch root.
 set -eu
 [ "${1:-}" = --show-120-seconds ] || { echo 'Usage: run-arch-hyprland-test.sh --show-120-seconds' >&2; exit 2; }
 [ -f /run/arch-root-mounted ] || exit 1
@@ -36,13 +36,18 @@ while [ ! -S /arch/run/seatd.sock ]; do
   i=$((i+1)); [ "$i" -lt 20 ] || exit 1
   sleep 1
 done
+graphics_libraries=/opt/p613-gpu/lib
+if [ "${P613_USE_UDEV_COMPAT:-0}" = 1 ]; then
+  [ -f /arch/tmp/p613-compat/libudev.so.1 ] || exit 1
+  graphics_libraries=/tmp/p613-compat:/opt/p613-gpu/lib
+fi
 root_label="read-only developer image"
 if [ -f /run/arch-root-transport ]; then root_label=$(cat /run/arch-root-transport); fi
 chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env \
-  P613_ROOT_LABEL="$root_label" \
+  P613_ROOT_LABEL="$root_label" P613_HYPRLAND_CONFIG="${P613_HYPRLAND_CONFIG:-/etc/p613/hyprland-test.lua}" \
   HOME=/home/omarchy USER=omarchy LOGNAME=omarchy TZ=America/Phoenix \
   XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=Hyprland \
-  LD_LIBRARY_PATH=/opt/p613-gpu/lib GBM_BACKENDS_PATH=/opt/p613-gpu/lib/gbm \
+  LD_LIBRARY_PATH="$graphics_libraries" GBM_BACKENDS_PATH=/opt/p613-gpu/lib/gbm \
   MESA_LOADER_DRIVER_OVERRIDE=zink GALLIUM_DRIVER=zink P613_ZINK_KGSL_SDE=1 \
   VK_DRIVER_FILES=/opt/p613-gpu/share/vulkan/icd.d/freedreno_icd.aarch64.json \
   MESA_SHADER_CACHE_DISABLE=true AQ_DRM_DEVICES=/dev/dri/card0 \

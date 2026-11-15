@@ -48,3 +48,6 @@ bash scripts/build-graphics-probes.sh
 ```
 
 Read docs/graphics-bringup.md for hardware evidence and bounded display-test usage. Native CPU colour bars, hardware Vulkan compute, Zink/EGL triangle readback and continuously animated Weston output are verified. Follow the full patched-stack recipe in docs/graphics-bringup.md. Arch/Hyprland/Omarchy remain step 9 work.
+
+
+Step 9 hardware checkpoint (2026-11-15): read-only Arch SquashFS in RAM, non-root GPU readback and bounded Hyprland passed using an isolated libudev 257 prefix. Android restored and all four original partition hashes verified. Omarchy integration and service compatibility remain open; see docs/arch-userspace.md and docs/build-records/hardware-test-06.json.

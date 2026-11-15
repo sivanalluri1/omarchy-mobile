@@ -1,0 +1,53 @@
+{
+  "date": "2026-11-15",
+  "timezone": "America/Phoenix",
+  "model": "SM-P613",
+  "step": 9,
+  "result": "Arch GPU rendering and bounded non-root Hyprland passed; Android restored",
+  "candidate_sha256": "e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6",
+  "root_sha256": "31507452a40b4f6656767cb69b908a28d2de65561874b1518847338729fab7ca",
+  "root_transport": "Read-only SquashFS in RAM; NBD disabled",
+  "gpu_readback": {
+    "passed": true,
+    "renderer": "Zink / Turnip Adreno 618",
+    "red_pixels": 1152,
+    "blue_pixels": 2944,
+    "fnv1a64": "a5974c516a3c7525",
+    "uid": 1000
+  },
+  "udev_comparison": {
+    "arch_262_scan_result": -49,
+    "compat_257_scan_result": 0,
+    "compat_version": "257.13-1~deb13u1",
+    "scope": "Private RAM LD_LIBRARY_PATH prefix; installed Arch libraries unchanged"
+  },
+  "hyprland": {
+    "version": "0.57.2",
+    "duration_seconds": 120,
+    "wrapper_exit": 0,
+    "wayland_socket_created": true,
+    "foot_window_mapped": true,
+    "panel": "DSI-1, 1200x2000 at 60 Hz",
+    "physical_user_confirmation": false,
+    "touch_and_pen_validated": false
+  },
+  "ssd_reconnection": {
+    "outer_and_build_volume_checks_passed": true,
+    "critical_image_hashes_matched": true
+  },
+  "android_filesystems_mounted": false,
+  "android_boot_completed_after_restore": true,
+  "bootloader_remains_unlocked": true,
+  "restored_partition_hashes": {
+    "boot": "15966f29996c7ab4c299d7b95f7a1e3ae04ef9ea788e4d11fc66f96eec2753ed",
+    "recovery": "26aacf89678972f4d5b967cf027fc3ccb342213ab56966462bcb24219ec748c5",
+    "dtbo": "11f8330c6fa619bc5871c68211260bded38090060a56b51ab485f183a3dc1c7d",
+    "vbmeta": "4f79fd04727c6ac30619acb1fad20ae8e18e2ec908198021a195eb83cd398138"
+  },
+  "limitations": [
+    "Omarchy components have not been integrated",
+    "Current systemd requires Linux >=5.10; tablet kernel is 4.14",
+    "No long-duration stability or input support claim"
+  ],
+  "raw_logs": "Ignored SSD work/hardware-test-06"
+}
