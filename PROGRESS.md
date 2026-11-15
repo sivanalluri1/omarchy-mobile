@@ -96,3 +96,12 @@ After test 02, the exact original BOOT was restored. Android boot completion and
 - [x] Verify no-device container test fails instead of selecting a software driver.
 
 Hardware shader execution remains pending at this checkpoint. See docs/build-records/turnip-build.json.
+
+
+### Step 8 — hardware compute passed
+
+- [x] Run a real Vulkan compute shader on Adreno 618 through Turnip/KGSL.
+- [x] Verify all 1,024 GPU-produced values and zero exit status, with Turnip as the only ICD.
+- [x] Restore original Android BOOT and verify boot completion and all four original partition hashes after test 03.
+
+Hardware reports Turnip Adreno (TM) 618, Vulkan 1.3.354. This proves GPU shader execution, but graphics rasterization, GPU/display buffer sharing and accelerated Wayland remain open. Next: Zink/EGL rendering. Evidence: docs/build-records/hardware-test-03.json.

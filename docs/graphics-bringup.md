@@ -71,3 +71,10 @@ bash scripts/build-gpu-probes.sh
 ```
 
 `native/gpu-compute.comp` writes 1,024 deterministic uint32 values. Its Vulkan host program refuses CPU/non-Qualcomm devices, submits a compute dispatch, waits on a bounded fence, invalidates mapped memory and checks every result. A forced Turnip-only ICD file prevents loading a software ICD. The runtime assembler copies the driver, loader and shared-library dependency closure into a RAM-transfer bundle. The no-device container test returned Vulkan initialization failure, as expected; it did not silently use software rendering. Build evidence: `build-records/turnip-build.json`. Actual tablet execution is recorded separately.
+
+
+## Hardware test 03 — Vulkan compute passed
+
+The native tablet loaded the checksum-verified Turnip-only runtime and reported `Turnip Adreno (TM) 618`, vendor `0x5143`, device `0x06010800`, integrated GPU, Vulkan 1.3.354. The compute pipeline compiled, dispatched and completed its fence. All 1,024 GPU-written values matched the CPU reference; the process returned zero. No CPU/software ICD was available in the runtime. This establishes real GPU shader execution, independently of display output.
+
+Original Android BOOT was restored afterward; boot completion, unlocked state and all four original partition hashes were verified. No Android filesystem was mounted during the experiment. Graphics rasterization and an accelerated compositor still require separate proof. Sanitized evidence: `build-records/hardware-test-03.json`.
