@@ -50,7 +50,7 @@ if [[ ${P613_EXPECT_OMARCHY:-0} == 1 ]]; then
   if [[ ${P613_EXPECT_MOBILE:-0} == 1 ]]; then
     mobile_ready=0
     for ((i=0;i<20;i++)); do
-      if check_mobile; then mobile_ready=1; break; fi
+      if check_mobile 2>/dev/null; then mobile_ready=1; break; fi
       sleep 1
     done
     ((mobile_ready==1)) || { echo 'Mobile home/launcher startup failed'; exit 1; }

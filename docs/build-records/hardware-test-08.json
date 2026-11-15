@@ -2,30 +2,82 @@
   "date": "2026-11-15",
   "timezone": "America/Phoenix",
   "model": "SM-P613",
-  "result": "Input and home rendering passed; interactive session stalled",
-  "root_sha256": "f097a2c8bab5211b8e42eac4264e7104402a392608fe8e4ae2580ca222b76533",
-  "runtime_overlay_used": true,
-  "touch_and_pen_enumerated_by_hyprland": true,
-  "user_confirms_finger_and_pen_response": true,
-  "observer_seconds": 120,
-  "observer_exit": 0,
-  "events": {
-    "touch_down": 44,
-    "touch_motion": 325,
-    "touch_up": 44,
-    "pen_proximity": 26,
-    "pen_tip": 52,
-    "pen_motion": 2492,
-    "pressure_min": 0.0,
-    "pressure_max": 0.9687
+  "result": "Final immutable mobile profile passed bounded session and ten lifecycle cycles",
+  "root_sha256": "4d509fa2f13482c0de36d60458957f050ef8cd3796b35f2356fc16a1d515eb07",
+  "root_bytes": 615157760,
+  "root_revision": 5,
+  "runtime_overlay_used": false,
+  "kernel": "4.14.357-openela-perf-g21b136df1533",
+  "qt_render_loop": "basic",
+  "recents_mode": "Static app cards; live captures disabled",
+  "desktop_app_launch_verified": true,
+  "bounded_session": {
+    "seconds": 120,
+    "exit": 0,
+    "shell_bar_home_launcher_checked_every_seconds": 15,
+    "lifecycle_cycles_passed": 10
   },
-  "pen_resolution_units_per_mm": 100,
-  "pen_ranges_preserved": true,
-  "home_screenshot_inspected": true,
-  "desktop_app_launch_verified": false,
-  "interactive_stability_passed": false,
-  "stall_observation": "SquashFS page fault/decompression waits with approximately 200 MiB available; root cause unproven",
-  "native_ssh_available": true,
+  "input": {
+    "touch_and_pen_enumerated_by_hyprland": true,
+    "user_confirms_finger_and_pen_response": true,
+    "initial_capture_seconds": 120,
+    "initial_capture_exit": 0,
+    "initial_capture_events": {
+      "touch_down": 44,
+      "touch_motion": 325,
+      "touch_up": 44,
+      "pen_proximity": 26,
+      "pen_tip": 52,
+      "pen_motion": 2492,
+      "pressure_min": 0.0,
+      "pressure_max": 0.9687
+    },
+    "initial_capture_root_sha256": "f097a2c8bab5211b8e42eac4264e7104402a392608fe8e4ae2580ca222b76533",
+    "pen_resolution_units_per_mm": 100,
+    "pen_ranges_preserved": true,
+    "accuracy_palm_rejection_rotation_validated": false
+  },
+  "gpu": {
+    "allocation_cycles": 64,
+    "allocation_fd_delta_before_fix": 64,
+    "allocation_fd_delta_after_fix": 0,
+    "final_image_allocation_regression_passed": true,
+    "final_image_pixel_readback_passed": true,
+    "library_sha256": "c0051c7823d64be174f883b823b0314880a183190fce9a760de06e5d7d550a86"
+  },
+  "sampled_memory": {
+    "minimum_available_kib": 1548816,
+    "maximum_ion_heap_kib": 520108,
+    "sampling_interval_seconds": 5
+  },
+  "initial_failures": {
+    "ram_overlay_input_and_home_passed": true,
+    "low_memory_squashfs_waits_observed": true,
+    "live_recents_close_disconnected_wayland_client": true,
+    "static_recents_without_driver_fix_stalled_on_fifth_cycle": true,
+    "driver_fd_leak_confirmed_with_hardware_before_after_test": true
+  },
+  "fixed_runtime_overlay_lifecycle_cycles_passed": 10,
+  "final_physical_recents_confirmation": "User confirms status bar and recents/home remain visible and responsive after clearing Foot",
+  "protected_partition_hashes": {
+    "/dev/sda19": "e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6",
+    "/dev/sda20": "26aacf89678972f4d5b967cf027fc3ccb342213ab56966462bcb24219ec748c5",
+    "/dev/sda21": "11f8330c6fa619bc5871c68211260bded38090060a56b51ab485f183a3dc1c7d",
+    "/dev/sde20": "4f79fd04727c6ac30619acb1fad20ae8e18e2ec908198021a195eb83cd398138"
+  },
   "android_filesystems_mounted": false,
-  "raw_logs": "Ignored SSD work/hardware-test-08"
+  "android_restored_after_test": false,
+  "owner_authorizes_retaining_linux_testing_mode": true,
+  "extended_session": {
+    "started": true,
+    "requested_seconds": 3600,
+    "completed": false
+  },
+  "limitations": [
+    "Current systemd unsupported on kernel 4.14; BusyBox remains PID 1",
+    "On-screen keyboard, Wi-Fi, audio and power service integration remain open",
+    "Input edge accuracy, rotation and palm rejection remain unvalidated",
+    "No long-duration stability claim"
+  ],
+  "raw_logs": "Ignored SSD work/hardware-test-08; failed attempts retained"
 }

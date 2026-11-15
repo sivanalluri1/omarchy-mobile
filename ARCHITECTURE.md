@@ -58,3 +58,6 @@ Step 9 hardware checkpoint (2026-11-15): read-only Arch SquashFS in RAM, non-roo
 
 
 Omarchy shell integration uses a separate RAM image, an isolated libudev compatibility prefix and a parent-side Qt forkfd bootstrap before loading the unchanged upstream host. Seatd and a private D-Bus session are launched directly. Current systemd is not PID 1. The owner authorizes keeping native Linux testing mode active between experiments; see docs/omarchy-shell.md.
+
+
+Current mobile profile: RAM udev classifications and volatile pen resolution metadata feed libinput/Hyprland. The mobile desktop launches entries through GIO in the manual session and uses static recents cards. The GPU prefix includes the separately validated Turnip allocation-fd ownership repair. Revision 5 passed clean-session and app lifecycle checks; follow docs/input-bringup.md and docs/build-records/hardware-test-08.json. On-screen keyboard and full service/hardware integration remain open.

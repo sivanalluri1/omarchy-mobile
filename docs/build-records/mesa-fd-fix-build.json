@@ -25,5 +25,6 @@
   },
   "gpu_render_readback_passed": true,
   "desktop_lifecycle_repeat_pending": false,
-  "desktop_lifecycle_cycles_passed": 10
+  "desktop_lifecycle_cycles_passed": 10,
+  "final_immutable_image_lifecycle_cycles_passed": 10
 }

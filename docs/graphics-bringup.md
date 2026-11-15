@@ -132,3 +132,8 @@ The launcher runs for at most two minutes after startup, stops its client/compos
 - Kernel 4.14 compatibility with current Arch Linux ARM packages, systemd and Hyprland remains a separate gate. Neither Hyprland nor Omarchy has run yet.
 
 After test 04, the exact original BOOT was restored. Android boot completion, unlocked state and all four original partition hashes were verified. No native test remains running. Sanitized hardware evidence: `build-records/hardware-test-04.json`; exact build/runtime evidence: `build-records/wayland-build.json`.
+
+
+## Follow-up: long-lived allocation ownership
+
+Step 9 app lifecycle tests exposed a DMA-BUF allocation descriptor leak in the pinned Turnip KGSL backend. The original bounded graphics results remain valid, but repeated allocations retained original fds until process exit. `scripts/build-mesa-fd-fix.sh` preserves the original build and produces the repaired library. A real hardware regression changed from +64 leaked fds to zero over 64 allocation/free cycles; GPU readback also passed. Current Omarchy images include the fix. Evidence: build-records/mesa-fd-fix-build.json.

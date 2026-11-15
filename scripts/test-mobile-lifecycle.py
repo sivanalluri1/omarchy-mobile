@@ -27,7 +27,10 @@ boot=remote('sha256sum /dev/sda19').split()[0]
 assert boot==json.loads((root/'docs/build-records/boot-ram-userspace-validation.json').read_text())['candidate_sha256']
 assert 'compressed RAM image' in remote('cat /run/arch-root-transport')
 prefix='chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env XDG_RUNTIME_DIR=/run/user/1000 '
-sockets=remote('find /arch/run/user/1000 -maxdepth 1 -type s -name "wayland-*"').splitlines()
+for attempt in range(20):
+    sockets=remote('find /arch/run/user/1000 -maxdepth 1 -type s -name "wayland-*"').splitlines()
+    if sockets:break
+    time.sleep(1)
 assert len(sockets)==1
 display=Path(sockets[0]).name
 shell=prefix+'WAYLAND_DISPLAY='+shlex.quote(display)+' OMARCHY_PATH=/usr/share/omarchy /usr/bin/omarchy-shell '
@@ -41,6 +44,15 @@ def dispatch(expression):
 def ping():
     assert remote(shell+'shell ping')=='ok'
 
+for attempt in range(20):
+    try:
+        ping()
+        home=json.loads(remote(shell+"shell call omamobile.home state ''"))
+        if home['loaded']:break
+    except (subprocess.CalledProcessError,ValueError,AssertionError,KeyError):
+        pass
+    time.sleep(1)
+else:raise RuntimeError('Mobile shell did not become ready')
 clients()
 results=[]
 for cycle in range(1,args.cycles+1):

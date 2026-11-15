@@ -197,7 +197,8 @@ Omarchy image revision 2 adds the matching signature-verified settings data, hel
 - [x] Repeat non-root hardware GPU readback on the final image.
 - [x] Verify native BOOT readback and unchanged recovery/DTBO/vbmeta hashes.
 - [x] Leave an extended desktop session in native Linux testing mode, as authorized.
-- [ ] Add the mobile home/app drawer and finish service compatibility work.
+- [x] Add the mobile home/app drawer.
+- [ ] Finish service compatibility work.
 - [ ] Validate touch/S Pen and remaining hardware functions individually.
 
 The extended session has started, not completed; no hour-long stability claim is made. The completed result is the bounded two-minute test. Android is not restored after this test, per the owner's updated instruction. BusyBox remains PID 1; current systemd is unsupported on 4.14. Step 9 remains in progress. Evidence and reproduction: docs/omarchy-shell.md and docs/build-records/hardware-test-07.json.
@@ -225,6 +226,22 @@ The interactive desktop stalled in SquashFS reads under low available memory aft
 - [x] Verify the driver fix on hardware: 64 allocation cycles changed from +64 leaked fds to zero.
 - [x] Repeat GPU readback with the repaired library.
 - [x] Complete ten actual Foot open/close cycles with recents visible, shell IPC and home-state checks.
-- [ ] Validate the combined fixes in a newly built immutable image.
+- [x] Validate the combined fixes in a newly built immutable image.
 
 The ten-cycle result used verified RAM overlays; the new image is building. Both the original display driver and earlier root images remain preserved. Full systemd service integration, OSK and remaining hardware work are open. Step 10 input response/pressure is confirmed, but accuracy, palm rejection and rotation are not yet validated.
+
+
+### Steps 9/10 — final mobile profile checkpoint (2026-11-15)
+
+- [x] Build revision 5 with complete plugin sources, GIO launch adaptation, static recents and repaired Turnip.
+- [x] Verify the image hash and mount it cleanly without runtime overlays.
+- [x] Pass the 120-second shell/home/launcher session with periodic IPC checks and zero exit status.
+- [x] Repeat ten actual app open/close cycles with recents visible on the immutable image.
+- [x] Pass the 64-allocation descriptor regression and GPU pixel readback from the final image.
+- [x] Verify original recovery/DTBO/vbmeta hashes and the expected native BOOT hash.
+- [x] Leave a longer native desktop session active, as authorized.
+- [x] User confirms the final recents close remains visible and responsive.
+- [ ] Complete longer interaction checks.
+- [ ] Integrate on-screen keyboard, networking, audio and remaining services/hardware.
+
+Touch/pen response and pen pressure are confirmed. The final workload retained at least 1,548,816 KiB available in the five-second samples; sampled ION heap usage reached 520,108 KiB. These samples are bounded observations, not performance or long-duration guarantees. Current systemd is unsupported on 4.14; BusyBox remains PID 1. Full steps 9 and 10 remain open. Evidence: docs/build-records/hardware-test-08.json and docs/input-bringup.md.

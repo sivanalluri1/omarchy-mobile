@@ -54,3 +54,6 @@ Step 9 hardware checkpoint (2026-11-15): read-only Arch SquashFS in RAM, non-roo
 
 
 For the current Omarchy host/mobile-bar RAM profile, pinned inputs, parent-side Qt bootstrap and bounded/extended launcher, follow docs/omarchy-shell.md. The complete phone service graph and input validation remain subsequent work.
+
+
+Current mobile profile: RAM udev classifications and volatile pen resolution metadata feed libinput/Hyprland. The mobile desktop launches entries through GIO in the manual session and uses static recents cards. The GPU prefix includes the separately validated Turnip allocation-fd ownership repair. Revision 5 passed clean-session and app lifecycle checks; follow docs/input-bringup.md and docs/build-records/hardware-test-08.json. On-screen keyboard and full service/hardware integration remain open.
