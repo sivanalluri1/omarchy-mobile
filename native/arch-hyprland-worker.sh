@@ -32,6 +32,9 @@ check_osk() {
     --method org.freedesktop.DBus.Properties.Get sm.puri.OSK0 Visible >/dev/null || return 1
   omarchy-shell shell call omamobile.keyboard state '' | jq -e '.watcher == true' >/dev/null
 }
+check_audio() {
+  timeout 5 pw-dump 2>/dev/null | jq -e 'any(.[]; .type == "PipeWire:Interface:Node" and .info.props["node.name"] == "p613-speakers" and .info.props["media.class"] == "Audio/Sink") and any(.[]; .type == "PipeWire:Interface:Node" and .info.props["node.name"] == "p613-microphone" and .info.props["media.class"] == "Audio/Source")' >/dev/null
+}
 for ((i=0;i<60;i++)); do
   kill -0 "$compositor" 2>/dev/null || { echo 'Hyprland exited during startup'; exit 1; }
   if find "$XDG_RUNTIME_DIR" -maxdepth 1 -type s -name 'wayland-*' | grep -q .; then break; fi
@@ -71,6 +74,10 @@ if [[ ${P613_EXPECT_OMARCHY:-0} == 1 ]]; then
     ((osk_ready==1)) || { echo 'On-screen keyboard startup failed'; exit 1; }
     echo OMARCHY_OSK_READY
   fi
+  if [[ ${P613_ENABLE_AUDIO:-0} == 1 ]]; then
+    check_audio || { echo 'Speaker sink startup failed'; exit 1; }
+    echo OMARCHY_AUDIO_READY
+  fi
 fi
 echo "ARCH_HYPRLAND_ACTIVE pid=$compositor duration=${seconds}s"
 for ((i=0;i<seconds;i++)); do
@@ -80,6 +87,7 @@ for ((i=0;i<seconds;i++)); do
     omarchy-shell shell listPlugins | jq -e 'any(.[]; .id == "omamobile.bar" and .active == true)' >/dev/null
     if [[ ${P613_EXPECT_MOBILE:-0} == 1 ]]; then check_mobile; fi
     if [[ ${P613_EXPECT_OSK:-0} == 1 ]]; then check_osk; fi
+    if [[ ${P613_ENABLE_AUDIO:-0} == 1 ]]; then check_audio; fi
   fi
   sleep 1
 done

@@ -18,13 +18,22 @@ if [ "${P613_ENABLE_INPUT:-0}" = 1 ]; then
   chroot /arch /usr/bin/python /usr/local/libexec/p613/setup-input.py >/input-setup.log 2>&1
 fi
 seat_pid=
+audio_enabled=0
 cleanup() {
   trap - EXIT INT TERM
   # UID 1000 is reserved for this test; the recovery init/SSH processes are root.
   chroot /arch /usr/bin/pkill -TERM -u omarchy 2>/dev/null || true
+  if [ "$audio_enabled" = 1 ]; then
+    sleep 1
+    chroot /arch /usr/bin/python /usr/local/libexec/p613/audio-route.py restore >/audio-restore.log 2>&1 || true
+  fi
   if [ -n "$seat_pid" ]; then kill -TERM "$seat_pid" 2>/dev/null || true; wait "$seat_pid" 2>/dev/null || true; fi
 }
 trap cleanup EXIT INT TERM
+if [ "${P613_ENABLE_AUDIO:-0}" = 1 ]; then
+  chroot /arch /usr/bin/python /usr/local/libexec/p613/audio-route.py enable >/audio-setup.log 2>&1
+  audio_enabled=1
+fi
 if [ ! -e /run/p613-splash-released ]; then
   /tmp/display-test --show-120-seconds >/splash-handoff.log 2>&1 &
   handoff=$!
@@ -66,6 +75,7 @@ chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env \
   P613_EXPECT_OMARCHY="${P613_EXPECT_OMARCHY:-0}" \
   P613_EXPECT_MOBILE="${P613_EXPECT_MOBILE:-0}" \
   P613_EXPECT_OSK="${P613_EXPECT_OSK:-0}" \
+  P613_ENABLE_AUDIO="${P613_ENABLE_AUDIO:-0}" \
   QSG_RENDER_LOOP="$qsg_loop" \
   HOME=/home/omarchy USER=omarchy LOGNAME=omarchy TZ=America/Phoenix \
   XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=Hyprland \

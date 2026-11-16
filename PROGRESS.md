@@ -372,8 +372,9 @@ Revision 9 SHA256: 0f3921bb6064a6d69cd234ef2d775bde236f094ac703a9cb3ffd6038575dd
 - [x] Inspect the tablet's vendor mixer routes and preserve a read-only baseline.
 - [x] Play quiet alternating stereo tones at 48 kHz, 16-bit; owner confirms both speakers.
 - [x] Restore all eight routing/format controls and verify the PCM closed afterward.
-- [ ] Integrate desktop audio services and controls.
-- [ ] Validate headphones and microphone capture.
+- [x] Integrate desktop audio services and controls.
+- [x] Validate built-in microphone capture.
+- [ ] Validate headphones when hardware is available.
 
 The bounded test left amplifier gain, limiter/boost and calibration controls untouched. Playback exited zero and restored every changed control. Temporary ALSA diagnostic binaries were used with the existing Arch alsa-lib; signed Arch utilities and desktop audio packaging are next. See docs/build-records/hardware-test-12.json.
 
@@ -388,3 +389,20 @@ The bounded test left amplifier gain, limiter/boost and calibration controls unt
 - [ ] Validate wired headphones when hardware is available (owner has none currently).
 
 This validates capture through the main WCD/ADSP route; it does not establish DBMDX voice/wake functionality. Desktop audio packaging is in progress.
+
+
+### Step 10 — desktop audio profile validated (2026-11-16)
+
+- [x] Package signed Arch ALSA utilities, PipeWire, WirePlumber and pipewire-pulse in revision 11.
+- [x] Expose the tested stereo speaker and mono main-microphone routes to desktop applications.
+- [x] Run native PipeWire and PulseAudio-compatible playback; owner confirms final-image speaker volume and mute controls.
+- [x] Receive desktop microphone frames, finalize bounded capture and delete raw audio locally.
+- [x] Toggle microphone mute through the shell and restore its state.
+- [x] Verify all fifteen routing/microphone controls restore after desktop shutdown and both PCM endpoints close.
+- [x] Complete three actual app open/close cycles with the audio-enabled desktop.
+- [x] Finish the bounded combined session check and leave an extended session active.
+- [ ] Validate headphones/jack switching when hardware is available, microphone quality, longer audio load and suspend/resume.
+
+Revision 11 image SHA256: a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0. Built-in audio is usable through a fixed profile; it does not provide automatic headphone or Bluetooth routing. The desktop capture was deliberately stopped with SIGINT (recorder exit 1), then read for numerical statistics and deleted. Speech intelligibility and voice/wake features are not claimed. See docs/audio-bringup.md and docs/build-records/hardware-test-12.json.
+
+The final 120-second desktop session exited zero, with periodic speaker/microphone-node checks. Both PCM endpoints closed and all fifteen mixer values matched their saved originals afterward. A longer audio-enabled session was restarted. Wi-Fi HTTPS also passed while the audio-enabled desktop ran.

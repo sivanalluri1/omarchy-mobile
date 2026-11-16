@@ -27,7 +27,8 @@ gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/quickshell.pkg.tar.zst
 gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/settings.pkg.tar.zst.sig /inputs/settings.pkg.tar.zst
 chroot /target /bin/bash -s <<'ARCH'
 set -euo pipefail
-pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python python-dbus python-gobject inotify-tools socat grim ttf-jetbrains-mono-nerd squeekboard gsettings-desktop-schemas dconf wtype libbsd networkmanager wpa_supplicant iw
+pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python python-dbus python-gobject inotify-tools socat grim ttf-jetbrains-mono-nerd squeekboard gsettings-desktop-schemas dconf wtype libbsd networkmanager wpa_supplicant iw alsa-utils pipewire pipewire-audio wireplumber pipewire-pulse
+usermod -aG audio omarchy
 find /var/cache/pacman/pkg -mindepth 1 -maxdepth 1 -type f -delete
 pacman -Q > /root/p613-package-manifest.txt
 ARCH
@@ -41,6 +42,11 @@ install -Dm755 /project/native/setup-p613-input.py /target/usr/local/libexec/p61
 install -Dm644 /project/configs/p613-NetworkManager.conf /target/etc/p613/NetworkManager.conf
 install -Dm755 /project/native/start-p613-network.sh /target/usr/local/libexec/p613/start-network.sh
 install -Dm755 /project/native/stop-p613-network.sh /target/usr/local/libexec/p613/stop-network.sh
+install -Dm755 /project/native/p613-audio-route.py /target/usr/local/libexec/p613/audio-route.py
+install -Dm755 /project/native/p613-speaker-test.py /target/usr/local/libexec/p613/speaker-test.py
+install -Dm755 /project/native/p613-microphone-test.py /target/usr/local/libexec/p613/microphone-test.py
+install -Dm644 /project/configs/p613-pipewire-speakers.conf /target/etc/pipewire/pipewire.conf.d/90-p613-speakers.conf
+install -Dm644 /project/configs/p613-wireplumber.conf /target/etc/wireplumber/wireplumber.conf.d/90-p613-native.conf
 python3 /project/scripts/package-radio-payload.py
 install -Dm644 /project/configs/hyprland-p613-omarchy.lua /target/etc/p613/hyprland-omarchy.lua
 install -Dm644 /project/configs/omarchy-p613-shell.json /target/etc/p613/shell.json
@@ -53,6 +59,9 @@ chroot /target /usr/bin/python -c "import gi; gi.require_version('Gtk','3.0'); f
 chroot /target /usr/bin/NetworkManager --version
 chroot /target /usr/bin/nmcli --version
 chroot /target /usr/bin/wpa_supplicant -v
+chroot /target /usr/bin/pipewire --version
+chroot /target /usr/bin/wireplumber --version
+chroot /target /usr/bin/aplay --version
 chroot /target /usr/bin/env LD_LIBRARY_PATH=/opt/p613-compat/lib /usr/bin/ldd /usr/bin/NetworkManager > /out/networkmanager-ldd.txt
 ! grep -q 'not found' /out/networkmanager-ldd.txt
 mkdir -p /target/tmp/p613-runtime

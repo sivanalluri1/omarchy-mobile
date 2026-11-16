@@ -1,10 +1,10 @@
 {
-  "bytes": 706154496,
-  "sha256": "0f3921bb6064a6d69cd234ef2d775bde236f094ac703a9cb3ffd6038575ddb41",
+  "bytes": 716894208,
+  "sha256": "a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0",
   "tablet_tested": true,
   "systemd_pid1": false,
   "date": "2026-11-16",
-  "profile": "Omarchy mobile home, launcher, recents, keyboard and NetworkManager quick settings",
+  "profile": "Omarchy mobile desktop, keyboard, Wi-Fi controls and built-in desktop audio",
   "package_signatures_verified": true,
   "keyring_bootstrap": "Pinned HTTPS keyring, fingerprint checked",
   "quickshell_version": "0.3.2.r7.g2b4501a-1",
@@ -16,12 +16,12 @@
   "known_limitations": [
     "Systemd unsupported on 4.14; BusyBox remains PID 1",
     "Input response and pressure verified; accuracy, palm rejection and rotation remain unvalidated",
-    "Audio and power integration, input precision and longer stability validation remain open; network authorization is an isolated single-user prototype"
+    "Headphone/jack and microphone-quality checks, power/suspend and longer stability remain open; manual services and single-user network policy remain experimental"
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
-  "revision": 9,
-  "previous_root_sha256": "cbe8cee333401c7d895f78cfb8b2fcc937c86ab0af9a13cd14d4137aa6ad8f01",
+  "revision": 11,
+  "previous_root_sha256": "88cbb717f855008752941179ee96ec325fc963a4962b99973aff2962818729b4",
   "parent_side_forkfd_bootstrap": true,
   "input_setup_in_image": true,
   "direct_gio_desktop_launcher": true,
@@ -42,5 +42,12 @@
   "wifi_interface_selection_patched": true,
   "network_profile_storage": "RAM tmpfs mounted over system-connections",
   "resolver": "symlink to /run/NetworkManager/resolv.conf",
-  "networkmanager_controls_validated": true
+  "networkmanager_controls_validated": true,
+  "audio_packages_in_image": true,
+  "pipewire_speaker_adapter_in_image": true,
+  "audio_route_helper_in_image": true,
+  "audio_tablet_validation_pending": false,
+  "pipewire_microphone_adapter_in_image": true,
+  "audio_routes": "vendor speaker and main-microphone paths",
+  "pipewire_speaker_and_microphone_validated": true
 }

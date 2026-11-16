@@ -16,7 +16,7 @@
     "restore_failures": []
   },
   "usb_link_replug_restored_ssh_without_reboot": true,
-  "audio_services_integrated": false,
+  "audio_services_integrated": true,
   "headphones_tested": false,
   "microphone_tested": true,
   "microphone_capture": {
@@ -45,5 +45,93 @@
   "microphone_capture_path": "main sound card MultiMedia1 / TX_CDC_DMA_TX_3",
   "speech_intelligibility_or_frequency_response_validated": false,
   "headphones_available": false,
-  "headphones_deferred_reason": "Owner has no wired headphones available"
+  "headphones_deferred_reason": "Owner has no wired headphones available",
+  "final_root_revision": 11,
+  "final_root_sha256": "a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0",
+  "pipewire_version": "1.6.11",
+  "wireplumber_version": "0.5.19",
+  "alsa_utils_version": "1.2.16-1",
+  "speaker_sink": "p613-speakers",
+  "microphone_source": "p613-microphone",
+  "owner_confirmed_desktop_speaker_volume_and_mute": true,
+  "pipewire_playback": {
+    "seconds": 30,
+    "sample_rate": 48000,
+    "channels": 2,
+    "synthetic_peak_pcm_value": 1536,
+    "target": "p613-speakers",
+    "backend": "pipewire",
+    "pw_play_exit": 0,
+    "synthetic_file_deleted": true
+  },
+  "pulse_compatible_playback_on_final_image": true,
+  "desktop_microphone": {
+    "raw_audio_uploaded": false,
+    "backend": "PipeWire",
+    "target": "p613-microphone",
+    "recorder_exit": 1,
+    "samples": 124559,
+    "sample_rate": 16000,
+    "peak": 457,
+    "per_second_rms": [
+      219.31,
+      26.57,
+      6.77,
+      6.53,
+      8.03,
+      8.03,
+      5.81,
+      5.64
+    ],
+    "raw_audio_deleted": true
+  },
+  "desktop_capture_stop_reason": "SIGINT after bounded capture; recorder returned 1 and finalized a readable WAV",
+  "microphone_shell_controls": {
+    "mic_mute_changed_via_shell": true,
+    "mic_state_restored": true
+  },
+  "mixer_restoration": {
+    "controls_checked": 15,
+    "all_restored": true
+  },
+  "app_lifecycle": [
+    {
+      "cycle": 1,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 2,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 2,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 3,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    }
+  ],
+  "limits": [
+    "No wired headphones available for playback or jack-switch testing",
+    "Microphone intelligibility, frequency response and all channels not validated",
+    "DBMDX voice/wake DSP not validated",
+    "No real-time scheduling or long-load stability guarantee",
+    "Suspend/resume and intermittent USB recovery-network stall remain open"
+  ],
+  "bounded_desktop_seconds": 120,
+  "bounded_desktop_exit": 0,
+  "bounded_final_mixer_restoration": {
+    "controls_checked": 15,
+    "all_restored": true,
+    "desktop_exit": 0
+  },
+  "combined_network_https_passed": true,
+  "extended_session_left_active": true,
+  "raw_capture_recordings_retained": false
 }

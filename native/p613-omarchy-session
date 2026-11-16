@@ -17,10 +17,19 @@ gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us')]"
 squeekboard >/tmp/squeekboard.log 2>&1 &
 osk_pid=$!
+audio_pids=()
+if [[ ${P613_ENABLE_AUDIO:-0} == 1 ]]; then
+  pipewire >/tmp/pipewire.log 2>&1 & audio_pids+=("$!")
+  for _ in {1..30}; do [[ -S "$XDG_RUNTIME_DIR/pipewire-0" ]] && break; sleep 0.1; done
+  wireplumber >/tmp/wireplumber.log 2>&1 & audio_pids+=("$!")
+  pipewire-pulse >/tmp/pipewire-pulse.log 2>&1 & audio_pids+=("$!")
+fi
 cleanup() {
   trap - EXIT INT TERM
   kill -TERM "$osk_pid" 2>/dev/null || true
   wait "$osk_pid" 2>/dev/null || true
+  for pid in "${audio_pids[@]}"; do kill -TERM "$pid" 2>/dev/null || true; done
+  for pid in "${audio_pids[@]}"; do wait "$pid" 2>/dev/null || true; done
 }
 trap cleanup EXIT INT TERM
 /usr/bin/qs -n -p "$OMARCHY_PATH/shell/shell.qml" > /tmp/omarchy-shell.log 2>&1
