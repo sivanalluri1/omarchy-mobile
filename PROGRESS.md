@@ -406,3 +406,10 @@ This validates capture through the main WCD/ADSP route; it does not establish DB
 Revision 11 image SHA256: a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0. Built-in audio is usable through a fixed profile; it does not provide automatic headphone or Bluetooth routing. The desktop capture was deliberately stopped with SIGINT (recorder exit 1), then read for numerical statistics and deleted. Speech intelligibility and voice/wake features are not claimed. See docs/audio-bringup.md and docs/build-records/hardware-test-12.json.
 
 The final 120-second desktop session exited zero, with periodic speaker/microphone-node checks. Both PCM endpoints closed and all fifteen mixer values matched their saved originals afterward. A longer audio-enabled session was restarted. Wi-Fi HTTPS also passed while the audio-enabled desktop ran.
+
+
+### Paused and powered off at owner request — 2026-11-16
+
+NetworkManager, the system supplicant/bus, desktop user processes, PipeWire/WirePlumber/PulseAudio compatibility and radio support services were stopped. The fifteen audio mixer controls were restored and the route-state marker cleared. The Arch RAM root was unmounted, filesystems synced and native power-off requested; the tablet disappeared from USB afterward. No project containers were running. The build sparsebundle and external SSD are being detached/ejected.
+
+Resume from validated revision 11 (a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0), with native BOOT unchanged at e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6. Latest audio milestone is commit 4eb84a9. On explicit reconnect/resume, verify both devices, mount the sparsebundle, boot the native image and restage the latest root/radio/network services. Enable P613_ENABLE_AUDIO=1 along with input, compatibility and shell/keyboard checks. Wi-Fi credentials must be entered again because the profile was only in tablet RAM. Next work is power/suspend/resume and remaining quality/stability checks; headphones remain unavailable. Do not resume while paused.
