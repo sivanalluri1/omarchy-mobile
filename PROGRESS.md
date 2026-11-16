@@ -310,3 +310,17 @@ The current host probe fails with errno -14 before creating wlan0. An earlier ON
 The prior failure record is retained as experiment history. IPA-first startup resolved the probe failure without a kernel change. The optional wlan_mac.bin lookup caused a 60-second wait; the new RAM-only address generator is intended to avoid that wait and serial-derived fallback. SSIDs, BSSIDs and raw modem data remain private.
 
 The consolidated helper passed a fresh 120-second run, compared original storage with RAM snapshots, exited zero and stopped its support services with the modem OFFLINE. A subsequent supervised startup also succeeded without another reboot. Four temporary locally administered addresses supplied in a RAM-only wlan_mac.bin avoided the optional-file timeout.
+
+
+### Step 10 — native Wi-Fi connection checkpoint (2026-11-15)
+
+- [x] Enter the network password on the tablet using the native keyboard and a GTK test prompt.
+- [x] Authenticate WPA2 personal with CCMP through a temporary wpa_supplicant runtime.
+- [x] Acquire and apply an IPv4 DHCP lease without disrupting USB recovery.
+- [x] Resolve DNS and retrieve two HTTPS sites with certificate verification enabled.
+- [x] Disconnect, reconnect, reacquire DHCP and repeat a verified HTTPS request.
+- [x] Remove the GUI request and supplicant configuration files from RAM after authentication.
+- [ ] Package the connection runtime and integrate shell network controls.
+- [ ] Validate roaming, long-running connectivity, suspend/resume, audio and remaining hardware.
+
+The owner supplied the network name privately and entered the password on the tablet. No password, derived key, SSID, BSSID or lease address is committed. Direct wpa_supplicant and BusyBox udhcpc work without systemd. The tested connection tools are temporary RAM additions to revision 7, not yet part of the immutable image. A radio-lifetime watcher retires the temporary supplicant when the bounded radio session ends; its exit-time behavior remains to be observed with an active connection. See docs/build-records/wifi-connection-test.json.

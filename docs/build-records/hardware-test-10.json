@@ -15,7 +15,7 @@
   "persistent_modem_storage_matches_ram_snapshots": true,
   "rmtfs_read_only_shadow_mode": true,
   "native_boot_unchanged": true,
-  "next": "Validate network authentication, DHCP, HTTPS and reconnect",
+  "next": "Integrate connection management and shell network controls into the image; continue audio/power bring-up",
   "private_evidence_directory": "work/hardware-test-10",
   "clean_start_without_ipa_host_probe_errno": -14,
   "ipa_started_before_wlan_resolved_probe_failure": true,
@@ -45,7 +45,7 @@
       "band_5_ghz_entries": 21
     }
   ],
-  "connection_validated": false,
+  "connection_validated": true,
   "mobile_network_ui_integrated": false,
   "temporary_locally_administered_station_mac_for_scan": true,
   "supervised_clean_startup_passed": true,
@@ -54,5 +54,6 @@
   "supervised_cleanup_modem_offline": true,
   "supervised_cleanup_services_stopped": true,
   "ephemeral_mac_file_avoided_optional_firmware_timeout": true,
-  "subsequent_supervised_start_without_reboot_passed": true
+  "subsequent_supervised_start_without_reboot_passed": true,
+  "connection_record": "docs/build-records/wifi-connection-test.json"
 }

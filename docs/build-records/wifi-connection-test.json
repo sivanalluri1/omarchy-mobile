@@ -1,0 +1,59 @@
+{
+  "date": "2026-11-15",
+  "timezone": "America/Phoenix",
+  "native_boot_unchanged": true,
+  "root_revision": 7,
+  "temporary_connection_runtime": true,
+  "network_credentials_entered_on_tablet": true,
+  "password_received_by_host": false,
+  "ssid_or_credentials_in_public_record": false,
+  "wpa2_psk_ccmp_authenticated": true,
+  "dhcp_lease_applied": true,
+  "dns_resolution_passed": true,
+  "https_checks": [
+    {
+      "url": "https://archlinuxarm.org/",
+      "status": 200,
+      "bytes_read": 16932,
+      "tls_verified": true,
+      "elapsed_seconds": 1.92
+    },
+    {
+      "url": "https://www.kernel.org/",
+      "status": 200,
+      "bytes_read": 20436,
+      "tls_verified": true,
+      "elapsed_seconds": 0.15
+    }
+  ],
+  "reconnect": {
+    "disconnect_confirmed": true,
+    "reconnect_authenticated": true,
+    "dhcp_reacquired": true
+  },
+  "post_reconnect": {
+    "https_status": 200,
+    "bytes_read": 20436,
+    "tls_verified": true,
+    "credential_files_removed": true
+  },
+  "connection_management": "Direct wpa_supplicant and BusyBox udhcpc, no systemd manager",
+  "mobile_network_controls_integrated": false,
+  "runtime_in_immutable_image": false,
+  "limitations": [
+    "WPA2 personal only tested",
+    "No roaming, suspend/resume or long-duration connection validation",
+    "No automatic DHCP renewal in the bounded experiment",
+    "Credentials must be reentered after reboot",
+    "Shell status-bar network controls still need service integration"
+  ],
+  "private_evidence_directory": "work/hardware-test-10",
+  "final_link_band": "5 GHz",
+  "final_frequency_mhz": 5745,
+  "final_wpa_state": "COMPLETED",
+  "shell_ipc_ping_passed": true,
+  "osk_periodic_checks_active": true,
+  "final_available_memory_kib": 1678660,
+  "original_modem_storage_still_matches_snapshots": true,
+  "temporary_runtime_asset_hashes_verified_on_device": true
+}

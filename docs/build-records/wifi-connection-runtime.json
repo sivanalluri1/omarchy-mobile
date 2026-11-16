@@ -1,0 +1,40 @@
+{
+  "date": "2026-11-15",
+  "wpasupplicant_version": "2:2.10-24",
+  "libpcsclite1_version": "2.3.3-1",
+  "architecture": "arm64",
+  "source": "Debian trixie apt authenticated index",
+  "packages": {
+    "wpasupplicant.deb": "d9ab216060c4c66cddcd53030f1a38c57e93a25cb9e0abefa6fe8f36b686f9ae",
+    "libpcsclite1.deb": "e406cfd8f918cbe868c14a9d0dfbc0967f98861e679bcb0f30df6a49d80936f1"
+  },
+  "assets": [
+    {
+      "source": "wpa-package/usr/sbin/wpa_supplicant",
+      "target": "/arch/tmp/wpa_supplicant",
+      "mode": "700",
+      "sha256": "d5432a28196ab91b70264e2706c882f90448f96c62c9717f41248d60787cba5a"
+    },
+    {
+      "source": "wpa-package/usr/sbin/wpa_cli",
+      "target": "/arch/tmp/wpa_cli",
+      "mode": "700",
+      "sha256": "cd611c7adf52fa134b84726e4adb0e906f5cd9877423bd2317aaae3a275df62f"
+    },
+    {
+      "source": "pcsc-package/usr/lib/aarch64-linux-gnu/libpcsclite.so.1",
+      "target": "/arch/tmp/p613-wpa-libs/libpcsclite.so.1",
+      "mode": "600",
+      "sha256": "01de2d0aadbff7c28e027a6425999ef2a2dd648b1d06cea08e72bc3d270f2bca"
+    },
+    {
+      "source": "pcsc-package/usr/lib/aarch64-linux-gnu/libpcsclite_real.so.1",
+      "target": "/arch/tmp/p613-wpa-libs/libpcsclite_real.so.1",
+      "mode": "600",
+      "sha256": "6ae2a73aaa447327ee648ccff7e942886c6d5a54fb7cbafe730685520dc22bc5"
+    }
+  ],
+  "native_arch_libraries_resolved": true,
+  "core_arch_libraries_replaced": false,
+  "runtime_only_not_in_squashfs": true
+}
