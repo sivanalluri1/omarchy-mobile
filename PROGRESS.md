@@ -324,3 +324,12 @@ The consolidated helper passed a fresh 120-second run, compared original storage
 - [ ] Validate roaming, long-running connectivity, suspend/resume, audio and remaining hardware.
 
 The owner supplied the network name privately and entered the password on the tablet. No password, derived key, SSID, BSSID or lease address is committed. Direct wpa_supplicant and BusyBox udhcpc work without systemd. The tested connection tools are temporary RAM additions to revision 7, not yet part of the immutable image. A radio-lifetime watcher retires the temporary supplicant when the bounded radio session ends; its exit-time behavior remains to be observed with an active connection. See docs/build-records/wifi-connection-test.json.
+
+
+### Paused and powered off at owner request — 2026-11-15
+
+The desktop/test-user processes, supplicant and supervised radio services were stopped. The modem reported OFFLINE. The resolver bind mount and complete Arch RAM root were unmounted, filesystems synced, and native power-off requested. The tablet then disappeared from USB. No project containers were running; stale host SSH sessions from earlier reboots were stopped. The build sparsebundle and SSD are being detached/ejected.
+
+Latest validated milestones: revision-7 keyboard/mobile root, native dual-band Wi-Fi scans, WPA2 authentication, DHCP, verified HTTPS and reconnect (commit 373fe07). Native BOOT remains e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6. Root revision 7 remains 4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1. No Android restoration or new flash was performed. Credentials/session state are lost at shutdown.
+
+On explicit resume, verify the SSD/tablet, mount the build sparsebundle and boot the installed native image. Restage revision 7 with stage-arch-ram-test.py, then stage the 80-file radio firmware set/tools with stage-radio-test.py and use run-p613-radio-test.sh. Its IPA-first sequence and ephemeral MAC file are validated. Start the mobile desktop with compatibility/input/keyboard checks. The connection prompt/runtime can be staged with stage-wifi-connection-test.py; the password must be entered on the tablet again. Next development remains packaging connection management and integrating shell network controls, followed by audio/power and remaining input/hardware checks. Wait for the owner's reconnect/resume instruction.
