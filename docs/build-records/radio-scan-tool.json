@@ -1,0 +1,10 @@
+{
+  "package": "iw",
+  "version": "6.9-1+b1",
+  "architecture": "arm64",
+  "source": "Debian trixie apt authenticated index",
+  "package_sha256": "dcacc4fb0a002b313effb1f5bb81adf14aca83eed9043bc97acf9e8b437c3d93",
+  "binary_sha256": "d80e475972e85fae1264fcfcc60aa46ad84779162a1359effe8929586b46ed6b",
+  "native_arch_shared_libraries_resolved": true,
+  "temporary_ram_tool": true
+}

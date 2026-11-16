@@ -10,11 +10,49 @@
   "bdf_five_segments_acknowledged": true,
   "cal_report_acknowledged": true,
   "kernel_wlan_fw_ready": true,
-  "wlan_interface_present": false,
+  "wlan_interface_present": true,
   "host_probe_errno": -14,
   "persistent_modem_storage_matches_ram_snapshots": true,
   "rmtfs_read_only_shadow_mode": true,
   "native_boot_unchanged": true,
-  "next": "Repeat with clean startup ordering, then diagnose host probe if it persists",
-  "private_evidence_directory": "work/hardware-test-10"
+  "next": "Validate network authentication, DHCP, HTTPS and reconnect",
+  "private_evidence_directory": "work/hardware-test-10",
+  "clean_start_without_ipa_host_probe_errno": -14,
+  "ipa_started_before_wlan_resolved_probe_failure": true,
+  "scan_results": [
+    {
+      "cycle": 1,
+      "exit": 0,
+      "bss_entries": 55,
+      "unique_bss": 55,
+      "band_2_4_ghz_entries": 35,
+      "band_5_ghz_entries": 20
+    },
+    {
+      "cycle": 2,
+      "exit": 0,
+      "bss_entries": 43,
+      "unique_bss": 43,
+      "band_2_4_ghz_entries": 26,
+      "band_5_ghz_entries": 17
+    },
+    {
+      "cycle": 3,
+      "exit": 0,
+      "bss_entries": 65,
+      "unique_bss": 65,
+      "band_2_4_ghz_entries": 44,
+      "band_5_ghz_entries": 21
+    }
+  ],
+  "connection_validated": false,
+  "mobile_network_ui_integrated": false,
+  "temporary_locally_administered_station_mac_for_scan": true,
+  "supervised_clean_startup_passed": true,
+  "supervised_radio_duration_seconds": 120,
+  "supervised_radio_exit": 0,
+  "supervised_cleanup_modem_offline": true,
+  "supervised_cleanup_services_stopped": true,
+  "ephemeral_mac_file_avoided_optional_firmware_timeout": true,
+  "subsequent_supervised_start_without_reboot_passed": true
 }

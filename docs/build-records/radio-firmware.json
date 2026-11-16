@@ -264,6 +264,42 @@
       "bytes": 19348,
       "sha256": "fe87bbff770a795186fdd44bdd855d6c2feeecd206c54e7ec11291e8612d7591",
       "source": "Saved LineageOS vendor image"
+    },
+    {
+      "path": "ipa_fws.b02",
+      "bytes": 12040,
+      "sha256": "159347985417da967000ab4215e0bfd6ccb650f2129fb02a1fca836f62b9795d",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "ipa_fws.b03",
+      "bytes": 128,
+      "sha256": "14024088f436ebd24b097cb113b2177e12c939efdac0211d560c7cc498611507",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "ipa_fws.b04",
+      "bytes": 320,
+      "sha256": "8d572c4b4dee9572d90ab90137ec030331856bbfd8bf2e6ee315da4a5bab3373",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "ipa_fws.mdt",
+      "bytes": 7020,
+      "sha256": "9bc16ecc7c50661dc3c735305a165e9d79c3b202670ef4b0947e8d2f669f8f3e",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "ipa_fws.b01",
+      "bytes": 6808,
+      "sha256": "1b5fc12ef789ea6e83a0002b02fc3e8f42df3bd1f38b3717147c1f6ddf09296f",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "ipa_fws.b00",
+      "bytes": 212,
+      "sha256": "8422f7893ca4862926c5ad18202c858ef545588ff13b0e4046a19c53540e8c0b",
+      "source": "Samsung BL NON-HLOS image"
     }
   ],
   "proprietary_files_in_git": false

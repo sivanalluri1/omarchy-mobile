@@ -290,7 +290,23 @@ Revision 7 is now the latest tested RAM image. Its SHA256 is 4f054089f3f90861911
 - [x] Run RMTFS using RAM snapshots in read-only shadow mode; compare all four snapshots with original partitions afterward.
 - [x] Discover WLFW service 69, transfer five BDF segments and receive calibration-report acknowledgement.
 - [x] Observe the kernel's WLAN firmware-ready message.
-- [ ] Create a working WLAN interface and scan.
+- [x] Create a working WLAN interface and scan.
 - [ ] Validate network connection and mobile-shell network integration.
 
 The current host probe fails with errno -14 before creating wlan0. An earlier ON request preceded firmware support startup, so a clean ordered startup is the next check. The BDF transfer initially failed on its last segment when total_size decreased per segment; keeping total_size constant succeeded, matching the inspected userspace implementations. Wi-Fi is not yet functional. No flash or original modem-storage write was performed. See docs/build-records/hardware-test-10.json.
+
+
+### Step 10 — first native Wi-Fi scans (2026-11-15)
+
+- [x] Reproduce the probe failure after a clean startup without IPA.
+- [x] Load IPA firmware and initialize its SMMU mappings before Wi-Fi startup.
+- [x] Create wlan0 on the unchanged native kernel.
+- [x] Assign a temporary locally administered station MAC before scanning.
+- [x] Complete three scans with both 2.4 and 5 GHz results (55, 43 and 65 BSS entries).
+- [x] Recheck all four original modem-storage partitions against RAM snapshots.
+- [x] Verify the consolidated startup helper from a fresh boot.
+- [ ] Validate authentication, DHCP, packet transfer and mobile network controls.
+
+The prior failure record is retained as experiment history. IPA-first startup resolved the probe failure without a kernel change. The optional wlan_mac.bin lookup caused a 60-second wait; the new RAM-only address generator is intended to avoid that wait and serial-derived fallback. SSIDs, BSSIDs and raw modem data remain private.
+
+The consolidated helper passed a fresh 120-second run, compared original storage with RAM snapshots, exited zero and stopped its support services with the modem OFFLINE. A subsequent supervised startup also succeeded without another reboot. Four temporary locally administered addresses supplied in a RAM-only wlan_mac.bin avoided the optional-file timeout.
