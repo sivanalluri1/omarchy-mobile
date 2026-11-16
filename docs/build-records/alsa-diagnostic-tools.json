@@ -1,0 +1,9 @@
+{
+  "package": "alsa-utils",
+  "version": "1.2.14-1",
+  "architecture": "arm64",
+  "source": "Debian trixie authenticated apt index",
+  "package_sha256": "485fdd5ff4232fcc761ee4ca2f6e8be7572783e696a0d595ccffcba324db1026",
+  "arch_alsa_lib_used": "1.2.16.1-1",
+  "diagnostic_only": true
+}

@@ -18,5 +18,32 @@
   "usb_link_replug_restored_ssh_without_reboot": true,
   "audio_services_integrated": false,
   "headphones_tested": false,
-  "microphone_tested": false
+  "microphone_tested": true,
+  "microphone_capture": {
+    "duration_seconds": 10,
+    "raw_audio_uploaded": false,
+    "sample_rate": 16000,
+    "samples": 160000,
+    "peak": 11378,
+    "rms": 487.52,
+    "per_second_rms": [
+      1536.93,
+      14.62,
+      6.95,
+      74.66,
+      63.85,
+      66.17,
+      15.09,
+      4.73,
+      4.82,
+      3.77
+    ],
+    "restored_controls": 7,
+    "restore_failures": [],
+    "raw_audio_deleted": true
+  },
+  "microphone_capture_path": "main sound card MultiMedia1 / TX_CDC_DMA_TX_3",
+  "speech_intelligibility_or_frequency_response_validated": false,
+  "headphones_available": false,
+  "headphones_deferred_reason": "Owner has no wired headphones available"
 }

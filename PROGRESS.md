@@ -376,3 +376,15 @@ Revision 9 SHA256: 0f3921bb6064a6d69cd234ef2d775bde236f094ac703a9cb3ffd6038575dd
 - [ ] Validate headphones and microphone capture.
 
 The bounded test left amplifier gain, limiter/boost and calibration controls untouched. Playback exited zero and restored every changed control. Temporary ALSA diagnostic binaries were used with the existing Arch alsa-lib; signed Arch utilities and desktop audio packaging are next. See docs/build-records/hardware-test-12.json.
+
+
+### Step 10 — built-in microphone capture checkpoint (2026-11-16)
+
+- [x] Apply the vendor main-microphone route and capture 160,000 mono samples at 16 kHz while the owner speaks/counts.
+- [x] Observe changing signal levels (peak 11,378; overall RMS 487.52).
+- [x] Restore all seven mixer controls and verify the PCM closes.
+- [x] Delete raw audio from tablet RAM; transfer only numerical signal statistics.
+- [ ] Validate microphone intelligibility/quality and desktop capture integration.
+- [ ] Validate wired headphones when hardware is available (owner has none currently).
+
+This validates capture through the main WCD/ADSP route; it does not establish DBMDX voice/wake functionality. Desktop audio packaging is in progress.
