@@ -291,7 +291,7 @@ Revision 7 is now the latest tested RAM image. Its SHA256 is 4f054089f3f90861911
 - [x] Discover WLFW service 69, transfer five BDF segments and receive calibration-report acknowledgement.
 - [x] Observe the kernel's WLAN firmware-ready message.
 - [x] Create a working WLAN interface and scan.
-- [ ] Validate network connection and mobile-shell network integration.
+- [x] Validate network connection and mobile-shell network integration.
 
 The current host probe fails with errno -14 before creating wlan0. An earlier ON request preceded firmware support startup, so a clean ordered startup is the next check. The BDF transfer initially failed on its last segment when total_size decreased per segment; keeping total_size constant succeeded, matching the inspected userspace implementations. Wi-Fi is not yet functional. No flash or original modem-storage write was performed. See docs/build-records/hardware-test-10.json.
 
@@ -305,7 +305,7 @@ The current host probe fails with errno -14 before creating wlan0. An earlier ON
 - [x] Complete three scans with both 2.4 and 5 GHz results (55, 43 and 65 BSS entries).
 - [x] Recheck all four original modem-storage partitions against RAM snapshots.
 - [x] Verify the consolidated startup helper from a fresh boot.
-- [ ] Validate authentication, DHCP, packet transfer and mobile network controls.
+- [x] Validate authentication, DHCP, packet transfer and mobile network controls.
 
 The prior failure record is retained as experiment history. IPA-first startup resolved the probe failure without a kernel change. The optional wlan_mac.bin lookup caused a 60-second wait; the new RAM-only address generator is intended to avoid that wait and serial-derived fallback. SSIDs, BSSIDs and raw modem data remain private.
 
@@ -320,7 +320,7 @@ The consolidated helper passed a fresh 120-second run, compared original storage
 - [x] Resolve DNS and retrieve two HTTPS sites with certificate verification enabled.
 - [x] Disconnect, reconnect, reacquire DHCP and repeat a verified HTTPS request.
 - [x] Remove the GUI request and supplicant configuration files from RAM after authentication.
-- [ ] Package the connection runtime and integrate shell network controls.
+- [x] Package the connection runtime and integrate shell network controls.
 - [ ] Validate roaming, long-running connectivity, suspend/resume, audio and remaining hardware.
 
 The owner supplied the network name privately and entered the password on the tablet. No password, derived key, SSID, BSSID or lease address is committed. Direct wpa_supplicant and BusyBox udhcpc work without systemd. The tested connection tools are temporary RAM additions to revision 7, not yet part of the immutable image. A radio-lifetime watcher retires the temporary supplicant when the bounded radio session ends; its exit-time behavior remains to be observed with an active connection. See docs/build-records/wifi-connection-test.json.
@@ -343,6 +343,23 @@ SSD/build filesystem verified cleanly. Download Mode detected; a read-only PIT s
 - [x] Package hash-checked private radio firmware and pinned radio tools into the image.
 - [x] Enable the upstream mobile quick-settings panel and add a manually supervised system bus/network service configuration.
 - [x] Pass offline libraries, networking CLI and compositor configuration checks.
-- [ ] Validate NetworkManager and shell Wi-Fi controls on hardware.
+- [x] Validate NetworkManager and shell Wi-Fi controls on hardware.
 
 The isolated experiment restricts NetworkManager management to wlan0 and uses RAM state. Its temporary policy bypasses polkit because there is no logind session; this is not a production multi-user policy. The original USB recovery network stays outside NetworkManager management.
+
+
+### Step 10 — packaged networking and mobile controls validated (2026-11-16)
+
+- [x] Package signed Arch network tools plus hash-checked radio firmware/helpers.
+- [x] Run a manual system bus, wpa_supplicant and NetworkManager without systemd.
+- [x] Restrict management to wlan0 and verify USB recovery remains unmanaged and reachable.
+- [x] Correct the mobile panel's selection of unmanaged swlan0 to managed wlan0.
+- [x] Enter the password directly through the upstream mobile Wi-Fi sheet.
+- [x] Validate final revision 9 without code overlays; restore a saved profile only within tablet RAM.
+- [x] Validate DNS, DHCP and certificate-verified HTTPS on the final image.
+- [x] Toggle Wi-Fi off/on through the shell and automatically reconnect; repeat HTTPS through the dynamic resolver symlink.
+- [x] Pass three actual app open/close cycles with the final network-enabled desktop.
+- [x] Recheck the native BOOT hash and original modem-storage snapshots.
+- [ ] Continue audio bring-up, power/suspend and remaining input/stability checks.
+
+Revision 9 SHA256: 0f3921bb6064a6d69cd234ef2d775bde236f094ac703a9cb3ffd6038575ddb41. Revision 8 is retained, as are the earlier keyboard images. The final image includes the interface-selection patch, RAM connection-profile mounts and a resolver symlink that follows NetworkManager's atomic file replacements. All saved credentials remain exclusively in tablet RAM and disappear at power-off. Manual service startup and the experimental single-user authorization policy remain limitations. Evidence: docs/build-records/hardware-test-11.json and docs/network-services.md.

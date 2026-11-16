@@ -1,0 +1,83 @@
+{
+  "date": "2026-11-16",
+  "timezone": "America/Phoenix",
+  "root_revision": 9,
+  "root_sha256": "0f3921bb6064a6d69cd234ef2d775bde236f094ac703a9cb3ffd6038575ddb41",
+  "native_boot_unchanged": true,
+  "ssd_filesystem_verification_exit": 0,
+  "packages": {
+    "networkmanager": "1.58.1-3",
+    "wpa_supplicant": "2:2.12-2",
+    "iw": "6.17-1"
+  },
+  "private_radio_firmware_packaged": true,
+  "radio_helpers_packaged": true,
+  "manual_system_dbus": true,
+  "manual_networkmanager_without_systemd": true,
+  "wlan0_managed": true,
+  "usb0_unmanaged_and_reachable": true,
+  "owner_entered_password_in_mobile_wifi_panel": true,
+  "credentials_transferred_to_host": false,
+  "profile_retained_only_in_tablet_ram_across_image_restart": true,
+  "saved_profile_reconnection_on_final_image": true,
+  "code_overlays_on_final_image": false,
+  "shell_controls": {
+    "wifi_off_via_shell": true,
+    "wifi_on_via_shell": true,
+    "automatic_reconnection": true,
+    "usb_remained_unmanaged": true
+  },
+  "https": [
+    {
+      "url": "https://archlinuxarm.org/",
+      "status": 200,
+      "bytes": 16932,
+      "tls_verified": true
+    },
+    {
+      "url": "https://www.kernel.org/",
+      "status": 200,
+      "bytes": 20436,
+      "tls_verified": true
+    }
+  ],
+  "post_toggle_https": {
+    "status": 200,
+    "bytes": 20436,
+    "tls_verified": true,
+    "resolver_is_symlink": true
+  },
+  "app_lifecycle": [
+    {
+      "cycle": 1,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 2,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 2,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 3,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    }
+  ],
+  "network_stop_and_arch_unmount_passed_on_revision8": true,
+  "original_modem_storage_matches_snapshots": true,
+  "limits": [
+    "Single-user experimental authorization bypasses polkit; not a production multi-user policy",
+    "Manual service startup under BusyBox, no supported current systemd PID1",
+    "Profiles and machine ID are volatile and lost at power-off",
+    "Roaming, suspend/resume and long-duration networking remain unvalidated",
+    "Audio, power and remaining input validation are open"
+  ],
+  "private_evidence_directory": "work/hardware-test-11"
+}

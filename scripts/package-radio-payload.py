@@ -32,3 +32,8 @@ for name in ['start-p613-radio.sh', 'prepare-p613-rmtfs.sh', 'run-p613-radio-tes
     shutil.copy2(project/'native'/name, dest)
     dest.chmod(0o755)
 print('PACKAGED_HASH_VERIFIED_PRIVATE_RADIO_PAYLOAD')
+# NetworkManager replaces its generated resolver file on lease changes.
+# A symlink follows the current inode; a one-off bind mount would go stale.
+resolver = target/'etc/resolv.conf'
+resolver.unlink(missing_ok=True)
+resolver.symlink_to('/run/NetworkManager/resolv.conf')

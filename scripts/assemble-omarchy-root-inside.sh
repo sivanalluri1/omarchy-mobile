@@ -16,7 +16,7 @@ mount "$loop" /target
 mount --rbind /dev /target/dev
 mount --make-rslave /target/dev
 mount -t proc proc /target/proc
-cp /etc/resolv.conf /target/etc/resolv.conf
+cp --remove-destination /etc/resolv.conf /target/etc/resolv.conf
 python3 /project/scripts/stage-omarchy-payload.py
 # Verify signatures against the explicitly pinned TLS-bootstrapped Omarchy keyring.
 mkdir -m700 /tmp/omarchy-gnupg
@@ -40,6 +40,7 @@ install -Dm644 /project/configs/p613-osk-test.desktop /target/usr/share/applicat
 install -Dm755 /project/native/setup-p613-input.py /target/usr/local/libexec/p613/setup-input.py
 install -Dm644 /project/configs/p613-NetworkManager.conf /target/etc/p613/NetworkManager.conf
 install -Dm755 /project/native/start-p613-network.sh /target/usr/local/libexec/p613/start-network.sh
+install -Dm755 /project/native/stop-p613-network.sh /target/usr/local/libexec/p613/stop-network.sh
 python3 /project/scripts/package-radio-payload.py
 install -Dm644 /project/configs/hyprland-p613-omarchy.lua /target/etc/p613/hyprland-omarchy.lua
 install -Dm644 /project/configs/omarchy-p613-shell.json /target/etc/p613/shell.json

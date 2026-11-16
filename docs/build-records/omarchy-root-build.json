@@ -1,10 +1,10 @@
 {
   "bytes": 706154496,
-  "sha256": "cbe8cee333401c7d895f78cfb8b2fcc937c86ab0af9a13cd14d4137aa6ad8f01",
-  "tablet_tested": false,
+  "sha256": "0f3921bb6064a6d69cd234ef2d775bde236f094ac703a9cb3ffd6038575ddb41",
+  "tablet_tested": true,
   "systemd_pid1": false,
   "date": "2026-11-16",
-  "profile": "Omarchy mobile home, launcher, switcher, back gesture and on-screen keyboard",
+  "profile": "Omarchy mobile home, launcher, recents, keyboard and NetworkManager quick settings",
   "package_signatures_verified": true,
   "keyring_bootstrap": "Pinned HTTPS keyring, fingerprint checked",
   "quickshell_version": "0.3.2.r7.g2b4501a-1",
@@ -16,12 +16,12 @@
   "known_limitations": [
     "Systemd unsupported on 4.14; BusyBox remains PID 1",
     "Input response and pressure verified; accuracy, palm rejection and rotation remain unvalidated",
-    "Audio, Wi-Fi and power service integration remain open; keyboard language/theme integration remains unvalidated"
+    "Audio and power integration, input precision and longer stability validation remain open; network authorization is an isolated single-user prototype"
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
-  "revision": 8,
-  "previous_root_sha256": "4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1",
+  "revision": 9,
+  "previous_root_sha256": "cbe8cee333401c7d895f78cfb8b2fcc937c86ab0af9a13cd14d4137aa6ad8f01",
   "parent_side_forkfd_bootstrap": true,
   "input_setup_in_image": true,
   "direct_gio_desktop_launcher": true,
@@ -38,5 +38,9 @@
   "private_radio_firmware_in_image": true,
   "radio_tools_in_image": true,
   "quicksettings_enabled": true,
-  "networkmanager_tablet_validation_pending": true
+  "networkmanager_tablet_validation_pending": false,
+  "wifi_interface_selection_patched": true,
+  "network_profile_storage": "RAM tmpfs mounted over system-connections",
+  "resolver": "symlink to /run/NetworkManager/resolv.conf",
+  "networkmanager_controls_validated": true
 }

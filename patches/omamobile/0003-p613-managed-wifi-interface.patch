@@ -1,0 +1,11 @@
+--- a/usr/share/omamobile/shell/plugins/omamobile.quicksettings/QuickSettings.qml
++++ b/usr/share/omamobile/shell/plugins/omamobile.quicksettings/QuickSettings.qml
+@@ -668,7 +668,7 @@
+     readonly property var devices: Networking.devices ? Networking.devices.values : []
+     readonly property var device: {
+       for (var i = 0; i < devices.length; i++)
+-        if (devices[i] && devices[i].type === DeviceType.Wifi) return devices[i]
++        if (devices[i] && devices[i].type === DeviceType.Wifi && devices[i].name === "wlan0") return devices[i]
+       return null
+     }
+     readonly property var network: {

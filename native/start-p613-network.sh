@@ -8,6 +8,7 @@ set -eu
 [ -f /arch/etc/p613/NetworkManager.conf ]
 mkdir -p /arch/var/lib/NetworkManager
 mount -t tmpfs -o size=16m,mode=700 tmpfs /arch/var/lib/NetworkManager
+mount -t tmpfs -o size=4m,mode=700 tmpfs /arch/etc/NetworkManager/system-connections
 mkdir -p /arch/run/dbus /arch/run/NetworkManager/system-connections
 chmod 700 /arch/run/NetworkManager/system-connections
 chroot /arch /usr/bin/dbus-uuidgen --ensure=/run/p613-machine-id
