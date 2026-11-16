@@ -1,0 +1,270 @@
+{
+  "date": "2026-11-15",
+  "files": [
+    {
+      "path": "adsp.b10",
+      "bytes": 19179,
+      "sha256": "1b123fc8f554739e0ac2888af0ccae60762037f21fc3a185427e464e15563ea7",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b17",
+      "bytes": 16968,
+      "sha256": "a93886d52a2bb21686d026be06f5af0d0ac40868fa690726718a06ff1bece496",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b28",
+      "bytes": 266184,
+      "sha256": "abda8fe0b7a6c52278e544408ff458a242ce0b018b2267abed1028e7228dc5fd",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b21",
+      "bytes": 264016,
+      "sha256": "45e62c96aba2cde640397a0981a931a3f7d7cdd56babfbbf6844eb2e80464da7",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b19",
+      "bytes": 11728,
+      "sha256": "3506b56069a9ef0f1054f0bd12777e9ac7aa536066b60368e0dffc09a8e1cfac",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b27",
+      "bytes": 7680,
+      "sha256": "757def8e69d69ecbb1ede087d5792845cb4fcfa86d799acf8e5a6b49ea6aa683",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b18",
+      "bytes": 1988,
+      "sha256": "d6407d2c9495306e5b0e7aa4cc17335508a70bef2166acf936eeb23420695aed",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b20",
+      "bytes": 48036,
+      "sha256": "3d18fdc2079b4cc7eccb5e7c85b2e069eb39b6d29a5aff7814edb0db93c8f66f",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b16",
+      "bytes": 13870,
+      "sha256": "5c6df08761e1c40ce6d5b65a5d4112d1b90970f2a6c00c909f99012a1186a2a7",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b29",
+      "bytes": 402548,
+      "sha256": "a63eaea3f30603c69887ee2f0c8e41f38ee32d9facc763eda447d71d7d029edf",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b11",
+      "bytes": 148,
+      "sha256": "5b3f066554f957be7f004759b62ac16fb6a9eed0f4e70b4c1f96f7a178806d2d",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "wlanmdsp.mbn",
+      "bytes": 3831088,
+      "sha256": "05b4f319cc24ede02b0c6b37762e921cac57a25692faad145976252cb27eb261",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adspua.jsn",
+      "bytes": 555,
+      "sha256": "d6c6376f53e5449eb4f7b9e5a30679ebc2a9afaad28c13ff171f979e7b1af1f6",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adspr.jsn",
+      "bytes": 403,
+      "sha256": "4781dc9312fa017b0e611c752dae2183c0f205af8300b28417a496dae511b0a5",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsps.jsn",
+      "bytes": 405,
+      "sha256": "9723d9873223f83464246a234bef61569c3d6a07112448e4e7da870d4ce5972a",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b33",
+      "bytes": 622216,
+      "sha256": "8ecdf3212ab22bbf474bc679bc1e26f8dae0ab8cfb78f3ffca63d232d3296d88",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b34",
+      "bytes": 196,
+      "sha256": "70a72f77a04fc96d5ab6a99bf5ae63498251d9d4007d58ee2ec94d80d6c486c1",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b02",
+      "bytes": 84028,
+      "sha256": "18415a5c9bb56c4a658a62ccf8717383a662b3403560b932323fe9167f420bbf",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b05",
+      "bytes": 2243956,
+      "sha256": "0d36f3848ff6e29e69446b58b395b19465cdf6fda3804fdf0f744585a3ef1959",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b04",
+      "bytes": 1882012,
+      "sha256": "3c1bd2f0b1d6db03de320bbe84674ab68d3ea2dbf97073b2cf437f1df471b4b8",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b03",
+      "bytes": 112276,
+      "sha256": "cada9cbc32ec80c8f4ccd41a352b137a97a7ab2bc314538576dfd9168228f039",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b32",
+      "bytes": 164668,
+      "sha256": "3a9699404011d2149fbd29b2c6aad58df4b82c750334f071a5c3095d79f4d45e",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b14",
+      "bytes": 1362628,
+      "sha256": "237771727c8ea5945d507015ee81941e97026eae1e491fda2fc989a1145ca432",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b13",
+      "bytes": 593920,
+      "sha256": "6a3eeea296057d1f6c0ce2b08f41f824d930d02f2beeb493b2bd43417266f035",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b25",
+      "bytes": 4096,
+      "sha256": "ed9f63063041f6991493f968fdd0a52cacc09f6831d27b9c4611cefb7e091280",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b22",
+      "bytes": 307200,
+      "sha256": "a4909e8b7e5bdc5d96e40fe0bf6c88f253935d2e5dad45000c72ce5aeea74710",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.mdt",
+      "bytes": 9500,
+      "sha256": "4a8d360c58dfc9b37564ad09c2492088e8bd307d6178ee81e58a31c3d4643f28",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b23",
+      "bytes": 9617788,
+      "sha256": "f384aa5c27c2fbd711850249c5db999cfe20e3c63c7315572f1a8baf02f6228f",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b24",
+      "bytes": 990832,
+      "sha256": "26b071083df412d40b36d9aecc3c88ee6bfe9fab46792fff5b10ee0b2918c309",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b12",
+      "bytes": 88852,
+      "sha256": "a9cc3258db2f3a26d9b89019d730503f5324d01005690f73649b4a83a5407ca2",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b15",
+      "bytes": 24580,
+      "sha256": "81dee5b52a23ac4117022d42daf5055197cc80c886424996d86fe8a524700119",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b08",
+      "bytes": 27796,
+      "sha256": "77d9a546261e8e36cb6f0ba96318db1555b6ed5ac6cb8ededc0f07d44370ef20",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b30",
+      "bytes": 1571,
+      "sha256": "ba180a52e7e2952c78a4112e5abd5e6353d9769f762919cc01b3352f04b26c7d",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b06",
+      "bytes": 2904,
+      "sha256": "c0e747e521ecc41170f5c9c17003b9db78e493e99bb4382290c8803b06eafec5",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b01",
+      "bytes": 8296,
+      "sha256": "5570cf1310e95bb58756c0a6c68ad41ea795352520ce1224bdf555dc89e890c7",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b00",
+      "bytes": 1204,
+      "sha256": "4fd2a50bf7440b2e83df4be2a425f796415b68b2d652cd11ab2e31c2bf0e8c3a",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b07",
+      "bytes": 6540,
+      "sha256": "1c8755b47b08fef2936ae0b349ba8f30313255a2b16ccccdd281ddabcaf6d22d",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b31",
+      "bytes": 33988,
+      "sha256": "5a0ecf1b88a71765efc2a836d83d78d907c1e52f630fabd050bfb98860eb8383",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "adsp.b09",
+      "bytes": 151488,
+      "sha256": "71feeeaf277fe6e1037dd7ce5577c09837a4e290f25144adb95a30e0e5503607",
+      "source": "Samsung BL NON-HLOS image"
+    },
+    {
+      "path": "wlan/qca_cld/bdwlan.bin1",
+      "bytes": 26328,
+      "sha256": "501ca0e26155a455fac6b485c50eca3cd148bae822d2788ce04e4d06cd6e6228",
+      "source": "Saved LineageOS vendor image"
+    },
+    {
+      "path": "wlan/qca_cld/bdwlan.bin",
+      "bytes": 26328,
+      "sha256": "a3b0033ac112be147d9d61fdfcf7401a45ba4120bdb770dd9fb97c45bd72516d",
+      "source": "Saved LineageOS vendor image"
+    },
+    {
+      "path": "wlan/qca_cld/WCNSS_qcom_cfg.ini",
+      "bytes": 13555,
+      "sha256": "782a56ff545a146b25763ca25ab0bc272dcb52a9a94beb618f5fe2d938979aed",
+      "source": "Saved LineageOS vendor image"
+    },
+    {
+      "path": "wlan/qca_cld/bdwlan.bin2",
+      "bytes": 26328,
+      "sha256": "eaabffe45286596dfecbc21c95239f5ac6afed203f942145724c614bce5303fe",
+      "source": "Saved LineageOS vendor image"
+    },
+    {
+      "path": "wlan/qca_cld/regdb.bin",
+      "bytes": 19348,
+      "sha256": "fe87bbff770a795186fdd44bdd855d6c2feeecd206c54e7ec11291e8612d7591",
+      "source": "Saved LineageOS vendor image"
+    }
+  ],
+  "proprietary_files_in_git": false
+}

@@ -1,0 +1,15 @@
+# P613 native radio bring-up
+
+The pinned Samsung kernel builds qcacld and ICNSS into the image. Its boot_wlan sysfs attribute has no store callback; the /dev/wlan character device accepts the three-byte `ON\n` request. Starting that driver alone is insufficient.
+
+Firmware was extracted offline from the saved, previously verified Samsung P613XXS8CYE1 package and the saved LineageOS gta4xlveu package. ADSP comes from BL's NON-HLOS FAT image, modem segments from AP's modem FAT image, and WLAN configuration/BDF from the Lineage vendor filesystem. The latter is reconstructed from its version-4 new-block-only transfer list and Brotli data. `scripts/reconstruct-newdat.py` rejects incremental operations and existing output files. Use debugfs read-only extraction; none of these images are flashed. The private evidence directory contains input files and complete manifests; proprietary blobs are excluded from Git.
+
+The old kernel requires qrtr-ns; current qrtr removed it, so the build pins v1.0. Other sources are pinned in radio-sources.lock.json. `scripts/build-radio-tools.sh` builds without changing source checkouts. Two opt-in patches let pd-mapper and tqftpserv use `/vendor/firmware_mnt/image` directly because this Samsung PIL kernel has no remoteproc firmware directory. The environment override is restricted to that exact path. TFTP's writable directory is created in native RAM at /var/lib/tqftpserv.
+
+RMTFS uses the kernel's rmtfs UIO shared-memory device through a volatile /dev/qcom_rmtfs_uio1 symlink to /dev/uio0. Four verified partition names (modemst1, modemst2, fsg, fsc) are copied read-only into RAM files, and rmtfs runs with `-r -o /tmp/rmtfs`. Its writes affect only private shadow memory. The originals matched their snapshots after the experiment. No raw NV data is committed. Modem startup holds /dev/subsys_modem open for a bounded duration; the modem restart policy is temporarily RELATED rather than SYSTEM.
+
+Hardware progress: ADSP and modem ONLINE, WLFW service 69 discovered, board-data transfer and calibration-report acknowledged, and ICNSS reports firmware ready. Host probe currently fails with errno -14 and no WLAN interface exists. The first driver request was made before all support services were available; repeat from a clean native boot with correct ordering before changing the kernel.
+
+The small p613-wlfw-init.py probe uses TLVs from the pinned kernel and only the hash-checked default P613 BDF when firmware reports no board-specific ID. It is a bounded initialization probe, not a calibration/recovery daemon. BDF total_size must stay constant across all segments on this firmware. The inspected [wlfwd implementation](https://github.com/ScYurii/wlfwd) and [userspace CNSS implementation](https://github.com/UEDestroyer/cnss-daemon) use that wire format. Their broader device support is not evidence that those features work on P613.
+
+Booting firmware is distinct from a successful scan or network connection. Those remain unchecked in PROGRESS.md.

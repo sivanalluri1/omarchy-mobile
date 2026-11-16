@@ -1,0 +1,20 @@
+{
+  "date": "2026-11-15",
+  "stage": "Qualcomm radio prerequisites",
+  "adsp_online": true,
+  "modem_online": true,
+  "legacy_qrtr_nameserver_required": true,
+  "pd_mapper_pil_directory_patch": true,
+  "tqftpserv_pil_directory_patch": true,
+  "wlan_firmware_service_69_discovered": true,
+  "bdf_five_segments_acknowledged": true,
+  "cal_report_acknowledged": true,
+  "kernel_wlan_fw_ready": true,
+  "wlan_interface_present": false,
+  "host_probe_errno": -14,
+  "persistent_modem_storage_matches_ram_snapshots": true,
+  "rmtfs_read_only_shadow_mode": true,
+  "native_boot_unchanged": true,
+  "next": "Repeat with clean startup ordering, then diagnose host probe if it persists",
+  "private_evidence_directory": "work/hardware-test-10"
+}

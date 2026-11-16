@@ -1,0 +1,20 @@
+--- a/translate.c
++++ b/translate.c
+@@ -81,6 +81,17 @@
+ 	ssize_t n;
+ 	int fd = -1;
+ 
++	/* Opt-in PIL firmware path; caller already validates path components. */
++	const char *p613_dir = getenv("P613_FIRMWARE_DIRECTORY");
++	if (p613_dir) {
++		if (strcmp(p613_dir, "/vendor/firmware_mnt/image") ||
++		    snprintf(path, sizeof(path), "%s/%s", p613_dir, file) >= sizeof(path)) {
++			errno = EINVAL;
++			return -1;
++		}
++		return open_maybe_compressed(path);
++	}
++
+ 	read_fw_path_from_sysfs(fw_sysfs_path, sizeof(fw_sysfs_path));
+ 
+ 	class_fd = open("/sys/class/remoteproc", O_RDONLY | O_DIRECTORY);

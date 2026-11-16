@@ -279,3 +279,18 @@ Revision 6 failed startup because libbsd.so.0 was absent. The dependency was add
 - [ ] Integrate Wi-Fi, audio and power services; validate remaining input behavior.
 
 Revision 7 is now the latest tested RAM image. Its SHA256 is 4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1. Stock US keyboard layouts are validated; language/theme integration remains open. The earlier keyboard-pending note records the preparation stage. See docs/build-records/hardware-test-09.json.
+
+
+### Step 10 — Qualcomm radio prerequisites (2026-11-15)
+
+- [x] Reconstruct the saved LineageOS full vendor image offline and verify two reconstructions match.
+- [x] Extract Samsung ADSP/modem firmware and LineageOS Wi-Fi configuration/BDF to private SSD storage.
+- [x] Verify all 74 staged firmware file hashes in native RAM.
+- [x] Bring ADSP and modem online with legacy QRTR discovery, protection-domain mapper and TFTP support.
+- [x] Run RMTFS using RAM snapshots in read-only shadow mode; compare all four snapshots with original partitions afterward.
+- [x] Discover WLFW service 69, transfer five BDF segments and receive calibration-report acknowledgement.
+- [x] Observe the kernel's WLAN firmware-ready message.
+- [ ] Create a working WLAN interface and scan.
+- [ ] Validate network connection and mobile-shell network integration.
+
+The current host probe fails with errno -14 before creating wlan0. An earlier ON request preceded firmware support startup, so a clean ordered startup is the next check. The BDF transfer initially failed on its last segment when total_size decreased per segment; keeping total_size constant succeeded, matching the inspected userspace implementations. Wi-Fi is not yet functional. No flash or original modem-storage write was performed. See docs/build-records/hardware-test-10.json.
