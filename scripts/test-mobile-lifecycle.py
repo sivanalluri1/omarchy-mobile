@@ -10,9 +10,10 @@ import time
 parser=argparse.ArgumentParser()
 parser.add_argument('--close-test-windows',action='store_true',required=True)
 parser.add_argument('--cycles',type=int,choices=range(1,11),default=5)
+parser.add_argument('--test-number',type=int,choices=range(1,100),default=8)
 args=parser.parse_args()
 root=Path(__file__).resolve().parent.parent
-logs=root/'work/hardware-test-08/lifecycle'
+logs=root/f'work/hardware-test-{args.test_number:02d}/lifecycle'
 logs.mkdir(parents=True,exist_ok=True)
 ssh=['ssh','-T','-i',str(root/'work/keys/client_ed25519'),'-o',
      'UserKnownHostsFile='+str(root/'work/keys/tablet_known_hosts'),'-o','StrictHostKeyChecking=yes',

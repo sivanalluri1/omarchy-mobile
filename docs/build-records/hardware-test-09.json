@@ -1,0 +1,81 @@
+{
+  "date": "2026-11-15",
+  "timezone": "America/Phoenix",
+  "root_revision": 7,
+  "root_sha256": "4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1",
+  "native_boot_unchanged": true,
+  "bounded_session_seconds": 120,
+  "bounded_session_exit": 0,
+  "osk_dbus_and_plugin_checks_passed": true,
+  "physical_typing": {
+    "length": 10,
+    "expected_text_match": true,
+    "enter_received": true
+  },
+  "synthetic_text_input_used": false,
+  "show_hide_checks": [
+    {
+      "method": "hideKeyboard",
+      "visible": false,
+      "watcher": true
+    },
+    {
+      "method": "showKeyboard",
+      "visible": true,
+      "watcher": true
+    },
+    {
+      "method": "hideKeyboard",
+      "visible": false,
+      "watcher": true
+    },
+    {
+      "method": "showKeyboard",
+      "visible": true,
+      "watcher": true
+    }
+  ],
+  "lifecycle_cycles": [
+    {
+      "cycle": 1,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 2,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 2,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 3,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 4,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    },
+    {
+      "cycle": 5,
+      "foot_mapped": true,
+      "windows_closed_with_recents_visible": 1,
+      "shell_ping": true,
+      "home_loaded": true
+    }
+  ],
+  "limitations": [
+    "US stock layouts only validated",
+    "No full systemd boot",
+    "Wi-Fi, audio, power and input accuracy remain open"
+  ],
+  "private_evidence_directory": "work/hardware-test-09"
+}

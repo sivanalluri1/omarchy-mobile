@@ -1,10 +1,10 @@
 {
   "bytes": 646651904,
   "sha256": "4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1",
-  "tablet_tested": false,
+  "tablet_tested": true,
   "systemd_pid1": false,
   "date": "2026-11-15",
-  "profile": "Omarchy host, mobile home, launcher, switcher and back gesture",
+  "profile": "Omarchy mobile home, launcher, switcher, back gesture and on-screen keyboard",
   "package_signatures_verified": true,
   "keyring_bootstrap": "Pinned HTTPS keyring, fingerprint checked",
   "quickshell_version": "0.3.2.r7.g2b4501a-1",
@@ -16,7 +16,7 @@
   "known_limitations": [
     "Systemd unsupported on 4.14; BusyBox remains PID 1",
     "Input response and pressure verified; accuracy, palm rejection and rotation remain unvalidated",
-    "OSK, audio, Wi-Fi and power service integration remain open"
+    "Audio, Wi-Fi and power service integration remain open; keyboard language/theme integration remains unvalidated"
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,

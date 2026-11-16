@@ -265,6 +265,17 @@ The reconnected SSD/build volume was verified (filesystem check exit zero), and 
 - [x] Start the keyboard directly in the manual private session bus; enable the mobile keyboard plugin.
 - [x] Configure the session's Wayland input-method environment.
 - [x] Add offline keyboard-library, GTK import and profile checks, plus a visible typing fixture.
-- [ ] Verify keyboard visibility, real typing/Enter and show/hide behavior on the tablet.
+- [x] Verify keyboard visibility, real typing/Enter and show/hide behavior on the tablet.
 
 Revision 6 failed startup because libbsd.so.0 was absent. The dependency was added explicitly and checked before revision 7 was packaged. Keyboard hardware validation remains pending; package installation alone is not a pass. Evidence: docs/build-records/keyboard-offline-validation.json.
+
+
+### Step 9 — on-screen keyboard hardware checkpoint (2026-11-15)
+
+- [x] Receive the requested text and Enter through the visible native keyboard fixture without synthetic typing.
+- [x] Pass four hide/show visibility checks with the mobile plugin watcher active.
+- [x] Complete a clean 120-second session with periodic keyboard/mobile checks and exit zero.
+- [x] Pass five actual Foot open/close cycles with the keyboard service active.
+- [ ] Integrate Wi-Fi, audio and power services; validate remaining input behavior.
+
+Revision 7 is now the latest tested RAM image. Its SHA256 is 4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1. Stock US keyboard layouts are validated; language/theme integration remains open. The earlier keyboard-pending note records the preparation stage. See docs/build-records/hardware-test-09.json.

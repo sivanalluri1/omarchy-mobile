@@ -17,6 +17,7 @@
   "gtk3_fixture_import_passed": true,
   "hyprland_profile_config_passed": true,
   "first_start_failure": "Revision 6 lacked libbsd.so.0; revision 7 includes signed libbsd and an offline Squeekboard library check",
-  "tablet_validation_pending": true,
-  "package_inventory": "docs/build-records/omarchy-osk-package-versions.txt"
+  "tablet_validation_pending": false,
+  "package_inventory": "docs/build-records/omarchy-osk-package-versions.txt",
+  "hardware_record": "docs/build-records/hardware-test-09.json"
 }
