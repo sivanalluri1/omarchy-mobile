@@ -5,13 +5,31 @@
     "position": "top",
     "clockFormat": "HH:mm",
     "showBatteryPercent": false,
-    "layout": {"left": [], "center": [], "right": []}
+    "layout": {
+      "left": [],
+      "center": [],
+      "right": []
+    }
   },
-  "idle": {"screensaver": 0, "lock": 0},
+  "idle": {
+    "screensaver": 0,
+    "lock": 0
+  },
   "plugins": [
-    {"id": "omamobile.home"},
-    {"id": "omamobile.launcher"},
-    {"id": "omamobile.switcher"},
-    {"id": "omamobile.back"}
+    {
+      "id": "omamobile.home"
+    },
+    {
+      "id": "omamobile.launcher"
+    },
+    {
+      "id": "omamobile.switcher"
+    },
+    {
+      "id": "omamobile.back"
+    },
+    {
+      "id": "omamobile.keyboard"
+    }
   ]
 }

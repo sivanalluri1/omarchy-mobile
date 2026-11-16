@@ -27,7 +27,7 @@ gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/quickshell.pkg.tar.zst
 gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/settings.pkg.tar.zst.sig /inputs/settings.pkg.tar.zst
 chroot /target /bin/bash -s <<'ARCH'
 set -euo pipefail
-pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python python-dbus python-gobject inotify-tools socat grim ttf-jetbrains-mono-nerd
+pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python python-dbus python-gobject inotify-tools socat grim ttf-jetbrains-mono-nerd squeekboard gsettings-desktop-schemas dconf wtype libbsd
 find /var/cache/pacman/pkg -mindepth 1 -maxdepth 1 -type f -delete
 pacman -Q > /root/p613-package-manifest.txt
 ARCH
@@ -35,12 +35,17 @@ ARCH
 bsdtar -xf /inputs/quickshell.pkg.tar.zst -C /target --exclude='.PKGINFO' --exclude='.BUILDINFO' --exclude='.MTREE' --exclude='.INSTALL'
 install -Dm755 /project/native/p613-omarchy-session /target/usr/local/bin/p613-omarchy-session
 install -Dm755 /project/native/p613-launch-desktop /target/usr/local/bin/p613-launch-desktop
+install -Dm755 /project/native/p613-osk-test.py /target/usr/local/bin/p613-osk-test
+install -Dm644 /project/configs/p613-osk-test.desktop /target/usr/share/applications/p613-osk-test.desktop
 install -Dm755 /project/native/setup-p613-input.py /target/usr/local/libexec/p613/setup-input.py
 install -Dm644 /project/configs/hyprland-p613-omarchy.lua /target/etc/p613/hyprland-omarchy.lua
 install -Dm644 /project/configs/omarchy-p613-shell.json /target/etc/p613/shell.json
 chroot /target /usr/bin/qs --version
 chroot /target /usr/bin/env LD_LIBRARY_PATH=/opt/p613-compat/lib /usr/bin/ldd /usr/bin/quickshell > /out/quickshell-ldd.txt
 ! grep -q 'not found' /out/quickshell-ldd.txt
+chroot /target /usr/bin/env LD_LIBRARY_PATH=/opt/p613-compat/lib:/opt/p613-gpu/lib /usr/bin/ldd /usr/bin/squeekboard > /out/squeekboard-ldd.txt
+! grep -q 'not found' /out/squeekboard-ldd.txt
+chroot /target /usr/bin/python -c "import gi; gi.require_version('Gtk','3.0'); from gi.repository import Gtk; print('GTK_INPUT_FIXTURE_IMPORT_PASS')"
 mkdir -p /target/tmp/p613-runtime
 chown 1000:1000 /target/tmp/p613-runtime
 chmod 700 /target/tmp/p613-runtime

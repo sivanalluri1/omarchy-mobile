@@ -1,7 +1,7 @@
 {
-  "bytes": 615157760,
-  "sha256": "4d509fa2f13482c0de36d60458957f050ef8cd3796b35f2356fc16a1d515eb07",
-  "tablet_tested": true,
+  "bytes": 646651904,
+  "sha256": "4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1",
+  "tablet_tested": false,
   "systemd_pid1": false,
   "date": "2026-11-15",
   "profile": "Omarchy host, mobile home, launcher, switcher and back gesture",
@@ -20,12 +20,17 @@
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
-  "revision": 5,
-  "previous_root_sha256": "41a6c307919e74095bbf5a93ffec53516b533a6454571304f759538f91f9f94a",
+  "revision": 7,
+  "previous_root_sha256": "060ab0c94166eb64811624f9c1aeffec59ef5663b35fd120d778f6a688cd9947",
   "parent_side_forkfd_bootstrap": true,
   "input_setup_in_image": true,
   "direct_gio_desktop_launcher": true,
   "mesa_allocation_fd_fix": true,
   "mesa_library_sha256": "c0051c7823d64be174f883b823b0314880a183190fce9a760de06e5d7d550a86",
-  "static_recents_cards": true
+  "static_recents_cards": true,
+  "on_screen_keyboard": "Squeekboard, started directly under the private session bus",
+  "osk_fixture_in_image": true,
+  "squeekboard_libraries_resolved": true,
+  "gtk_fixture_import_checked": true,
+  "explicit_libbsd_dependency": true
 }

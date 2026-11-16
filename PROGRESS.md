@@ -254,3 +254,17 @@ Desktop/test-user processes and seatd were stopped, the Arch RAM root was unmoun
 Resume from commit ec10d79's validated revision-5 image (SHA256 4d509fa2f13482c0de36d60458957f050ef8cd3796b35f2356fc16a1d515eb07), not an earlier root. The repaired Turnip library SHA256 is c0051c7823d64be174f883b823b0314880a183190fce9a760de06e5d7d550a86. Native BOOT remains installed (e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6); Android was not restored, as authorized. RAM session state is lost at power-off.
 
 When the owner reconnects the tablet and SSD and requests continuation, verify both devices, mount the case-sensitive build sparsebundle, boot/check native Linux and restage the revision-5 RAM image using the pinned-key staging helper. Enable the compatibility/input/mobile checks in the launcher. Next development work remains on-screen keyboard and service/hardware integration. Do not resume automatically while paused.
+
+
+### Resumed at owner request — 2026-11-15; keyboard image prepared
+
+The reconnected SSD/build volume was verified (filesystem check exit zero), and Download Mode was detected on SM-P613. A read-only PIT session rebooted the existing native image without flashing. Native kernel/BOOT readback matched the validated experiment. Development resumed explicitly after the owner's pause.
+
+- [x] Preserve the tested revision-5 image and prepare a separate keyboard revision.
+- [x] Install signature-checked Squeekboard, GTK/GSettings/dconf, wtype and libbsd dependencies.
+- [x] Start the keyboard directly in the manual private session bus; enable the mobile keyboard plugin.
+- [x] Configure the session's Wayland input-method environment.
+- [x] Add offline keyboard-library, GTK import and profile checks, plus a visible typing fixture.
+- [ ] Verify keyboard visibility, real typing/Enter and show/hide behavior on the tablet.
+
+Revision 6 failed startup because libbsd.so.0 was absent. The dependency was added explicitly and checked before revision 7 was packaged. Keyboard hardware validation remains pending; package installation alone is not a pass. Evidence: docs/build-records/keyboard-offline-validation.json.

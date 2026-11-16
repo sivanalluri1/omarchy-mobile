@@ -24,8 +24,13 @@ check_shell() {
   return 1
 }
 check_mobile() {
-  omarchy-shell shell call omamobile.home state '' | jq -e '.loaded == true and .pages > 0' >/dev/null
+  omarchy-shell shell call omamobile.home state '' | jq -e '.loaded == true and .pages > 0' >/dev/null || return 1
   omarchy-shell shell call omamobile.launcher state '' | jq -e '.apps > 0 and .library != "none"' >/dev/null
+}
+check_osk() {
+  gdbus call --session --dest sm.puri.OSK0 --object-path /sm/puri/OSK0 \
+    --method org.freedesktop.DBus.Properties.Get sm.puri.OSK0 Visible >/dev/null || return 1
+  omarchy-shell shell call omamobile.keyboard state '' | jq -e '.watcher == true' >/dev/null
 }
 for ((i=0;i<60;i++)); do
   kill -0 "$compositor" 2>/dev/null || { echo 'Hyprland exited during startup'; exit 1; }
@@ -57,6 +62,15 @@ if [[ ${P613_EXPECT_OMARCHY:-0} == 1 ]]; then
     echo OMARCHY_MOBILE_READY
   fi
   echo OMARCHY_SHELL_ACTIVE
+  if [[ ${P613_EXPECT_OSK:-0} == 1 ]]; then
+    osk_ready=0
+    for ((i=0;i<20;i++)); do
+      if check_osk 2>/dev/null; then osk_ready=1; break; fi
+      sleep 1
+    done
+    ((osk_ready==1)) || { echo 'On-screen keyboard startup failed'; exit 1; }
+    echo OMARCHY_OSK_READY
+  fi
 fi
 echo "ARCH_HYPRLAND_ACTIVE pid=$compositor duration=${seconds}s"
 for ((i=0;i<seconds;i++)); do
@@ -65,6 +79,7 @@ for ((i=0;i<seconds;i++)); do
     check_shell || exit 1
     omarchy-shell shell listPlugins | jq -e 'any(.[]; .id == "omamobile.bar" and .active == true)' >/dev/null
     if [[ ${P613_EXPECT_MOBILE:-0} == 1 ]]; then check_mobile; fi
+    if [[ ${P613_EXPECT_OSK:-0} == 1 ]]; then check_osk; fi
   fi
   sleep 1
 done

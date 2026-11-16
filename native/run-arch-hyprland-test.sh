@@ -65,9 +65,11 @@ chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env \
   P613_TEST_SECONDS="$seconds" \
   P613_EXPECT_OMARCHY="${P613_EXPECT_OMARCHY:-0}" \
   P613_EXPECT_MOBILE="${P613_EXPECT_MOBILE:-0}" \
+  P613_EXPECT_OSK="${P613_EXPECT_OSK:-0}" \
   QSG_RENDER_LOOP="$qsg_loop" \
   HOME=/home/omarchy USER=omarchy LOGNAME=omarchy TZ=America/Phoenix \
   XDG_RUNTIME_DIR=/run/user/1000 XDG_SESSION_TYPE=wayland XDG_CURRENT_DESKTOP=Hyprland \
+  INPUT_METHOD=none QT_IM_MODULE=wayland GTK_IM_MODULE=wayland XMODIFIERS=@im=none SDL_IM_MODULE=none \
   LD_LIBRARY_PATH="$graphics_libraries" GBM_BACKENDS_PATH=/opt/p613-gpu/lib/gbm \
   MESA_LOADER_DRIVER_OVERRIDE=zink GALLIUM_DRIVER=zink P613_ZINK_KGSL_SDE=1 \
   VK_DRIVER_FILES=/opt/p613-gpu/share/vulkan/icd.d/freedreno_icd.aarch64.json \

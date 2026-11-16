@@ -1,5 +1,5 @@
 #!/bin/bash
-# UI-only bring-up. No package setup hooks, systemd, lock or power actions.
+# Manually supervised desktop and keyboard; no systemd or power actions.
 set -euo pipefail
 export LANG=C.UTF-8
 export OMARCHY_PATH=/usr/share/omarchy
@@ -13,4 +13,14 @@ for plugin in /usr/share/omamobile/shell/plugins/omamobile.*; do
   ln -sfn "$plugin" "$HOME/.config/omarchy/plugins/${plugin##*/}"
 done
 ln -sfn "$OMARCHY_PATH/themes/tokyo-night" "$HOME/.local/state/omarchy/current/theme"
-exec /usr/bin/qs -n -p "$OMARCHY_PATH/shell/shell.qml" > /tmp/omarchy-shell.log 2>&1
+gsettings set org.gnome.desktop.a11y.applications screen-keyboard-enabled true
+gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us')]"
+squeekboard >/tmp/squeekboard.log 2>&1 &
+osk_pid=$!
+cleanup() {
+  trap - EXIT INT TERM
+  kill -TERM "$osk_pid" 2>/dev/null || true
+  wait "$osk_pid" 2>/dev/null || true
+}
+trap cleanup EXIT INT TERM
+/usr/bin/qs -n -p "$OMARCHY_PATH/shell/shell.qml" > /tmp/omarchy-shell.log 2>&1

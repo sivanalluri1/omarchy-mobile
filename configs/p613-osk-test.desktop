@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Keyboard Test
+Comment=Test touch keyboard input
+Exec=p613-osk-test
+Icon=input-keyboard
+Terminal=false
+Categories=Utility;
