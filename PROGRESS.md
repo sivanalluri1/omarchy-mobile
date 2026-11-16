@@ -363,3 +363,16 @@ The isolated experiment restricts NetworkManager management to wlan0 and uses RA
 - [ ] Continue audio bring-up, power/suspend and remaining input/stability checks.
 
 Revision 9 SHA256: 0f3921bb6064a6d69cd234ef2d775bde236f094ac703a9cb3ffd6038575ddb41. Revision 8 is retained, as are the earlier keyboard images. The final image includes the interface-selection patch, RAM connection-profile mounts and a resolver symlink that follows NetworkManager's atomic file replacements. All saved credentials remain exclusively in tablet RAM and disappear at power-off. Manual service startup and the experimental single-user authorization policy remain limitations. Evidence: docs/build-records/hardware-test-11.json and docs/network-services.md.
+
+
+### Step 10 — native speaker playback checkpoint (2026-11-16)
+
+- [x] Recover USB networking by reconnecting the tablet cable; native desktop stayed responsive and no reboot was required.
+- [x] Enumerate main atoll sound card and DBMDX capture card, PCM endpoints and mixer controls.
+- [x] Inspect the tablet's vendor mixer routes and preserve a read-only baseline.
+- [x] Play quiet alternating stereo tones at 48 kHz, 16-bit; owner confirms both speakers.
+- [x] Restore all eight routing/format controls and verify the PCM closed afterward.
+- [ ] Integrate desktop audio services and controls.
+- [ ] Validate headphones and microphone capture.
+
+The bounded test left amplifier gain, limiter/boost and calibration controls untouched. Playback exited zero and restored every changed control. Temporary ALSA diagnostic binaries were used with the existing Arch alsa-lib; signed Arch utilities and desktop audio packaging are next. See docs/build-records/hardware-test-12.json.

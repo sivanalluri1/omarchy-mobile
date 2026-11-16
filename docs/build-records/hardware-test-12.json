@@ -1,0 +1,22 @@
+{
+  "date": "2026-11-16",
+  "root_revision": 9,
+  "main_alsa_card": "atoll-idp-snd-card",
+  "capture_card": "dspg-dbmdx",
+  "stereo_speakers_owner_confirmed": true,
+  "speaker_test": {
+    "sample_rate": 48000,
+    "channels": 2,
+    "sample_format": "S16_LE",
+    "peak_pcm_value": 512,
+    "seconds": 30,
+    "analog_gain_changed": false,
+    "aplay_exit": 0,
+    "restored_controls": 8,
+    "restore_failures": []
+  },
+  "usb_link_replug_restored_ssh_without_reboot": true,
+  "audio_services_integrated": false,
+  "headphones_tested": false,
+  "microphone_tested": false
+}
