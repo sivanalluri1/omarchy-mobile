@@ -333,3 +333,16 @@ The desktop/test-user processes, supplicant and supervised radio services were s
 Latest validated milestones: revision-7 keyboard/mobile root, native dual-band Wi-Fi scans, WPA2 authentication, DHCP, verified HTTPS and reconnect (commit 373fe07). Native BOOT remains e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6. Root revision 7 remains 4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1. No Android restoration or new flash was performed. Credentials/session state are lost at shutdown.
 
 On explicit resume, verify the SSD/tablet, mount the build sparsebundle and boot the installed native image. Restage revision 7 with stage-arch-ram-test.py, then stage the 80-file radio firmware set/tools with stage-radio-test.py and use run-p613-radio-test.sh. Its IPA-first sequence and ephemeral MAC file are validated. Start the mobile desktop with compatibility/input/keyboard checks. The connection prompt/runtime can be staged with stage-wifi-connection-test.py; the password must be entered on the tablet again. Next development remains packaging connection management and integrating shell network controls, followed by audio/power and remaining input/hardware checks. Wait for the owner's reconnect/resume instruction.
+
+
+### Resumed at owner request — network image prepared (2026-11-16)
+
+SSD/build filesystem verified cleanly. Download Mode detected; a read-only PIT session rebooted the existing native image without flashing. Kernel and BOOT hash matched the validated experiment.
+
+- [x] Preserve revision 7 and build revision 8 with signed Arch NetworkManager, wpa_supplicant and iw.
+- [x] Package hash-checked private radio firmware and pinned radio tools into the image.
+- [x] Enable the upstream mobile quick-settings panel and add a manually supervised system bus/network service configuration.
+- [x] Pass offline libraries, networking CLI and compositor configuration checks.
+- [ ] Validate NetworkManager and shell Wi-Fi controls on hardware.
+
+The isolated experiment restricts NetworkManager management to wlan0 and uses RAM state. Its temporary policy bypasses polkit because there is no logind session; this is not a production multi-user policy. The original USB recovery network stays outside NetworkManager management.

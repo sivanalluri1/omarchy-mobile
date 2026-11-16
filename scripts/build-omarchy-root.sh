@@ -22,5 +22,7 @@ docker run --rm --platform linux/arm64 --cap-add SYS_ADMIN \
   --mount "type=bind,src=$OMARCHY_LINUX_ROOT/build/wayland-runtime-final,dst=/runtime,readonly" \
   --mount "type=bind,src=$OMARCHY_LINUX_ROOT/build/mesa-zink-fd-fix/stage/opt/p613-gpu/lib/libvulkan_freedreno.so,dst=/mesa-fixed/libvulkan_freedreno.so,readonly" \
   --mount "type=bind,src=$output,dst=/out" \
+  --mount "type=bind,src=$root/work/hardware-test-10,dst=/radio-inputs,readonly" \
+  --mount "type=bind,src=$OMARCHY_LINUX_ROOT/build/radio-tools,dst=/radio-tools,readonly" \
   omarchy-p613-ram-root:debian13 bash /project/scripts/assemble-omarchy-root-inside.sh \
   2>&1 | tee "$root/build/omarchy-root-build.log"

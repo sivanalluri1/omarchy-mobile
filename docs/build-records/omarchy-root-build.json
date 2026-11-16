@@ -1,9 +1,9 @@
 {
-  "bytes": 646651904,
-  "sha256": "4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1",
-  "tablet_tested": true,
+  "bytes": 706154496,
+  "sha256": "cbe8cee333401c7d895f78cfb8b2fcc937c86ab0af9a13cd14d4137aa6ad8f01",
+  "tablet_tested": false,
   "systemd_pid1": false,
-  "date": "2026-11-15",
+  "date": "2026-11-16",
   "profile": "Omarchy mobile home, launcher, switcher, back gesture and on-screen keyboard",
   "package_signatures_verified": true,
   "keyring_bootstrap": "Pinned HTTPS keyring, fingerprint checked",
@@ -20,8 +20,8 @@
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
-  "revision": 7,
-  "previous_root_sha256": "060ab0c94166eb64811624f9c1aeffec59ef5663b35fd120d778f6a688cd9947",
+  "revision": 8,
+  "previous_root_sha256": "4f054089f3f90861911cae89454d70edd69ee2e1189c754acd697b0f9e9a85c1",
   "parent_side_forkfd_bootstrap": true,
   "input_setup_in_image": true,
   "direct_gio_desktop_launcher": true,
@@ -32,5 +32,11 @@
   "osk_fixture_in_image": true,
   "squeekboard_libraries_resolved": true,
   "gtk_fixture_import_checked": true,
-  "explicit_libbsd_dependency": true
+  "explicit_libbsd_dependency": true,
+  "networkmanager_in_image": true,
+  "arch_wpa_supplicant_in_image": true,
+  "private_radio_firmware_in_image": true,
+  "radio_tools_in_image": true,
+  "quicksettings_enabled": true,
+  "networkmanager_tablet_validation_pending": true
 }

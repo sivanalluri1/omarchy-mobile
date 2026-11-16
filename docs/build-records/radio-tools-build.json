@@ -1,0 +1,24 @@
+{
+  "binaries": [
+    {
+      "name": "qrtr-ns",
+      "sha256": "24adc2143e7651d8d2e904adf2767a3dbb2822149198212510d3b37d696a382e"
+    },
+    {
+      "name": "qrtr-lookup",
+      "sha256": "a01ff074fe4d9b010652ebdb44c0f14fac36d7316a27bc87b308f922566c6437"
+    },
+    {
+      "name": "rmtfs",
+      "sha256": "a18549bc148168e31db7fd6566aa2de5561e76204df06642ffdc7e8dcec641bf"
+    },
+    {
+      "name": "pd-mapper",
+      "sha256": "0ea6c65ac42cbbfc9936208efc6b5d59c44d8d4c115a60334f1b6b6da4e00a6a"
+    },
+    {
+      "name": "tqftpserv",
+      "sha256": "5c2c05d5b52f078e34c9345ad21efe65d873c48bdce1440d82f7960ff717810a"
+    }
+  ]
+}
