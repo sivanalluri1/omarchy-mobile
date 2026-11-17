@@ -1,7 +1,7 @@
 {
   "bytes": 716894208,
   "sha256": "a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c",
-  "tablet_tested": false,
+  "tablet_tested": true,
   "systemd_pid1": false,
   "date": "2026-11-17",
   "profile": "Omarchy mobile desktop with normalized P613 battery telemetry",
@@ -19,7 +19,7 @@
     "Power-button wake/policy, idle drain and prolonged stability remain unvalidated",
     "USB NCM recovery stalls remain open; a reconnect can require restoring the Mac USB address",
     "Input accuracy/palm rejection/rotation, microphone quality and headphone/jack tests remain open",
-    "Revision 12 runtime validation pending"
+    "Revision 12 startup and battery percentage verified; post-reconnect HTTPS/audio recheck pending USB recovery"
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
@@ -56,8 +56,11 @@
   "battery_helper_in_image": true,
   "battery_bar_patch_in_image": true,
   "battery_percentage_enabled": true,
-  "battery_bar_tablet_validation_pending": true,
+  "battery_bar_tablet_validation_pending": false,
   "battery_patch_sha256": "0ef663d9ca30388e12430e433a009c92b7930fd14d42eeecdd16b58062585e33",
   "battery_helper_sha256": "fe7b2db09a8acc1ce092eb2a1a8cc5204632ddc4e7d5cbad1bded27b76fb5697",
-  "previous_image_runtime_tests": "Revision 11 desktop, input, audio and Wi-Fi verified; three desktop suspend cycles passed with WLAN temporarily disabled"
+  "previous_image_runtime_tests": "Revision 11 desktop, input, audio and Wi-Fi verified; three desktop suspend cycles passed with WLAN temporarily disabled",
+  "battery_bar_icon_owner_confirmed": true,
+  "battery_percentage_owner_confirmed": true,
+  "app_lifecycle_cycles": 3
 }

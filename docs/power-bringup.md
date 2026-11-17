@@ -72,3 +72,11 @@ Current RAM overlays to remove before unmounting the Arch root: `/arch/usr/share
 The owner confirmed the new battery icon but no numeric percentage. The cause was the existing P613 shell configuration explicitly setting `showBatteryPercent` to false. It is now true in the source configuration; a replacement image is building. The first battery image (51f212adadc1b3ef0542d09ca41e1da9041552b679df9b5aab5c213a131e775c) is preserved privately as `root-power-hidden-percent.squashfs`, not promoted as the final percentage-enabled image. The ordinary image rebuild updated libffi, inotify-tools and tpm2-tss; final-image runtime checks remain required.
 
 During this work the USB interface remained enumerated with its host address, but ping and SSH stopped responding while the owner could still use the desktop. This resembles the previously observed recovery-network stall and remains unresolved. A cable reconnect was requested; no reboot or Android restore was requested.
+
+## Revision 12 startup and battery validation
+
+A native restart recovered USB networking after restoring the Mac address alone did not. The owner entered Download Mode; a read-only PIT session ended with a normal native reboot, without flashing. Revision 12 was then hash-verified, staged in RAM, and started its desktop, keyboard, audio nodes and normalized battery probe. Three app lifecycle cycles passed. The owner confirmed both Wi-Fi connection and numeric battery percentage. No revision-11 RAM overlays remain after this reboot.
+
+Start the system D-Bus, supplicant and NetworkManager before the desktop: starting Quickshell before the system bus left its Wi-Fi panel unavailable until the desktop restarted. The successful restart used network services first. After owner Wi-Fi connection, USB SSH stopped responding again despite the correct Mac address and route. A Wi-Fi-off UI diagnostic is pending; no further suspend test has been armed yet.
+
+`native/p613-recovery-monitor.sh` records up to 360 read-only USB snapshots at ten-second intervals in native RAM, bounded by an outer timeout. It captures address, link/counter and controller-runtime state to aid this unresolved recovery problem. It does not reset the USB controller or alter networking. A power-key test with a 90-second RTC fallback is prepared but has not run.

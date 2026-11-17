@@ -25,15 +25,18 @@ static double now(clockid_t id) {
 }
 int main(int argc, char **argv) {
     setbuf(stdout, NULL);
-    if (argc != 2 || (strcmp(argv[1], "alarm") && strcmp(argv[1], "deep"))) {
-        fprintf(stderr, "usage: %s alarm|deep (20 second automatic wake)\n", argv[0]); return 2;
+    if (argc != 2 || (strcmp(argv[1], "alarm") && strcmp(argv[1], "deep") && strcmp(argv[1], "button"))) {
+        fprintf(stderr, "usage: %s alarm|deep|button (20s RTC test, 90s button-test fallback)\n", argv[0]); return 2;
     }
+    int button = !strcmp(argv[1], "button");
+    int suspending = strcmp(argv[1], "alarm") != 0;
+    int seconds = button ? 90 : 20;
     struct utsname u;
     if(uname(&u) || strcmp(u.release,"4.14.357-openela-perf-g21b136df1533")) {
         fprintf(stderr,"refusing unvalidated kernel\n");return 2;
     }
     char count[64]={0};
-    if (!strcmp(argv[1], "deep")) {
+    if (suspending) {
         char mode[64]={0}; int mf=open("/sys/power/mem_sleep",O_RDONLY);
         if(mf<0 || read(mf,mode,sizeof(mode)-1)<=0 || !strstr(mode,"[deep]")) {
             fprintf(stderr,"deep must already be selected; refusing to change policy\n"); return 1;
@@ -53,11 +56,11 @@ int main(int argc, char **argv) {
     if (old.enabled) { fprintf(stderr, "refusing to replace active RTC alarm\n"); return 1; }
     struct tm t = {.tm_sec=r.tm_sec,.tm_min=r.tm_min,.tm_hour=r.tm_hour,
         .tm_mday=r.tm_mday,.tm_mon=r.tm_mon,.tm_year=r.tm_year};
-    time_t target = timegm(&t) + 20; struct tm out; gmtime_r(&target, &out);
+    time_t target = timegm(&t) + seconds; struct tm out; gmtime_r(&target, &out);
     a.time = (struct rtc_time){.tm_sec=out.tm_sec,.tm_min=out.tm_min,.tm_hour=out.tm_hour,
         .tm_mday=out.tm_mday,.tm_mon=out.tm_mon,.tm_year=out.tm_year}; a.enabled=1;
     if (ioctl(fd, RTC_WKALM_SET, &a)) { perror("arm RTC"); return 1; }
-    printf("RTC armed for +20 seconds\n");
+    printf("RTC armed for +%d seconds\n", seconds);
     int rc=0; double b=now(CLOCK_BOOTTIME), m=now(CLOCK_MONOTONIC);
     if (!strcmp(argv[1], "alarm")) {
         struct pollfd p={.fd=fd,.events=POLLIN};
@@ -74,7 +77,7 @@ int main(int argc, char **argv) {
         }
     }
     double slept=(now(CLOCK_BOOTTIME)-b)-(now(CLOCK_MONOTONIC)-m);
-    if(!strcmp(argv[1],"deep") && slept<10 && rc==0) rc=1;
+    if(suspending && slept<(button ? 0.5 : 10.0) && rc==0) rc=1;
     printf("boottime_elapsed=%.3f monotonic_elapsed=%.3f suspended_seconds=%.3f\n",
         now(CLOCK_BOOTTIME)-b,now(CLOCK_MONOTONIC)-m,
         (now(CLOCK_BOOTTIME)-b)-(now(CLOCK_MONOTONIC)-m));

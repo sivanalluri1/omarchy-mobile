@@ -469,3 +469,13 @@ The safe tested sequence disables Wi-Fi for sleep and restores it afterward. It 
 - [ ] Run revision 12 on the tablet and confirm numeric battery percentage.
 
 Revision 12 SHA256: a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c (716894208 bytes). It is not yet tablet-tested. USB recovery stalled; after a cable reconnect, the Mac had a self-assigned address instead of its development address. The owner was asked to restore 192.168.77.2 on en5 because macOS requires administrator access. The live tablet still runs revision 11 with the battery RAM overlay and hidden percentage.
+
+### Step 10 — revision 12 battery percentage validated (2026-11-17)
+
+- [x] Recover native Linux after the USB stall using a read-only Download Mode session and normal reboot; no flash.
+- [x] Stage verified revision 12 and start desktop, OSK and audio nodes.
+- [x] Complete three revision-12 app lifecycle cycles.
+- [x] Obtain owner confirmation of numeric battery percentage and Wi-Fi connection.
+- [ ] Recover/diagnose recurring USB network stalls, finish revision-12 HTTPS/audio checks and run the prepared Power-button wake test.
+
+Network services must start before Quickshell in this manual-service prototype. USB SSH stalled again near the Wi-Fi connection despite the correct host address and route. A temporary Wi-Fi-off diagnostic is pending. The Power-button test is prepared with a 90-second RTC fallback, but has not been started.
