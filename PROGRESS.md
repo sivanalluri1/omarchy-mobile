@@ -447,3 +447,16 @@ The first desktop attempt is a recorded failure, not a completed resume test. Th
 ### Step 10 — connected-WLAN suspend remains blocked (2026-11-17)
 
 Closing the Wi-Fi panel and using ten bounded attempts did not permit sleep: nine suspend requests returned EBUSY and one handshake was blocked. Measured sleep remained zero. Kernel totals are success 1 / failed_suspend 10. The next run isolates desktop/audio suspend with Wi-Fi temporarily disabled and restores it afterward. Connected-WLAN suspend is still open.
+
+### Step 10 — desktop deep suspend with Wi-Fi cycling validated (2026-11-17)
+
+- [x] Complete three actual deep-suspend cycles with desktop/audio services active and WLAN temporarily disabled: 20.056, 20.453 and 20.466 seconds asleep.
+- [x] Restore panel power and verify compositor, shell and speaker/microphone nodes after each cycle; no new kernel suspend failures.
+- [x] Restore Wi-Fi, reconnect automatically and verify HTTPS 200.
+- [x] Complete three post-resume app lifecycle cycles and a successful 30-second PipeWire playback test.
+- [x] Obtain owner confirmation of audible tones and responsive input after resume.
+- [x] Add and run a read-only battery probe with Samsung current-unit normalization.
+- [ ] Integrate status-bar battery reporting and power-button/suspend policy.
+- [ ] Resolve connected-WLAN suspend; verify microphone capture, power-button wake and longer drain/stability.
+
+The safe tested sequence disables Wi-Fi for sleep and restores it afterward. It does not preserve the WLAN connection during sleep or provide secure locking. Headphone tests remain deferred.

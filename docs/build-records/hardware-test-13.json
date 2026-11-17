@@ -29,13 +29,13 @@
     "wifi_connected": true,
     "https_status": 200
   },
-  "desktop_suspend_cycles": "connected-WLAN retry failed; Wi-Fi-off isolation pending",
+  "desktop_suspend_cycles": "passed with Wi-Fi disabled during suspend",
   "headphone_test": "deferred by owner; hardware unavailable",
   "limitations": [
-    "Minimal deep test only; desktop suspend not yet verified",
-    "USB connection blocks wakeup-count handshake",
-    "Vendor touch/SDE warnings need desktop-resume validation",
-    "Battery drain and power-button policy not yet validated"
+    "Connected-WLAN suspend still blocked by Wi-Fi wake sources",
+    "USB must be disconnected for actual suspend",
+    "Microphone capture after resume not yet measured",
+    "Battery drain and power-button wake/policy not yet validated"
   ],
   "desktop_suspend_first_attempt": {
     "suspended_seconds": 0,
@@ -54,5 +54,25 @@
     "success_counter": 1,
     "failure_counter": 10,
     "wifi_panel_closed": true
+  },
+  "wifi_off_desktop_cycles": {
+    "suspended_seconds": [
+      20.056,
+      20.453,
+      20.466
+    ],
+    "cycles_completed": 3,
+    "success_counter": 4,
+    "failure_counter": 10,
+    "new_failures": 0,
+    "display_dpms_restored_each_cycle": true,
+    "mobile_shell_ping_each_cycle": true,
+    "speaker_and_microphone_nodes_survived": true,
+    "wifi_restored_connected": true,
+    "https_status_after_restore": 200,
+    "app_lifecycle_cycles_after_resume": 3,
+    "pipewire_playback_exit": 0,
+    "owner_confirmed_audible_tones": true,
+    "owner_confirmed_input_responsive": true
   }
 }

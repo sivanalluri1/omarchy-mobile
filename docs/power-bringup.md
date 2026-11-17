@@ -28,9 +28,10 @@ In the pinned Samsung kernel, `drivers/battery/common/sec_battery.c` requests `S
 - [x] Inventory suspend modes, wake sources, RTC and battery interfaces.
 - [x] Prove RTC alarm delivery while awake.
 - [x] Prove timed deep suspend and automatic resume without the USB cable.
-- [ ] Repeat timed cycles and inspect failure counters/wake reasons.
-- [ ] Validate panel, touch, S Pen and compositor after resume.
-- [ ] Validate Wi-Fi reconnection and audio after resume.
+- [x] Repeat timed cycles and inspect failure counters/wake reasons (Wi-Fi off).
+- [x] Validate panel, touch, S Pen and compositor after resume.
+- [x] Validate Wi-Fi reconnection and speaker playback after resume.
+- [ ] Validate connected-WLAN suspend and microphone capture after resume.
 - [ ] Integrate power-button/display policy and normalized desktop battery reporting.
 - [ ] Measure unplugged idle/suspend drain with adequate battery charge.
 
@@ -51,3 +52,11 @@ The Wi-Fi panel was still open, and its source enables an active scanner while o
 Closing the Wi-Fi panel did not resolve the issue. Of ten bounded attempts, nine entered the suspend path and returned EBUSY with zero measured sleep; one stopped at the wakeup-count handshake. Kernel totals became success 1 / fail 10 (including the earlier desktop abort). The repeated reason remained pending `mgmt_txrx tx_cmp` wake sources. This is not a transient scan-only result, and additional identical retries are not justified.
 
 The next isolation run temporarily disables WLAN through NetworkManager, retains desktop and audio services, and restores WLAN afterward. It is explicitly not a connected-WLAN suspend test. No wake-source masking or forced release is used.
+
+### Wi-Fi-off desktop result
+
+All three isolation cycles passed, measuring 20.056, 20.453 and 20.466 seconds asleep. Suspend success increased from 1 to 4, with no new failures (the ten earlier aborts remain in the cumulative fail counter). DPMS returned on, shell IPC responded and speaker/microphone nodes remained present after each cycle. NetworkManager restored WLAN and reconnected; HTTPS returned 200. Three post-resume app lifecycle cycles passed. A 30-second PipeWire speaker test exited zero and deleted its synthetic audio file. The owner confirmed audible tones and responsive input after resume.
+
+The tested worker is preserved as `native/run-p613-desktop-suspend-wifi-off-test.sh`. It is a developer test that deliberately restores Wi-Fi on completion, not a general-purpose suspend service or a secure lock-screen policy. Wake cause is still reported unknown by the vendor kernel. Wi-Fi must currently be disabled during desktop deep sleep; connected-WLAN sleep is not validated.
+
+`native/p613-power-status.py` reads battery state without changing hardware. It guards the validated kernel and converts Samsung current from mA to uA. A live snapshot reported charging, 16%, 3.851 V and 29.5 C. Desktop bar integration is separate from this numerical probe.
