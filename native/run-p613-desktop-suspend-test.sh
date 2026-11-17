@@ -1,0 +1,37 @@
+#!/bin/sh
+user() { chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env XDG_RUNTIME_DIR=/run/user/1000 WAYLAND_DISPLAY=wayland-1 OMARCHY_PATH=/usr/share/omarchy "$@"; }
+on() { user hyprctl -i 0 dispatch 'hl.dsp.dpms({action="on"})'; }
+trap on EXIT INT TERM
+echo waiting_for_cable_removal
+cat /proc/uptime
+found=0
+for attempt in $(seq 1 900); do
+    if [ "$(cat /sys/class/power_supply/battery/status)" = Discharging ]; then found=1; break; fi
+    sleep 1
+done
+[ "$found" -eq 1 ] || exit 3
+echo cable_removed
+sleep 10
+for cycle in 1 2 3; do
+    echo cycle=$cycle
+    user hyprctl -i 0 dispatch 'hl.dsp.dpms({action="off"})' || exit 1
+    sleep 2
+    rc=3
+    for attempt in $(seq 1 10); do
+        /tmp/p613-suspend-test deep
+        rc=$?
+        case "$rc" in 3|4) ;; *) break;; esac
+        sleep 2
+    done
+    on
+    [ "$rc" -eq 0 ] || { echo suspend_exit=$rc; exit "$rc"; }
+    sleep 5
+    user omarchy-shell shell ping || exit 1
+    user hyprctl -i 0 -j monitors
+    user wpctl status
+    chroot /arch /usr/bin/nmcli -t -f GENERAL.STATE device show wlan0
+    chroot /arch /usr/bin/curl -sS -o /dev/null -w 'https_code=%{http_code}\n' --max-time 15 https://archlinuxarm.org
+    echo cycle_completed=$cycle
+done
+for f in /sys/power/suspend_stats/* /sys/kernel/wakeup_reasons/*; do echo "$f"; cat "$f"; done
+echo DESKTOP_SUSPEND_TEST_COMPLETE

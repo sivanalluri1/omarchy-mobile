@@ -29,12 +29,21 @@
     "wifi_connected": true,
     "https_status": 200
   },
-  "desktop_suspend_cycles": "pending",
+  "desktop_suspend_cycles": "first attempt aborted; bounded retry test pending",
   "headphone_test": "deferred by owner; hardware unavailable",
   "limitations": [
     "Minimal deep test only; desktop suspend not yet verified",
     "USB connection blocks wakeup-count handshake",
     "Vendor touch/SDE warnings need desktop-resume validation",
     "Battery drain and power-button policy not yet validated"
-  ]
+  ],
+  "desktop_suspend_first_attempt": {
+    "suspended_seconds": 0,
+    "errno": -16,
+    "reason": "Pending Wakeup Sources: mgmt_txrx tx_cmp",
+    "success_counter": 1,
+    "failure_counter": 1,
+    "wifi_still_connected": true,
+    "screen_dpms_restored": true
+  }
 }

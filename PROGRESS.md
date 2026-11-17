@@ -433,3 +433,13 @@ Headphones/jack tests are explicitly deferred. Software USB-gadget unbinding alo
 - [ ] Repeat with the desktop, touch/S Pen, graphics, radio and audio running.
 
 RTC timing matched the automatic wake, but the vendor kernel reported an unknown wake cause. This proves the minimal native suspend/resume path only. Desktop restaging is in progress; headless touch/SDE resume warnings remain under investigation.
+
+### Step 10 — desktop suspend diagnostic checkpoint (2026-11-17)
+
+- [x] Start revision 11 mobile shell, keyboard and audio after the minimal resume.
+- [x] Reconnect Wi-Fi and verify HTTPS.
+- [x] Capture first desktop suspend abort: pending Wi-Fi `mgmt_txrx`/`tx_cmp` wake sources, EBUSY, zero sleep time.
+- [x] Restore display power and verify the desktop/network remain available.
+- [ ] Run bounded retries with the Wi-Fi scanner panel closed, then validate three actual desktop sleep/resume cycles.
+
+The first desktop attempt is a recorded failure, not a completed resume test. The RTC helper now distinguishes transient EBUSY from other errors; retries remain bounded and do not disable wake sources.

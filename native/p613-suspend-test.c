@@ -70,11 +70,11 @@ int main(int argc, char **argv) {
             perror("prepare suspend"); rc=1;
         } else {
             sync(); printf("Entering mem/deep\n");
-            if(put("/sys/power/state","mem")) {perror("suspend");rc=1;}
+            if(put("/sys/power/state","mem")) {int e=errno;perror("suspend");rc=e==EBUSY?4:1;}
         }
     }
     double slept=(now(CLOCK_BOOTTIME)-b)-(now(CLOCK_MONOTONIC)-m);
-    if(!strcmp(argv[1],"deep") && slept<10) rc=1;
+    if(!strcmp(argv[1],"deep") && slept<10 && rc==0) rc=1;
     printf("boottime_elapsed=%.3f monotonic_elapsed=%.3f suspended_seconds=%.3f\n",
         now(CLOCK_BOOTTIME)-b,now(CLOCK_MONOTONIC)-m,
         (now(CLOCK_BOOTTIME)-b)-(now(CLOCK_MONOTONIC)-m));
