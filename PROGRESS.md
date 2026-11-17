@@ -508,3 +508,9 @@ This establishes minimal native Power-button wake; the vendor wake-reason string
 - [ ] Resolve connected-WLAN suspend and USB recovery stalls; validate post-resume capture and longer unplugged drain/stability.
 
 Evidence: docs/build-records/hardware-test-15.json. Revision 12 remains a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c. Current tablet: this image is running in RAM with radio/network/audio/desktop services, optional DBMDX firmware loaded, WLAN enabled but unconnected, and pm_async restored to 1. Native BOOT is unchanged. The test worker's sequential-PM and Wi-Fi-off settings apply only during the manual sleep experiment. Headphones remain deferred; no automatic sleep/secure-lock daemon is enabled.
+
+### Stopped and powered off at owner request — 2026-11-17
+
+Stopped NetworkManager, supplicant/system bus, desktop user processes and audio services. The fifteen audio route controls restored successfully and their state marker cleared. Stopped radio support and seatd, unmounted the Arch RAM root, synced and requested native power-off. No project containers were running. The build sparsebundle and external SSD are being detached/ejected.
+
+Resume only when requested with both devices reconnected. Latest validated image is revision 12 (a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c); BOOT is unchanged. Latest completed power evidence is hardware-test-15: manual desktop Power-button wake with optional DBMDX firmware, Wi-Fi disabled during sleep and sequential PM callbacks, followed by app/input/speaker/battery checks. All RAM firmware/profile state is lost at power-off. Optional DBMDX firmware staging must precede Arch mounting if repeating that combination; normal Arch staging does not load it automatically. Automatic sleep/lock, connected-WLAN suspend and USB recovery stalls remain open. Keep headphones deferred.
