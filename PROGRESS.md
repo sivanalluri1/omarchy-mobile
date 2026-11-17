@@ -1,6 +1,6 @@
 # Progress
 
-Status: step 9 in progress. First native Arch read-only SSD-root connection and commands passed. A subsequent NBD connection/mount attempt lost USB/SSH responsiveness; Android is restored and all four original hashes verified. Step 8 graphics proof remains valid.
+Status: step 10 in progress. Revision 12 runs the native Arch/Omarchy mobile prototype with touch/S Pen, OSK, Wi-Fi controls, built-in audio and battery percentage. Desktop deep suspend with WLAN temporarily disabled is verified; minimal-system Power-button wake passed with optional DBMDX firmware and sequential PM callbacks. The combined desktop Power-button trial is pending. This remains a RAM-root/manual-service prototype with BusyBox PID 1.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -15,10 +15,10 @@ Status: step 9 in progress. First native Arch read-only SSD-root connection and 
 - [x] 6. Validate candidate image packaging and review BOOT-only rollback.
 - [x] 7. Prove native boot and USB/SSH on hardware; restore Android afterward.
 - [x] 8. Prove display and accelerated Wayland.
-- [ ] 9. Integrate Arch Linux ARM and Omarchy.
+- [x] 9. Integrate Arch Linux ARM and the Omarchy mobile prototype (manual services).
 - [ ] 10. Validate remaining tablet hardware.
 
-## Current work
+## Milestone history
 
 Step 1 passed: ARM64 Debian container built; clang/LLD 19.1.7, native executable and AArch64 object compilation verified. Evidence: docs/build-records/builder-validation.txt.
 

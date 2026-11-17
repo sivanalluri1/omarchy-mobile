@@ -57,3 +57,12 @@ For the current Omarchy host/mobile-bar RAM profile, pinned inputs, parent-side 
 
 
 Current mobile profile: RAM udev classifications and volatile pen resolution metadata feed libinput/Hyprland. The mobile desktop launches entries through GIO in the manual session and uses static recents cards. The GPU prefix includes the separately validated Turnip allocation-fd ownership repair. Revision 5 passed clean-session and app lifecycle checks; follow docs/input-bringup.md and docs/build-records/hardware-test-08.json. On-screen keyboard and full service/hardware integration remain open.
+
+
+## Current prototype and power workflow (2026-11-17)
+
+Step 9's native mobile prototype is validated through revision 12: home/launcher/recents, keyboard, touch/S Pen, Wi-Fi controls, built-in audio and battery percentage. The earlier entries above record the historical gates. Step 10 remains in progress; BusyBox supervises services manually.
+
+Follow docs/network-services.md, docs/audio-bringup.md and docs/power-bringup.md for the current service order and test limits. Start system D-Bus, supplicant and NetworkManager before the desktop. Native BOOT stays in place; restage the RAM root after a reboot. Do not routinely restore Android.
+
+The power probes are built with `bash scripts/build-power-probe.sh`. Deep sleep requires physically disconnecting USB; the tested desktop sequence disables Wi-Fi temporarily. Optional DBMDX firmware staging uses `python3 scripts/stage-power-firmware.py` before mounting Arch and remains a separate experiment. With that firmware loaded, the minimal Power-button trial passed using `P613_POWER_KEY_PM_ASYNC=0`; the test restores the prior setting. No automatic sleep/lock policy is enabled. Headphone checks remain deferred until hardware is available.

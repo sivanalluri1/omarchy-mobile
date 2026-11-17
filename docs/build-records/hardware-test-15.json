@@ -1,0 +1,23 @@
+{
+  "date": "2026-11-17",
+  "device": "SM-P613",
+  "root_revision": 12,
+  "root_sha256": "a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c",
+  "optional_dbmdx_firmware_loaded": true,
+  "sound_cards": [
+    "atollidpsndcard",
+    "dspgdbmdx"
+  ],
+  "startup": {
+    "mobile_shell": true,
+    "osk": true,
+    "audio_nodes": true,
+    "system_network_services_ready_before_desktop": true,
+    "wlan_connection_state": "disconnected"
+  },
+  "desktop_power_key_trial": "armed, pending physical cable cycle",
+  "pm_async_test_setting": 0,
+  "pm_async_restore_target": 1,
+  "rtc_fallback_seconds": 90,
+  "post_resume_audio_test": "pending"
+}

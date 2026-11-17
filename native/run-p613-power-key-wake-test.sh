@@ -10,11 +10,22 @@ if [ "$use_network" = 1 ]; then
 else
     [ ! -e /run/p613-radio-active ] || exit 2
 fi
+pm_mode=${P613_POWER_KEY_PM_ASYNC:-keep}
+case "$pm_mode" in keep|0) ;; *) exit 2;; esac
+saved_pm_async=$(cat /sys/power/pm_async)
+expect_connected=0
+if [ "$use_network" = 1 ]; then
+    case "$(chroot /arch /usr/bin/nmcli -t -f GENERAL.STATE device show wlan0)" in *100*) expect_connected=1;; esac
+fi
 mkdir /run/p613-power-key-test.active || exit 2
 user() { chroot /arch /usr/bin/runuser -u omarchy -- /usr/bin/env XDG_RUNTIME_DIR=/run/user/1000 WAYLAND_DISPLAY=wayland-1 OMARCHY_PATH=/usr/share/omarchy "$@"; }
 on() { user hyprctl -i 0 dispatch 'hl.dsp.dpms({action="on"})'; }
 wifi_on() { if [ "$use_network" = 1 ]; then chroot /arch /usr/bin/nmcli radio wifi on; fi; }
-restore() { on; wifi_on; rmdir /run/p613-power-key-test.active; }
+restore() {
+    on; wifi_on
+    if [ "$pm_mode" = 0 ]; then printf '%s' "$saved_pm_async" > /sys/power/pm_async; fi
+    rmdir /run/p613-power-key-test.active
+}
 trap restore EXIT
 trap 'exit 130' INT
 trap 'exit 143' TERM
@@ -27,6 +38,8 @@ done
 [ "$found" -eq 1 ] || exit 3
 if [ "$use_network" = 1 ]; then chroot /arch /usr/bin/nmcli radio wifi off || exit 1; fi
 sleep 10
+if [ "$pm_mode" = 0 ]; then echo 0 > /sys/power/pm_async || exit 1; fi
+echo PM_ASYNC=$(cat /sys/power/pm_async)
 echo POWER_KEY_BASELINE
 grep pon_kpdpwr_status /proc/interrupts
 user hyprctl -i 0 dispatch 'hl.dsp.dpms({action="off"})' || exit 1
@@ -46,7 +59,7 @@ wifi_on
 sleep 5
 user omarchy-shell shell ping || exit 1
 user hyprctl -i 0 -j monitors
-if [ "$use_network" = 1 ]; then
+if [ "$use_network" = 1 ] && [ "$expect_connected" = 1 ]; then
 for attempt in $(seq 1 30); do
     state=$(chroot /arch /usr/bin/nmcli -t -f GENERAL.STATE device show wlan0)
     case "$state" in *100*) break;; esac
@@ -55,7 +68,7 @@ done
 chroot /arch /usr/bin/nmcli -t -f GENERAL.STATE device show wlan0
 chroot /arch /usr/bin/curl -sS -o /dev/null -w 'https_code=%{http_code}\n' --max-time 15 https://archlinuxarm.org
 else
-    echo NETWORK_NOT_STARTED_FOR_ISOLATION
+    echo NETWORK_CONNECTION_NOT_REQUIRED_FOR_THIS_TRIAL
 fi
 for f in /sys/power/suspend_stats/* /sys/kernel/wakeup_reasons/*; do echo "$f"; cat "$f"; done
 echo POWER_KEY_TEST_FINISHED

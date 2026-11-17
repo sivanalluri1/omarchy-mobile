@@ -14,7 +14,7 @@ The first native experiment should target a small initramfs and USB NCM/SSH. Do 
 
 ## Desktop boundary
 
-Display/KMS, input and GPU acceleration are separate subsystems. The downstream msm_drm display nodes and Adreno KGSL interface are present under Android; a DRM render node alone does not establish Mesa support. A small Weston compositor has now run through Zink/Turnip on the native panel (hardware test 04). Hyprland/Omarchy integration remains separate.
+Display/KMS, input and GPU acceleration are separate subsystems. The downstream msm_drm display nodes and Adreno KGSL interface are present under Android; a DRM render node alone does not establish Mesa support. The patched Zink/Turnip stack now drives accelerated Hyprland and Omarchy mobile from a read-only Arch RAM image. Touch/S Pen, Squeekboard, manual NetworkManager and a fixed PipeWire built-in-audio profile are validated. BusyBox remains PID 1; this is a native mobile prototype rather than a supported full Omarchy/systemd installation.
 
 ## Evidence and recovery
 
@@ -66,4 +66,4 @@ Current mobile profile: RAM udev classifications and volatile pen resolution met
 
 The downstream kernel supports measured deep suspend with BusyBox PID 1; logind is not available. Connected USB holds a wake source, and connected WLAN currently causes pending-management-transmit aborts. The validated desktop sequence turns panel power off, disables Wi-Fi, arms a relative RTC alarm, enters `mem/deep`, restores panel power and re-enables Wi-Fi. Three cycles preserved graphics, shell and audio nodes, with successful app/input/speaker checks and automatic Wi-Fi reconnection afterward. This remains a bounded developer experiment, not an automatic or secure lock/suspend policy.
 
-Battery telemetry has a separate read-only boundary: Samsung `sec_battery` reports current in mA and voltage in uV. The P613 helper checks the validated kernel before normalizing current to uA. The mobile bar polls this helper without root privileges; it does not control charging. Suspend coordination, power-button wake, low-battery action and secure locking require separate validation before being enabled automatically.
+Battery telemetry has a separate read-only boundary: Samsung `sec_battery` reports current in mA and voltage in uV. The P613 helper checks the validated kernel before normalizing current to uA. The mobile bar polls this helper without root privileges; it does not control charging. Minimal Power-button wake is demonstrated with DBMDX firmware and sequential device PM callbacks; the combined desktop trial is pending. Automatic suspend coordination, low-battery action and secure locking remain unimplemented.
