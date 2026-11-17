@@ -1,0 +1,31 @@
+# P613 power and suspend bring-up
+
+## Scope
+
+Use the existing native BOOT and RAM root. Headphone testing is deferred at the owner's request. Validate timed wake and actual suspended time before desktop integration; a blank panel is not proof of suspend. Keep charging policy and hardware calibration unchanged.
+
+## Baseline — 2026-11-17
+
+Kernel `4.14.357-openela-perf-g21b136df1533` exposes `freeze mem` and `s2idle [deep]`. BusyBox remains PID 1; logind/systemd suspend services are unavailable. Initial suspend success/failure counters are all zero.
+
+The PM6150 RTC exposes `/dev/rtc0` and RTC alarm ioctls, despite having no `wakealarm` sysfs attribute. Its clock starts near the epoch on this boot. Tests use relative RTC time and do not set the hardware clock. An awake 20-second alarm test received `RTC_AF` after 20.377 seconds. The old disabled alarm was restored.
+
+`native/p613-suspend-test.c` is a static foreground probe for this exact validated kernel. It refuses to replace an enabled alarm, requires deep already selected, checks the wakeup-count handshake, arms a 20-second RTC alarm and measures CLOCK_BOOTTIME minus CLOCK_MONOTONIC elapsed time. Less than ten seconds asleep is a failed deep test. The wakeup-count read has a three-second signal deadline: this vendor kernel ignores O_NONBLOCK for that sysfs read. Exit 3 means active wake sources prevented the handshake; exit 1 means another failure, and exit 2 means invalid invocation/environment. This is a development probe, not a desktop power daemon.
+
+The connected USB controller `a600000.ssusb` holds a wake source active. Software gadget unbinding alone did not release it. Both attempts stopped before entering system suspend; suspend counters remained zero. Physical cable disconnection is the next controlled experiment, with automatic RTC wake and gadget restoration. No wake source has been forcibly disabled. An initial boot-time wake reason reports `-1 misconfigured IRQ 354 sm5714-usbpd`; it is not evidence of a failed suspend because no suspend had occurred.
+
+## Battery units
+
+In the pinned Samsung kernel, `drivers/battery/common/sec_battery.c` requests `SEC_BATTERY_CURRENT_MA` for `current_now` and `current_avg`, and exposes those values directly. Voltage is multiplied by 1000 for microvolts. Generic desktop software assuming standard microamp current therefore needs normalization. The battery was charging, rising from 1% to 4% during initial inspection; no discharge-drain conclusion is possible from this session.
+
+## Remaining validation
+
+- [x] Verify native image, storage and recovery SSH.
+- [x] Inventory suspend modes, wake sources, RTC and battery interfaces.
+- [x] Prove RTC alarm delivery while awake.
+- [ ] Prove timed deep suspend and automatic resume without the USB cable.
+- [ ] Repeat timed cycles and inspect failure counters/wake reasons.
+- [ ] Validate panel, touch, S Pen and compositor after resume.
+- [ ] Validate Wi-Fi reconnection and audio after resume.
+- [ ] Integrate power-button/display policy and normalized desktop battery reporting.
+- [ ] Measure unplugged idle/suspend drain with adequate battery charge.

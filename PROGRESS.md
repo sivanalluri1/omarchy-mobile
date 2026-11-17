@@ -413,3 +413,14 @@ The final 120-second desktop session exited zero, with periodic speaker/micropho
 NetworkManager, the system supplicant/bus, desktop user processes, PipeWire/WirePlumber/PulseAudio compatibility and radio support services were stopped. The fifteen audio mixer controls were restored and the route-state marker cleared. The Arch RAM root was unmounted, filesystems synced and native power-off requested; the tablet disappeared from USB afterward. No project containers were running. The build sparsebundle and external SSD are being detached/ejected.
 
 Resume from validated revision 11 (a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0), with native BOOT unchanged at e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6. Latest audio milestone is commit 4eb84a9. On explicit reconnect/resume, verify both devices, mount the sparsebundle, boot the native image and restage the latest root/radio/network services. Enable P613_ENABLE_AUDIO=1 along with input, compatibility and shell/keyboard checks. Wi-Fi credentials must be entered again because the profile was only in tablet RAM. Next work is power/suspend/resume and remaining quality/stability checks; headphones remain unavailable. Do not resume while paused.
+
+### Step 10 — power/suspend bring-up started (2026-11-17)
+
+- [x] Resume at owner request; verify SSD, native BOOT and recovery SSH.
+- [x] Inspect deep/s2idle modes, suspend counters, wake sources and battery interfaces.
+- [x] Receive a 20-second RTC alarm interrupt and restore its previous disabled state.
+- [x] Add a bounded native RTC/suspend probe and diagnose the connected USB wake source.
+- [ ] Prove actual deep-sleep time and timed resume, then repeat with the desktop/radio/audio stack.
+- [ ] Integrate battery reporting and power-button/display policy.
+
+Headphones/jack tests are explicitly deferred. Software USB-gadget unbinding alone did not permit the wakeup-count handshake; no suspend entry has yet been demonstrated. Physical USB disconnection is the next test. See docs/power-bringup.md.
