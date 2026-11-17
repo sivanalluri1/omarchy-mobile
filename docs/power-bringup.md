@@ -45,3 +45,9 @@ This was the minimal native RAM system, before staging the desktop, radio and au
 Revision 11 started its compositor, mobile shell, OSK and audio nodes after the first minimal resume. Owner reconnected Wi-Fi; HTTPS returned 200. The first desktop suspend request was rejected after 0.030 seconds with EBUSY and `Pending Wakeup Sources: mgmt_txrx tx_cmp`. Success remained 1 and failure increased to 1 (`failed_suspend`, errno -16). No deep sleep occurred. DPMS was restored and Wi-Fi remained connected.
 
 The Wi-Fi panel was still open, and its source enables an active scanner while open. Closing it calls `setScanner(false)`; this is a plausible contributor, not a proven sole cause of the wake activity. The panel was closed through its existing IPC. `native/run-p613-desktop-suspend-test.sh` retries only blocked handshakes (exit 3) and EBUSY (exit 4), up to ten attempts per cycle with two-second spacing. It requests three cycles, restores DPMS, and records shell/compositor/audio/network state. Other failures stop the run. No wake sources are disabled or forcibly released. The replacement test is pending physical cable removal.
+
+### Connected-WLAN retry outcome
+
+Closing the Wi-Fi panel did not resolve the issue. Of ten bounded attempts, nine entered the suspend path and returned EBUSY with zero measured sleep; one stopped at the wakeup-count handshake. Kernel totals became success 1 / fail 10 (including the earlier desktop abort). The repeated reason remained pending `mgmt_txrx tx_cmp` wake sources. This is not a transient scan-only result, and additional identical retries are not justified.
+
+The next isolation run temporarily disables WLAN through NetworkManager, retains desktop and audio services, and restores WLAN afterward. It is explicitly not a connected-WLAN suspend test. No wake-source masking or forced release is used.

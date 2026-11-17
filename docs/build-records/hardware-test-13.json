@@ -29,7 +29,7 @@
     "wifi_connected": true,
     "https_status": 200
   },
-  "desktop_suspend_cycles": "first attempt aborted; bounded retry test pending",
+  "desktop_suspend_cycles": "connected-WLAN retry failed; Wi-Fi-off isolation pending",
   "headphone_test": "deferred by owner; hardware unavailable",
   "limitations": [
     "Minimal deep test only; desktop suspend not yet verified",
@@ -45,5 +45,14 @@
     "failure_counter": 1,
     "wifi_still_connected": true,
     "screen_dpms_restored": true
+  },
+  "connected_wlan_retry": {
+    "sysfs_suspend_attempts": 9,
+    "handshake_blocks": 1,
+    "measured_sleep_seconds": 0,
+    "last_errno": -16,
+    "success_counter": 1,
+    "failure_counter": 10,
+    "wifi_panel_closed": true
   }
 }

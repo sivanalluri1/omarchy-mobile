@@ -443,3 +443,7 @@ RTC timing matched the automatic wake, but the vendor kernel reported an unknown
 - [ ] Run bounded retries with the Wi-Fi scanner panel closed, then validate three actual desktop sleep/resume cycles.
 
 The first desktop attempt is a recorded failure, not a completed resume test. The RTC helper now distinguishes transient EBUSY from other errors; retries remain bounded and do not disable wake sources.
+
+### Step 10 — connected-WLAN suspend remains blocked (2026-11-17)
+
+Closing the Wi-Fi panel and using ten bounded attempts did not permit sleep: nine suspend requests returned EBUSY and one handshake was blocked. Measured sleep remained zero. Kernel totals are success 1 / failed_suspend 10. The next run isolates desktop/audio suspend with Wi-Fi temporarily disabled and restores it afterward. Connected-WLAN suspend is still open.
