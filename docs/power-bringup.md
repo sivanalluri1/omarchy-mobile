@@ -14,6 +14,10 @@ The PM6150 RTC exposes `/dev/rtc0` and RTC alarm ioctls, despite having no `wake
 
 The connected USB controller `a600000.ssusb` holds a wake source active. Software gadget unbinding alone did not release it. Both attempts stopped before entering system suspend; suspend counters remained zero. Physical cable disconnection is the next controlled experiment, with automatic RTC wake and gadget restoration. No wake source has been forcibly disabled. An initial boot-time wake reason reports `-1 misconfigured IRQ 354 sm5714-usbpd`; it is not evidence of a failed suspend because no suspend had occurred.
 
+Build with `scripts/build-power-probe.sh` using the existing ARM64 graphics-toolchain container. Copy the resulting static binary to `/tmp/p613-suspend-test` on the native root. `native/run-p613-suspend-test.sh` waits up to fifteen minutes for a discharging state after physical cable removal, settles for ten seconds, and retries only blocked wakeup-count handshakes. It performs at most one actual suspend attempt and keeps its log in RAM when launched with redirected output. Leave the gadget configured for physical-disconnect tests. Run only one worker at a time.
+
+The first physical-disconnect request arrived after an earlier two-minute worker had expired; its zero suspend counters do not establish whether physical cable removal permits suspend. The replacement worker uses the longer window above. Kernel source confirms USB-PD registers IRQF_NO_SUSPEND and enables IRQ wake, explaining the diagnostic message. No IRQ policy change has been made.
+
 ## Battery units
 
 In the pinned Samsung kernel, `drivers/battery/common/sec_battery.c` requests `SEC_BATTERY_CURRENT_MA` for `current_now` and `current_avg`, and exposes those values directly. Voltage is multiplied by 1000 for microvolts. Generic desktop software assuming standard microamp current therefore needs normalization. The battery was charging, rising from 1% to 4% during initial inspection; no discharge-drain conclusion is possible from this session.
