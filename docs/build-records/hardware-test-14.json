@@ -1,0 +1,66 @@
+{
+  "date": "2026-11-17",
+  "device": "SM-P613",
+  "root_revision": 12,
+  "root_sha256": "a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c",
+  "desktop_startup": {
+    "mobile_shell": true,
+    "osk": true,
+    "audio_nodes": true,
+    "app_lifecycle_cycles": 3,
+    "battery_percentage_owner_confirmed": true,
+    "wifi_connection_owner_confirmed": true,
+    "post_connection_https": "not checked; USB SSH stalled"
+  },
+  "native_power_key_first_trial": {
+    "rtc_fallback_seconds": 90,
+    "elapsed_boottime_seconds": 18.138,
+    "elapsed_monotonic_seconds": 17.18,
+    "suspended_seconds": 0.958,
+    "power_key_irq_before": 0,
+    "power_key_irq_after": 2,
+    "suspend_success_count": 1,
+    "suspend_fail_count": 0,
+    "wake_cause": "unknown",
+    "classification": "short sleep; longer confirmation trial required"
+  },
+  "suspend_preparation_delay": {
+    "observed_seconds": 17.18,
+    "coincident_firmware_timeout": "dbmd8_va_fw.bin"
+  },
+  "dbmdx_ram_firmware": {
+    "fresh_vendor_extraction_hashes_match": true,
+    "chip_id": "0xdb80",
+    "firmware_id": "0xdbd8",
+    "firmware_version": "0x39c",
+    "loaded": true,
+    "final_driver_power_state": "SLEEPING",
+    "voice_features_validated": false,
+    "suspend_compatible": false
+  },
+  "native_power_key_repeat": {
+    "result": "suspend blocked after DBMDX firmware load",
+    "attempts": 10,
+    "suspended_seconds": 0,
+    "last_failed_device": "a80000.spi",
+    "errno": -16,
+    "success_counter": 1,
+    "failure_counter": 10
+  },
+  "sequential_pm_diagnostic": {
+    "pm_async_during_test": 0,
+    "pm_async_restored": 1,
+    "suspended_seconds": 59.194,
+    "boottime_elapsed_seconds": 59.689,
+    "monotonic_elapsed_seconds": 0.495,
+    "power_key_irq_before": 16,
+    "power_key_irq_after": 18,
+    "rtc_fallback_seconds": 90,
+    "success_counter": 2,
+    "failure_counter": 10,
+    "new_failures": 0,
+    "wake_cause_reported_by_kernel": "unknown",
+    "power_button_wake_demonstrated": true,
+    "scope": "minimal native root with DBMDX firmware loaded; desktop and radio absent"
+  }
+}

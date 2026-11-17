@@ -1,0 +1,16 @@
+{
+  "source": "Saved verified Lineage gta4xlveu vendor filesystem; fresh read-only debugfs extraction from vendor-reconstructed.img matched prior extraction",
+  "device_tree": "atoll-sec-gta4xlve-audio-common.dtsi",
+  "files": [
+    {
+      "path": "dbmd8_va_fw.bin",
+      "bytes": 260920,
+      "sha256": "884788bc6f4cc0b65ad3e32669b58c83297d59adfb32df9749e361bc542fffcc"
+    },
+    {
+      "path": "dbmd8_va_asrp_fw.bin",
+      "bytes": 2900,
+      "sha256": "2d48e6cb8b7c8ed44dcf1d9e4113ea1f7003187b24e28beaf5729a08c37632b0"
+    }
+  ]
+}

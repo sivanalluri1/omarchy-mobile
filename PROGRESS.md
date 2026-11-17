@@ -479,3 +479,20 @@ Revision 12 SHA256: a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1f
 - [ ] Recover/diagnose recurring USB network stalls, finish revision-12 HTTPS/audio checks and run the prepared Power-button wake test.
 
 Network services must start before Quickshell in this manual-service prototype. USB SSH stalled again near the Wi-Fi connection despite the correct host address and route. A temporary Wi-Fi-off diagnostic is pending. The Power-button test is prepared with a 90-second RTC fallback, but has not been started.
+
+### Step 10 — native Power-key wake trial armed (2026-11-17)
+
+The owner opted for Download Mode instead of the Wi-Fi relay. After reconnecting the tablet cable, the Mac detected Download Mode and a read-only PIT session rebooted native Linux. The minimal native root is now running, with no Arch/radio services. RTC alarm delivery was rechecked successfully (20.320 seconds). A single Power-key wake trial is armed with a 90-second RTC fallback and IRQ-count capture. Its outcome is pending; no automatic power-button policy is active.
+
+### Step 10 — DBMDX firmware / SPI suspend diagnostic (2026-11-17)
+
+The first Power-key trial recorded 0.958 seconds asleep and two Power-key IRQs, but about 17 seconds in preparation; button wake remains unconfirmed. A missing DBMDX request timed out during preparation. Matching vendor firmware was freshly extracted, hash-verified and loaded in RAM; the driver then reported HIBERNATE/SLEEPING. With firmware loaded, however, ten repeat suspend attempts failed on a80000.spi (-16). Firmware staging remains optional and is excluded from normal Arch setup. A temporary sequential-PM test is now armed; it will restore the original pm_async value. No firmware blobs or partition changes are committed.
+
+### Step 10 — native Power-button wake demonstrated (2026-11-17)
+
+- [x] Complete 59.194 seconds of actual deep sleep with DBMDX firmware loaded and sequential PM callbacks.
+- [x] Wake before the 90-second RTC fallback following the owner's Power press; IRQ count increased 16 to 18.
+- [x] Verify no new suspend failures and restore pm_async from 0 to its original 1.
+- [ ] Validate this firmware/sequential-PM combination with the desktop, radio and audio stack.
+
+This establishes minimal native Power-button wake; the vendor wake-reason string remains unknown. It does not enable an automatic power-button sleep/lock policy. Optional firmware staging and the source hashes are retained for reproducibility; blobs remain private.

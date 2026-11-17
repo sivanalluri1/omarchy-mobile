@@ -49,7 +49,7 @@ The Wi-Fi panel was still open, and its source enables an active scanner while o
 
 ### Connected-WLAN retry outcome
 
-Closing the Wi-Fi panel did not resolve the issue. Of ten bounded attempts, nine entered the suspend path and returned EBUSY with zero measured sleep; one stopped at the wakeup-count handshake. Kernel totals became success 1 / fail 10 (including the earlier desktop abort). The repeated reason remained pending `mgmt_txrx tx_cmp` wake sources. This is not a transient scan-only result, and additional identical retries are not justified.
+Closing the Wi-Fi panel did not resolve the issue. Of ten bounded attempts, nine entered the suspend path and returned EBUSY with zero measured sleep; one stopped at the wakeup-count handshake. Kernel totals became success 1 / fail 10 (including the earlier desktop abort). The repeated reason remained pending `mgmt_txrx tx_cmp` wake source. This is not a transient scan-only result, and additional identical retries are not justified.
 
 The next isolation run temporarily disables WLAN through NetworkManager, retains desktop and audio services, and restores WLAN afterward. It is explicitly not a connected-WLAN suspend test. No wake-source masking or forced release is used.
 
@@ -80,3 +80,33 @@ A native restart recovered USB networking after restoring the Mac address alone 
 Start the system D-Bus, supplicant and NetworkManager before the desktop: starting Quickshell before the system bus left its Wi-Fi panel unavailable until the desktop restarted. The successful restart used network services first. After owner Wi-Fi connection, USB SSH stopped responding again despite the correct Mac address and route. A Wi-Fi-off UI diagnostic is pending; no further suspend test has been armed yet.
 
 `native/p613-recovery-monitor.sh` records up to 360 read-only USB snapshots at ten-second intervals in native RAM, bounded by an outer timeout. It captures address, link/counter and controller-runtime state to aid this unresolved recovery problem. It does not reset the USB controller or alter networking. A power-key test with a 90-second RTC fallback is prepared but has not run.
+
+## Recovery change and native Power-key trial
+
+The owner chose Download Mode instead of continuing the Wi-Fi relay. Initially the Mac still enumerated the old Linux gadget and could not detect Download Mode. After a tablet-cable reconnection, Samsung Download Mode became visible. A read-only PIT session ended with a normal native reboot; no images were flashed. This points to the USB connection/host path as another candidate cause, rather than proving the stall is caused by WLAN. The firmware/driver cause is still unresolved.
+
+To reduce variables, the next wake-key test runs in the minimal native system before mounting Arch or starting radio support. `native/run-p613-native-power-key-test.sh` waits for physical cable removal, settles for ten seconds, records the Power-key IRQ count, and runs `p613-suspend-test button`. Button mode arms a 90-second RTC fallback; the owner is instructed to press Power 30 seconds after unplugging and reconnect 20 seconds later. Actual sleep duration and before/after IRQ counts must distinguish button wake from fallback/cable wake. The awake RTC recheck received RTC_AF after 20.320 seconds. The trial is armed; its result is pending.
+
+The desktop Power-key test also supports `P613_POWER_KEY_USE_NETWORK=0` for an isolated desktop with radio support absent. This option is prepared, not hardware-validated. No automatic suspend/lock policy is enabled.
+
+Source inspection identifies `mgmt_txrx tx_cmp` as one wake-source name containing a space, created in the WLAN management-transmit code; earlier shorthand referring to multiple sources should not be interpreted as a count. Its timeout acquisition calls `pm_wakeup_ws_event(..., true)` in this kernel. No wake-source implementation has been changed.
+
+### First Power-key result and preparation delay
+
+The first trial returned before the 90-second alarm: elapsed boottime 18.138 seconds, monotonic time 17.180 seconds, and actual sleep 0.958 seconds. Power-key IRQs increased from 0 to 2; the fresh boot recorded success 1 / fail 0. The vendor wake cause remained unknown. This is too short to classify as a confirmed established-sleep button wake. Logs showed a missing `dbmd8_va_fw.bin` firmware request timing out during the long preparation period.
+
+Both DBMDX filenames are specified by the pinned gta4xlve audio device tree and exist in the saved Lineage vendor filesystem. Fresh read-only debugfs extraction reproduced both file hashes; `docs/build-records/power-firmware.json` pins them. The files were staged in native RAM, and the existing firmware fallback was completed using the standard loading/data/loading protocol. The driver verified chip 0xdb80, loaded firmware 0x39c, selected IDLE and then HIBERNATE, reporting SLEEPING. This is firmware initialization evidence, not validation of voice capture/wake features.
+
+`scripts/stage-power-firmware.py` repeats this operation with input/target hash checks, atomic file installation and an exact pending-request device-path guard. It remains an optional manual experiment, excluded from normal Arch staging until suspend compatibility is established. Firmware remains private and outside Git; BOOT and persistent partitions are unchanged. A second native button trial is armed, with the owner waiting 60 seconds after unplugging before pressing Power.
+
+### Firmware-loaded repeat blocked by SPI
+
+The repeat performed ten bounded requests and never entered deep sleep. The failing callback is now explicitly `a80000.spi`, errno -16; kernel totals remain success 1 and failure 10 for this boot. The controller is configured `auto` and is runtime-suspended between attempts. The pinned GENI SPI callback rejects a nonempty transfer queue during system suspend. No controller force-suspend, wake masking or driver unbinding was attempted.
+
+DBMDX firmware initialization therefore cannot be promoted as a suspend fix. Its staging stays optional; normal Arch staging has not been changed to load it. The diagnostic repeat temporarily set `/sys/power/pm_async` to 0 to serialize device PM callbacks, restoring the original value on exit. This tests a possible callback-ordering issue; it is not a confirmed root cause or permanent policy.
+
+### Sequential-PM Power-button wake result
+
+With `pm_async=0`, the firmware-loaded native system slept for **59.194 seconds** (59.689 boottime / 0.495 monotonic elapsed). Power-key IRQ count increased from 16 to 18 and the test returned before its 90-second RTC fallback, following the owner's brief Power press. This demonstrates Power-button wake in the minimal native system. The vendor wake-reason string remained unknown. Success increased to 2; the earlier fail count stayed 10, with no new failures. `pm_async` was verified restored to 1.
+
+Serializing callbacks is a tested workaround for this firmware-loaded minimal configuration; it supports an ordering hypothesis but does not prove the precise driver race. Desktop/radio/audio compatibility with this combination remains to be tested. The DBMDX firmware helper is optional and has no default Arch-staging hook.
