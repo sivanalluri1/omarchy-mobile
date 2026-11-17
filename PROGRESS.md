@@ -424,3 +424,12 @@ Resume from validated revision 11 (a354700dd9753eeca3665ef543dfe9009bda70db689b6
 - [ ] Integrate battery reporting and power-button/display policy.
 
 Headphones/jack tests are explicitly deferred. Software USB-gadget unbinding alone did not permit the wakeup-count handshake; no suspend entry has yet been demonstrated. Physical USB disconnection is the next test. See docs/power-bringup.md.
+
+### Step 10 — first actual deep suspend validated (2026-11-17)
+
+- [x] Enter native `mem/deep` after physical USB removal.
+- [x] Resume automatically after 20.142 seconds of measured suspended time.
+- [x] Verify success counter 1, all suspend/resume failure counters zero, and recovery SSH after cable reconnection without reboot.
+- [ ] Repeat with the desktop, touch/S Pen, graphics, radio and audio running.
+
+RTC timing matched the automatic wake, but the vendor kernel reported an unknown wake cause. This proves the minimal native suspend/resume path only. Desktop restaging is in progress; headless touch/SDE resume warnings remain under investigation.

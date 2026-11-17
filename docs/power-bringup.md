@@ -27,9 +27,15 @@ In the pinned Samsung kernel, `drivers/battery/common/sec_battery.c` requests `S
 - [x] Verify native image, storage and recovery SSH.
 - [x] Inventory suspend modes, wake sources, RTC and battery interfaces.
 - [x] Prove RTC alarm delivery while awake.
-- [ ] Prove timed deep suspend and automatic resume without the USB cable.
+- [x] Prove timed deep suspend and automatic resume without the USB cable.
 - [ ] Repeat timed cycles and inspect failure counters/wake reasons.
 - [ ] Validate panel, touch, S Pen and compositor after resume.
 - [ ] Validate Wi-Fi reconnection and audio after resume.
 - [ ] Integrate power-button/display policy and normalized desktop battery reporting.
 - [ ] Measure unplugged idle/suspend drain with adequate battery charge.
+
+## First deep-suspend result
+
+The physical-disconnect worker entered `mem` with `[deep]` selected and returned zero. CLOCK_BOOTTIME elapsed 20.773 seconds while CLOCK_MONOTONIC elapsed 0.630 seconds: **20.142 seconds suspended**, independently corroborated by `last_suspend_time` (20.142698118 seconds). Suspend success increased to 1; all failure counters stayed zero. Recovery SSH returned after cable reconnection without a reboot. RTC was armed for +20 seconds; automatic resume matched that interval, but the vendor kernel reported “Resume cause unknown,” so an IRQ-specific RTC wake cause is not proven.
+
+This was the minimal native RAM system, before staging the desktop, radio and audio. The log includes Himax resume attempts against a powered-off touch controller and an SDE mode warning. Desktop/input resume must be validated separately before deciding whether those messages are actionable. The raw private evidence is `work/hardware-test-13/deep-suspend-04.txt`.
