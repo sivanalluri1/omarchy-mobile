@@ -19,7 +19,7 @@
     "Power-button wake/policy, idle drain and prolonged stability remain unvalidated",
     "USB NCM recovery stalls remain open; a reconnect can require restoring the Mac USB address",
     "Input accuracy/palm rejection/rotation, microphone quality and headphone/jack tests remain open",
-    "Revision 12 startup and battery percentage verified; post-reconnect HTTPS/audio recheck pending USB recovery"
+    "Revision 12 desktop wake, input, battery and speaker playback verified; HTTPS on revision 12 and microphone capture after resume not repeated"
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
@@ -49,7 +49,7 @@
   "audio_packages_in_image": true,
   "pipewire_speaker_adapter_in_image": true,
   "audio_route_helper_in_image": true,
-  "audio_tablet_validation_pending": true,
+  "audio_tablet_validation_pending": false,
   "pipewire_microphone_adapter_in_image": true,
   "audio_routes": "vendor speaker and main-microphone paths",
   "pipewire_speaker_and_microphone_validated": true,
@@ -62,5 +62,12 @@
   "previous_image_runtime_tests": "Revision 11 desktop, input, audio and Wi-Fi verified; three desktop suspend cycles passed with WLAN temporarily disabled",
   "battery_bar_icon_owner_confirmed": true,
   "battery_percentage_owner_confirmed": true,
-  "app_lifecycle_cycles": 3
+  "app_lifecycle_cycles": 3,
+  "pipewire_speaker_validated": true,
+  "post_resume_microphone_capture_pending": true,
+  "microphone_capture_latest_validation_revision": 11,
+  "power_key_wake_with_manual_sequence_validated": true,
+  "optional_power_firmware_in_image": false,
+  "sequential_pm_required_for_tested_firmware_loaded_path": true,
+  "power_key_validation_record": "hardware-test-15.json"
 }

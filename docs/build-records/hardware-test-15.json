@@ -15,9 +15,44 @@
     "system_network_services_ready_before_desktop": true,
     "wlan_connection_state": "disconnected"
   },
-  "desktop_power_key_trial": "armed, pending physical cable cycle",
+  "desktop_power_key_trial": {
+    "result": "passed",
+    "suspended_seconds": 16.975,
+    "kernel_suspended_seconds": 16.974699524,
+    "boottime_elapsed_seconds": 17.028,
+    "monotonic_elapsed_seconds": 0.053,
+    "power_key_irq_before": 18,
+    "power_key_irq_at_resume": 19,
+    "power_key_irq_after_release": 20,
+    "rtc_fallback_seconds": 90,
+    "success_counter": 3,
+    "failure_counter": 10,
+    "new_failures": 0,
+    "dpms_restored": true,
+    "monitor_disabled": false,
+    "shell_ping": true,
+    "pm_async_restored": 1,
+    "kernel_wake_cause": "unknown",
+    "wlan_disabled_during_sleep": true,
+    "wlan_enabled_afterward": true,
+    "wlan_connection_before_test": "disconnected",
+    "https_reconnection_test": "not applicable; no profile connected in this trial"
+  },
   "pm_async_test_setting": 0,
   "pm_async_restore_target": 1,
   "rtc_fallback_seconds": 90,
-  "post_resume_audio_test": "pending"
+  "post_resume_audio_test": {
+    "playback_runs": 2,
+    "seconds_each": 30,
+    "exit_codes": [
+      0,
+      0
+    ],
+    "synthetic_file_deleted": true,
+    "owner_confirmed_audible_tones": true
+  },
+  "post_resume_app_lifecycle_cycles": 3,
+  "owner_confirmed_input_responsive": true,
+  "owner_confirmed_battery_percentage_visible": true,
+  "automatic_power_button_sleep_or_lock_enabled": false
 }

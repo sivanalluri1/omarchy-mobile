@@ -32,7 +32,9 @@ In the pinned Samsung kernel, `drivers/battery/common/sec_battery.c` requests `S
 - [x] Validate panel, touch, S Pen and compositor after resume.
 - [x] Validate Wi-Fi reconnection and speaker playback after resume.
 - [ ] Validate connected-WLAN suspend and microphone capture after resume.
-- [ ] Integrate power-button/display policy and normalized desktop battery reporting.
+- [x] Integrate normalized desktop battery reporting.
+- [x] Demonstrate manual Power-button wake in minimal and full desktop tests.
+- [ ] Implement automatic power-button sleep/display/secure-lock policy.
 - [ ] Measure unplugged idle/suspend drain with adequate battery charge.
 
 ## First deep-suspend result
@@ -110,3 +112,13 @@ DBMDX firmware initialization therefore cannot be promoted as a suspend fix. Its
 With `pm_async=0`, the firmware-loaded native system slept for **59.194 seconds** (59.689 boottime / 0.495 monotonic elapsed). Power-key IRQ count increased from 16 to 18 and the test returned before its 90-second RTC fallback, following the owner's brief Power press. This demonstrates Power-button wake in the minimal native system. The vendor wake-reason string remained unknown. Success increased to 2; the earlier fail count stayed 10, with no new failures. `pm_async` was verified restored to 1.
 
 Serializing callbacks is a tested workaround for this firmware-loaded minimal configuration; it supports an ordering hypothesis but does not prove the precise driver race. Desktop/radio/audio compatibility with this combination remains to be tested. The DBMDX firmware helper is optional and has no default Arch-staging hook.
+
+## Combined desktop Power-button wake validated
+
+Hardware test 15 used revision 12, loaded DBMDX firmware, ADSP/radio services, NetworkManager, Hyprland, the mobile shell/OSK and PipeWire. WLAN was unconnected before the trial, disabled for sleep, and re-enabled afterward. The worker temporarily selected sequential callbacks and restored `pm_async=1` on exit.
+
+The tablet spent **16.975 seconds in deep sleep** (17.028 boottime / 0.053 monotonic elapsed), returning before the 90-second fallback after the owner's Power press. Power IRQ count increased 18 to 19 at resume and 20 after release. The kernel again reported an unknown wake cause. Its cumulative success count became 3; the earlier failure count stayed 10. Old `last_failed_*` values refer to the prior SPI aborts and were not cleared by a successful cycle.
+
+Display DPMS returned on, the monitor remained enabled, and shell IPC responded. Three actual app lifecycle cycles passed. Two bounded 30-second PipeWire playback runs exited zero and deleted their synthetic files. The owner confirmed audible tones, responsive finger/S Pen interaction and visible battery percentage. No microphone capture or connected-WLAN HTTPS test was repeated in this trial.
+
+This validates the manual sequence with optional firmware and serialized callbacks. It does not wire Power presses to automatic suspend/locking, provide connected-WLAN sleep, or solve the USB recovery stalls. The tested desktop is left running; current active-mode `pm_async` is 1. No BOOT or other partition was changed in this power session.

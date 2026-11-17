@@ -1,6 +1,6 @@
 # Progress
 
-Status: step 10 in progress. Revision 12 runs the native Arch/Omarchy mobile prototype with touch/S Pen, OSK, Wi-Fi controls, built-in audio and battery percentage. Desktop deep suspend with WLAN temporarily disabled is verified; minimal-system Power-button wake passed with optional DBMDX firmware and sequential PM callbacks. The combined desktop Power-button trial is pending. This remains a RAM-root/manual-service prototype with BusyBox PID 1.
+Status: step 10 in progress. Revision 12 runs the native Arch/Omarchy mobile prototype with touch/S Pen, OSK, Wi-Fi controls, built-in audio and battery percentage. Desktop deep suspend with WLAN temporarily disabled is verified; minimal-system Power-button wake passed with optional DBMDX firmware and sequential PM callbacks. The combined desktop Power-button trial passed with WLAN disabled for sleep and sequential PM callbacks. This remains a RAM-root/manual-service prototype with BusyBox PID 1.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -496,3 +496,15 @@ The first Power-key trial recorded 0.958 seconds asleep and two Power-key IRQs, 
 - [ ] Validate this firmware/sequential-PM combination with the desktop, radio and audio stack.
 
 This establishes minimal native Power-button wake; the vendor wake-reason string remains unknown. It does not enable an automatic power-button sleep/lock policy. Optional firmware staging and the source hashes are retained for reproducibility; blobs remain private.
+
+### Step 10 — desktop Power-button wake and post-resume regression passed (2026-11-17)
+
+- [x] Enter actual desktop deep sleep for 16.975 seconds with optional DBMDX firmware and sequential callbacks.
+- [x] Resume following Power-button input before the 90-second RTC fallback; IRQ press/release counts captured.
+- [x] Restore display, shell and normal pm_async=1; no new suspend failures.
+- [x] Complete three app lifecycle cycles and two successful 30-second PipeWire playback runs after resume.
+- [x] Obtain owner confirmation of audible tones, responsive finger/S Pen input and visible battery percentage.
+- [ ] Implement automatic power-button sleep/lock policy and low-battery actions.
+- [ ] Resolve connected-WLAN suspend and USB recovery stalls; validate post-resume capture and longer unplugged drain/stability.
+
+Evidence: docs/build-records/hardware-test-15.json. Revision 12 remains a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c. Current tablet: this image is running in RAM with radio/network/audio/desktop services, optional DBMDX firmware loaded, WLAN enabled but unconnected, and pm_async restored to 1. Native BOOT is unchanged. The test worker's sequential-PM and Wi-Fi-off settings apply only during the manual sleep experiment. Headphones remain deferred; no automatic sleep/secure-lock daemon is enabled.
