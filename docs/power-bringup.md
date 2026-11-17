@@ -60,3 +60,15 @@ All three isolation cycles passed, measuring 20.056, 20.453 and 20.466 seconds a
 The tested worker is preserved as `native/run-p613-desktop-suspend-wifi-off-test.sh`. It is a developer test that deliberately restores Wi-Fi on completion, not a general-purpose suspend service or a secure lock-screen policy. Wake cause is still reported unknown by the vendor kernel. Wi-Fi must currently be disabled during desktop deep sleep; connected-WLAN sleep is not validated.
 
 `native/p613-power-status.py` reads battery state without changing hardware. It guards the validated kernel and converts Samsung current from mA to uA. A live snapshot reported charging, 16%, 3.851 V and 29.5 C. Desktop bar integration is separate from this numerical probe.
+
+## Battery status-bar integration in progress
+
+The P613 mobile-bar patch polls `power-status.py` as the ordinary desktop user every fifteen seconds. The percentage, charging state and full state come from its validated snapshot; UPower remains a fallback. A failed probe clears the P613 snapshot instead of preserving stale telemetry. The image assembly installs the helper and applies the bar patch. A RAM bind overlay is currently under visual validation, and a replacement image is building with revision 11 preserved as `root-v11.squashfs`.
+
+Current RAM overlays to remove before unmounting the Arch root: `/arch/usr/share/omamobile/shell/plugins/omamobile.bar/Bar.qml` and `/arch/usr/local/libexec/p613` (unmount the file first, then the directory). They contain only the battery UI/helper change. The native BOOT remains unchanged.
+
+### Percentage visibility and recovery-link checkpoint
+
+The owner confirmed the new battery icon but no numeric percentage. The cause was the existing P613 shell configuration explicitly setting `showBatteryPercent` to false. It is now true in the source configuration; a replacement image is building. The first battery image (51f212adadc1b3ef0542d09ca41e1da9041552b679df9b5aab5c213a131e775c) is preserved privately as `root-power-hidden-percent.squashfs`, not promoted as the final percentage-enabled image. The ordinary image rebuild updated libffi, inotify-tools and tpm2-tss; final-image runtime checks remain required.
+
+During this work the USB interface remained enumerated with its host address, but ping and SSH stopped responding while the owner could still use the desktop. This resembles the previously observed recovery-network stall and remains unresolved. A cable reconnect was requested; no reboot or Android restore was requested.

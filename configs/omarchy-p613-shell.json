@@ -4,7 +4,7 @@
     "id": "omamobile.bar",
     "position": "top",
     "clockFormat": "HH:mm",
-    "showBatteryPercent": false,
+    "showBatteryPercent": true,
     "layout": {
       "left": [],
       "center": [],

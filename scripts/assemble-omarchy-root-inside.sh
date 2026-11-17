@@ -43,6 +43,7 @@ install -Dm644 /project/configs/p613-NetworkManager.conf /target/etc/p613/Networ
 install -Dm755 /project/native/start-p613-network.sh /target/usr/local/libexec/p613/start-network.sh
 install -Dm755 /project/native/stop-p613-network.sh /target/usr/local/libexec/p613/stop-network.sh
 install -Dm755 /project/native/p613-audio-route.py /target/usr/local/libexec/p613/audio-route.py
+install -Dm755 /project/native/p613-power-status.py /target/usr/local/libexec/p613/power-status.py
 install -Dm755 /project/native/p613-speaker-test.py /target/usr/local/libexec/p613/speaker-test.py
 install -Dm755 /project/native/p613-microphone-test.py /target/usr/local/libexec/p613/microphone-test.py
 install -Dm644 /project/configs/p613-pipewire-speakers.conf /target/etc/pipewire/pipewire.conf.d/90-p613-speakers.conf

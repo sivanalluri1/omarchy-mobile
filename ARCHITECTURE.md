@@ -61,3 +61,9 @@ Omarchy shell integration uses a separate RAM image, an isolated libudev compati
 
 
 Current mobile profile: RAM udev classifications and volatile pen resolution metadata feed libinput/Hyprland. The mobile desktop launches entries through GIO in the manual session and uses static recents cards. The GPU prefix includes the separately validated Turnip allocation-fd ownership repair. Revision 5 passed clean-session and app lifecycle checks; follow docs/input-bringup.md and docs/build-records/hardware-test-08.json. On-screen keyboard and full service/hardware integration remain open.
+
+## Native power boundary (2026-11-17)
+
+The downstream kernel supports measured deep suspend with BusyBox PID 1; logind is not available. Connected USB holds a wake source, and connected WLAN currently causes pending-management-transmit aborts. The validated desktop sequence turns panel power off, disables Wi-Fi, arms a relative RTC alarm, enters `mem/deep`, restores panel power and re-enables Wi-Fi. Three cycles preserved graphics, shell and audio nodes, with successful app/input/speaker checks and automatic Wi-Fi reconnection afterward. This remains a bounded developer experiment, not an automatic or secure lock/suspend policy.
+
+Battery telemetry has a separate read-only boundary: Samsung `sec_battery` reports current in mA and voltage in uV. The P613 helper checks the validated kernel before normalizing current to uA. The mobile bar polls this helper without root privileges; it does not control charging. Suspend coordination, power-button wake, low-battery action and secure locking require separate validation before being enabled automatically.

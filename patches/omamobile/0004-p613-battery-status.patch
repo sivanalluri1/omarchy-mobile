@@ -1,0 +1,47 @@
+--- a/usr/share/omamobile/shell/plugins/omamobile.bar/Bar.qml
++++ b/usr/share/omamobile/shell/plugins/omamobile.bar/Bar.qml
+@@ -213,12 +213,39 @@
+     return false
+   }
+ 
++  // P613's sec_battery current units differ from standard power_supply.
++  // The read-only helper validates the kernel and normalizes its snapshot.
++  property var p613Battery: null
++  Process {
++    id: p613Power
++    command: ["/usr/bin/python", "/usr/local/libexec/p613/power-status.py"]
++    stdout: StdioCollector {
++      onStreamFinished: {
++        try {
++          var value = JSON.parse(text)
++          root.p613Battery = value.schema === 1 && value.present === true
++            && value.percentage >= 0 && value.percentage <= 100 ? value : null
++        } catch (e) { root.p613Battery = null }
++      }
++    }
++    onExited: function(exitCode, exitStatus) {
++      if (exitCode !== 0) root.p613Battery = null
++    }
++  }
++  Timer {
++    interval: 15000; running: true; repeat: true; triggeredOnStart: true
++    onTriggered: if (!p613Power.running) p613Power.running = true
++  }
+   readonly property var battery: UPower.displayDevice
+-  readonly property bool hasBattery: !!battery && battery.isPresent === true
+-  readonly property int batteryPercent: hasBattery ? Math.round(battery.percentage * 100) : -1
+-  readonly property bool charging: hasBattery && battery.state === UPowerDeviceState.Charging
+-  readonly property string batteryIcon: StatusModel.batteryIcon(batteryPercent, charging,
+-    hasBattery && battery.state === UPowerDeviceState.FullyCharged)
++  readonly property bool hasBattery: p613Battery !== null || (!!battery && battery.isPresent === true)
++  readonly property int batteryPercent: p613Battery ? p613Battery.percentage
++    : hasBattery ? Math.round(battery.percentage * 100) : -1
++  readonly property bool charging: p613Battery ? p613Battery.charging
++    : hasBattery && battery.state === UPowerDeviceState.Charging
++  readonly property bool fullyCharged: p613Battery ? p613Battery.status === "Full"
++    : hasBattery && battery.state === UPowerDeviceState.FullyCharged
++  readonly property string batteryIcon: StatusModel.batteryIcon(batteryPercent, charging, fullyCharged)
++
+ 
+   // ---------------------------------------------------------------- host API
+ 

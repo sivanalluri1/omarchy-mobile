@@ -67,6 +67,7 @@ subprocess.run(['patch','--batch','--fuzz=0','-p1','-d',str(target),'-i',str(pro
 
 subprocess.run(['patch','--batch','--fuzz=0','-p1','-d',str(target),'-i',str(project/'patches/omamobile/0002-p613-static-recents-cards.patch')],check=True)
 subprocess.run(['patch','--batch','--fuzz=0','-p1','-d',str(target),'-i',str(project/'patches/omamobile/0003-p613-managed-wifi-interface.patch')],check=True)
+subprocess.run(['patch','--batch','--fuzz=0','-p1','-d',str(target),'-i',str(project/'patches/omamobile/0004-p613-battery-status.patch')],check=True)
 
 # The allocation ownership fix is a separately preserved and validated build.
 source=Path('/mesa-fixed/libvulkan_freedreno.so')

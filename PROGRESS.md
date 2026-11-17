@@ -460,3 +460,12 @@ Closing the Wi-Fi panel and using ten bounded attempts did not permit sleep: nin
 - [ ] Resolve connected-WLAN suspend; verify microphone capture, power-button wake and longer drain/stability.
 
 The safe tested sequence disables Wi-Fi for sleep and restores it afterward. It does not preserve the WLAN connection during sleep or provide secure locking. Headphone tests remain deferred.
+
+### Step 10 — packaged battery telemetry candidate (2026-11-17)
+
+- [x] Show a battery icon using the read-only normalized P613 helper in a RAM overlay; owner confirms icon visibility.
+- [x] Identify the hidden-percentage setting and enable it in the P613 configuration.
+- [x] Preserve revision 11 and build revision 12 with the helper/bar patch; signature, dependency and Hyprland configuration checks passed.
+- [ ] Run revision 12 on the tablet and confirm numeric battery percentage.
+
+Revision 12 SHA256: a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c (716894208 bytes). It is not yet tablet-tested. USB recovery stalled; after a cable reconnect, the Mac had a self-assigned address instead of its development address. The owner was asked to restore 192.168.77.2 on en5 because macOS requires administrator access. The live tablet still runs revision 11 with the battery RAM overlay and hidden percentage.
