@@ -1,0 +1,40 @@
+{
+  "device": "SM-P613",
+  "date": "2026-11-17",
+  "kernel": "4.14.357-openela-perf-g21b136df1533",
+  "boot_sha256": "e6585dfd5a81025f3848e6a2cee20d4b5914a929b0153758365a4c964a74fbc6",
+  "arch_image_sha256": "a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0",
+  "awake_rtc_alarm": {
+    "requested_seconds": 20,
+    "elapsed_seconds": 20.377,
+    "rtc_af_received": true,
+    "previous_disabled_alarm_restored": true
+  },
+  "minimal_deep_suspend": {
+    "requested_rtc_seconds": 20,
+    "boottime_elapsed_seconds": 20.773,
+    "monotonic_elapsed_seconds": 0.63,
+    "suspended_seconds": 20.142,
+    "kernel_sleep_seconds": 20.142698118,
+    "success_count": 1,
+    "failure_count": 0,
+    "automatic_resume": true,
+    "wake_cause": "unknown",
+    "usb_ssh_recovered": true
+  },
+  "desktop_after_minimal_resume": {
+    "mobile_shell": true,
+    "osk": true,
+    "audio_nodes": true,
+    "wifi_connected": true,
+    "https_status": 200
+  },
+  "desktop_suspend_cycles": "pending",
+  "headphone_test": "deferred by owner; hardware unavailable",
+  "limitations": [
+    "Minimal deep test only; desktop suspend not yet verified",
+    "USB connection blocks wakeup-count handshake",
+    "Vendor touch/SDE warnings need desktop-resume validation",
+    "Battery drain and power-button policy not yet validated"
+  ]
+}
