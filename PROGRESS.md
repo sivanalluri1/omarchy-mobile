@@ -525,3 +525,14 @@ Resume only when requested with both devices reconnected. Latest validated image
 - [ ] Validate untimed sleep and package the supervisor in the next image.
 
 The supervisor is currently a RAM prototype, initially in display-only mode. It does not implement secure locking or low-battery shutdown. The battery initially reported 1% and is charging; it reached 5% during the display test. A compiled untimed probe mode leaves RTC settings unchanged, but has not yet been hardware-tested.
+
+### Step 10 — Power-button initiated suspend passed (2026-11-18)
+
+- [x] Confirm the USB safeguard with suspend enabled: injected evdev taps toggled the display, with no kernel suspend and no pm_async change.
+- [x] Diagnose the initial automatic-sleep failure: Arch's sysfs mount was read-only; no sleep occurred.
+- [x] Bind only pm_async, wakeup_count and state writable into Arch; their kernel root-only permissions remain intact.
+- [x] Fix cleanup to attempt power-policy, Wi-Fi and display restoration independently; a failing-worker injection restored all three without entering suspend.
+- [x] Complete actual Power-button initiated sleep/resume: 24.366 seconds asleep after one bounded busy retry, then Wi-Fi and pm_async=1 restored.
+- [ ] Validate the untimed mode and package the supervisor in the next image.
+
+The live supervisor still uses the 90-second fallback. Root-only PM bindings must be removed before unmounting Arch, after stopping the supervisor. The native setup/unmount helpers and opt-in desktop launcher now manage that lifecycle. Secure locking and low-battery shutdown remain out of scope for this supervisor.

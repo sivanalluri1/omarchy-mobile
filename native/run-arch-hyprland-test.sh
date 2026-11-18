@@ -18,9 +18,16 @@ if [ "${P613_ENABLE_INPUT:-0}" = 1 ]; then
   chroot /arch /usr/bin/python /usr/local/libexec/p613/setup-input.py >/input-setup.log 2>&1
 fi
 seat_pid=
+power_pid=
+power_bindings=0
 audio_enabled=0
 cleanup() {
   trap - EXIT INT TERM
+  if [ -n "$power_pid" ]; then
+    kill -TERM "$power_pid" 2>/dev/null || true
+    wait "$power_pid" 2>/dev/null || true
+  fi
+  if [ "$power_bindings" = 1 ]; then /tmp/setup-p613-power.sh disable || true; fi
   # UID 1000 is reserved for this test; the recovery init/SSH processes are root.
   chroot /arch /usr/bin/pkill -TERM -u omarchy 2>/dev/null || true
   if [ "$audio_enabled" = 1 ]; then
@@ -58,6 +65,17 @@ while [ ! -S /arch/run/seatd.sock ]; do
   i=$((i+1)); [ "$i" -lt 20 ] || exit 1
   sleep 1
 done
+if [ "${P613_ENABLE_POWER:-0}" = 1 ]; then
+  /tmp/setup-p613-power.sh enable
+  power_bindings=1
+  case "${P613_POWER_ALLOW_SUSPEND:-0}" in 0|1) ;; *) exit 2;; esac
+  case "${P613_POWER_RTC_FALLBACK:-90}" in 0|90) ;; *) exit 2;; esac
+  set -- /usr/bin/python /usr/local/libexec/p613/power-button.py \
+    --rtc-fallback "${P613_POWER_RTC_FALLBACK:-90}"
+  if [ "${P613_POWER_ALLOW_SUSPEND:-0}" = 1 ]; then set -- "$@" --allow-suspend; fi
+  chroot /arch "$@" >/arch/tmp/power-button.log 2>&1 &
+  power_pid=$!
+fi
 graphics_libraries=/opt/p613-gpu/lib
 if [ "${P613_USE_UDEV_COMPAT:-0}" = 1 ]; then
   if [ -f /arch/opt/p613-compat/lib/libudev.so.1 ]; then

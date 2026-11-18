@@ -67,7 +67,7 @@ expected=json.loads(validation.read_text())['sha256']
 assert hashlib.sha256(image.read_bytes()).hexdigest()==expected
 print('Transferring compressed Arch image into RAM',flush=True)
 put(image,'/arch-root.squashfs','600')
-for name in ['mount-arch-ram-root.sh','unmount-arch-ram-root.sh','run-arch-hyprland-test.sh']:
+for name in ['mount-arch-ram-root.sh','unmount-arch-ram-root.sh','run-arch-hyprland-test.sh','setup-p613-power.sh']:
     put(root/'native'/name,'/tmp/'+name)
 run('/tmp/mount-arch-ram-root.sh '+expected,'arch-mount.txt')
 for source,dest,mode in [(root/'native/arch-hyprland-worker.sh','/arch/tmp/arch-hyprland-worker.sh','755'),(base/'build/gpu-probes/gpu-render','/arch/tmp/gpu-render','755'),(base/'build/gpu-probes/udev-probe','/arch/tmp/udev-probe','755'),(root/'configs/hyprland-p613-debug.lua','/arch/tmp/hyprland-debug.lua','644')]:

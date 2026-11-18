@@ -44,6 +44,15 @@ install -Dm755 /project/native/start-p613-network.sh /target/usr/local/libexec/p
 install -Dm755 /project/native/stop-p613-network.sh /target/usr/local/libexec/p613/stop-network.sh
 install -Dm755 /project/native/p613-audio-route.py /target/usr/local/libexec/p613/audio-route.py
 install -Dm755 /project/native/p613-power-status.py /target/usr/local/libexec/p613/power-status.py
+python3 - <<'POWERPROBE'
+import hashlib,json
+from pathlib import Path
+record=json.loads(Path('/project/docs/build-records/power-probe-build.json').read_text())
+assert hashlib.sha256(Path('/project/native/p613-suspend-test.c').read_bytes()).hexdigest()==record['source_sha256']
+assert hashlib.sha256(Path('/power-probe').read_bytes()).hexdigest()==record['binary_sha256']
+POWERPROBE
+install -Dm750 /power-probe /target/usr/local/libexec/p613/suspend-probe
+install -Dm750 /project/native/p613-power-button.py /target/usr/local/libexec/p613/power-button.py
 install -Dm755 /project/native/p613-speaker-test.py /target/usr/local/libexec/p613/speaker-test.py
 install -Dm755 /project/native/p613-microphone-test.py /target/usr/local/libexec/p613/microphone-test.py
 install -Dm644 /project/configs/p613-pipewire-speakers.conf /target/etc/pipewire/pipewire.conf.d/90-p613-speakers.conf

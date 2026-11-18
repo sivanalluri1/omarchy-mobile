@@ -21,6 +21,7 @@ docker run --rm --platform linux/arm64 --cap-add SYS_ADMIN \
   --mount "type=bind,src=$OMARCHY_LINUX_ROOT/checkout/omarchy-mobile,dst=/upstream,readonly" \
   --mount "type=bind,src=$OMARCHY_LINUX_ROOT/build/wayland-runtime-final,dst=/runtime,readonly" \
   --mount "type=bind,src=$OMARCHY_LINUX_ROOT/build/mesa-zink-fd-fix/stage/opt/p613-gpu/lib/libvulkan_freedreno.so,dst=/mesa-fixed/libvulkan_freedreno.so,readonly" \
+  --mount "type=bind,src=$OMARCHY_LINUX_ROOT/build/power-tools/p613-suspend-test,dst=/power-probe,readonly" \
   --mount "type=bind,src=$output,dst=/out" \
   --mount "type=bind,src=$root/work/hardware-test-10,dst=/radio-inputs,readonly" \
   --mount "type=bind,src=$OMARCHY_LINUX_ROOT/build/radio-tools,dst=/radio-tools,readonly" \

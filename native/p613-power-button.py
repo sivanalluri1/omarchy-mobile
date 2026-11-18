@@ -121,12 +121,24 @@ def suspend(probe, fallback, fd):
             return
         raise RuntimeError('bounded suspend attempts exhausted')
     finally:
-        # Restore kernel policy even if compositor IPC or networking has failed.
-        pm.write_text(old_pm)
+        # Attempt every restoration independently, including after a sysfs error.
+        restore_errors = []
+        try:
+            if pm.read_text().strip() != old_pm:
+                pm.write_text(old_pm)
+        except Exception as error:
+            restore_errors.append('pm_async: '+str(error))
         try:
             wifi_set(old_wifi == 'enabled')
-        finally:
+        except Exception as error:
+            restore_errors.append('wifi: '+str(error))
+        try:
             display(True)
+        except Exception as error:
+            restore_errors.append('display: '+str(error))
+        if restore_errors:
+            raise RuntimeError('restore failed: '+'; '.join(restore_errors))
+
 
 
 def main():

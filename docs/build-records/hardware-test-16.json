@@ -10,7 +10,37 @@
     "suspend_failure_count": 0,
     "pm_async": 1
   },
-  "unplugged_automatic_suspend": "pending",
-  "untimed_suspend_mode": "compiled; not yet hardware tested",
-  "secure_lock_enabled": false
+  "unplugged_automatic_suspend": {
+    "rtc_fallback_seconds": 90,
+    "suspended_seconds": 24.366,
+    "busy_retries": 1,
+    "success_counter": 1,
+    "failure_counter": 1,
+    "pm_async_restored": 1,
+    "wifi_restored": "enabled",
+    "wake_press_did_not_resuspend": true
+  },
+  "untimed_suspend_mode": "pending hardware validation",
+  "secure_lock_enabled": false,
+  "usb_guard_with_suspend_enabled": {
+    "test": "injected evdev Power taps, with SYN_REPORT",
+    "display_off_on": true,
+    "suspend_counters_unchanged": true,
+    "pm_async_unchanged": true
+  },
+  "first_automatic_sleep_attempt": {
+    "slept": false,
+    "cause": "read-only Arch sysfs prevented pm_async write",
+    "cleanup_wifi_restore_bug_fixed": true
+  },
+  "scoped_power_attributes": [
+    "pm_async",
+    "wakeup_count",
+    "state"
+  ],
+  "cleanup_failure_injection": {
+    "worker": "/usr/bin/false; USB/wait gate bypassed only for this no-sleep diagnostic",
+    "pm_wifi_display_restored": true,
+    "kernel_suspend_not_entered": true
+  }
 }
