@@ -75,7 +75,8 @@ int main(int argc, char **argv) {
         } else printf("RTC alarm interrupt received\n");
     } else {
         if(put("/sys/power/wakeup_count",count)) {
-            perror("prepare suspend"); rc=1;
+            int e=errno; perror("prepare suspend");
+            rc=(e==EINVAL || e==EAGAIN || e==EBUSY || e==EINTR)?3:1;
         } else {
             sync(); printf("Entering mem/deep\n");
             if(put("/sys/power/state","mem")) {int e=errno;perror("suspend");rc=e==EBUSY?4:1;}

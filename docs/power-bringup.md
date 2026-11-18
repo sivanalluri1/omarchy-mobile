@@ -122,3 +122,31 @@ The tablet spent **16.975 seconds in deep sleep** (17.028 boottime / 0.053 monot
 Display DPMS returned on, the monitor remained enabled, and shell IPC responded. Three actual app lifecycle cycles passed. Two bounded 30-second PipeWire playback runs exited zero and deleted their synthetic files. The owner confirmed audible tones, responsive finger/S Pen interaction and visible battery percentage. No microphone capture or connected-WLAN HTTPS test was repeated in this trial.
 
 This validates the manual sequence with optional firmware and serialized callbacks. It does not wire Power presses to automatic suspend/locking, provide connected-WLAN sleep, or solve the USB recovery stalls. The tested desktop is left running; current active-mode `pm_async` is 1. No BOOT or other partition was changed in this power session.
+
+## Power-button supervisor prototype (2026-11-18)
+
+`native/p613-power-button.py` runs as root alongside the manual desktop session. It observes only qpnp_pon KEY_POWER events without grabbing the device. A short press toggles display power while USB/charging is present. With suspend explicitly enabled, a short press while unplugged blanks the display, disables WLAN, settles pending work and enters deep sleep with sequential callbacks. Another press during preparation cancels it. Wake events are drained/debounced so the wake press cannot immediately request another sleep. Long holds are ignored by the supervisor; hardware reset behavior is unchanged.
+
+```mermaid
+stateDiagram-v2
+    Awake --> DisplayOff: Power with USB attached
+    DisplayOff --> Awake: Power
+    Awake --> Preparing: Power while unplugged
+    Preparing --> Awake: Power or USB cancels
+    Preparing --> DeepSleep: wake handshake succeeds
+    DeepSleep --> Awake: wake event
+```
+
+The wake-count handshake and busy failures use at most three attempts. Wi-Fi and the original pm_async value are saved per request and restored independently of display IPC success. The initial test mode uses a 90-second RTC fallback. Untimed mode leaves the RTC unchanged; it has passed a live 61.105-second sleep/resume cycle. No secure lock, automatic idle sleep, low-battery action or power-off gesture is implemented.
+
+The Arch sysfs view remains read-only except three native bind mounts established by `native/setup-p613-power.sh`: pm_async, wakeup_count and state. Their original kernel root-only write permissions remain in force. The setup helper is native-side; the Python supervisor and static probe execute in Arch. The supervisor must stop before the three bindings and Arch root are unmounted. The opt-in desktop launcher manages this order; unmounting refuses an active supervisor.
+
+Live validation initially exposed EROFS on pm_async. Cleanup was fixed to attempt every restoration even if one fails. A deliberately failing worker then verified real sysfs/NetworkManager/display restoration without entering sleep. With the bindings present, Power-button initiated sleep passed for 24.366 seconds after one busy retry and restored Wi-Fi plus pm_async=1. The ordinary desktop user's write denial is checked separately. Exact diagnostic records are in hardware-test-16.
+
+Launch controls are `P613_ENABLE_POWER=1`, `P613_POWER_ALLOW_SUSPEND=1` and `P613_POWER_RTC_FALLBACK=90` for bounded validation; fallback 0 selects the live-tested untimed path. Optional DBMDX firmware must be staged before Arch mounting for the tested firmware-loaded configuration. A future image build may use `P613_REUSE_PACKAGES=1` to verify and reuse the existing package set with container networking disabled, rather than upgrading dependencies during this power-only change.
+
+### Untimed supervisor result
+
+The initial untimed request returned a worker error before kernel entry; the original supervisor did not retain the child stderr, so its precise cause remains unproven. Worker output is now retained and wakeup-count store races (EINVAL/EAGAIN/EBUSY/EINTR) are treated as retryable handshake changes, without bypassing the handshake.
+
+The next run passed on its first attempt: 61.155 seconds boottime, 0.051 seconds monotonic and **61.105 seconds asleep**. The worker explicitly left the RTC unchanged; alarm_IRQ remained no before and after. The owner reported no automatic wake and used the Power-button flow. Wi-Fi returned enabled and pm_async returned 1; the kernel success count became 2 while fail stayed 1 from the earlier busy abort. This demonstrates untimed operation for the observed interval; it does not establish a two-minute or overnight drain result.

@@ -1,11 +1,11 @@
 {
-  "built_at_utc": "2026-11-18T23:19:05.680425+00:00",
+  "built_at_utc": "2026-11-18T23:35:26.421310+00:00",
   "kernel": "4.14.357-openela-perf-g21b136df1533",
   "compiler": "gcc (Debian 14.2.0-19) 14.2.0",
   "container_image": "sha256:85ef3363b529bf4bc901da5982638c03fd2917e765e75f232ff6b67ed9178690",
   "flags": "-static -O2 -Wall -Wextra -Werror",
-  "source_sha256": "811598fa01fe8a750d2336e688774c01bd5aab6e04100b9d916d0ae3c4de598e",
-  "binary_sha256": "cffd89092b826a695426070de6787a5dcde91c5b7c0c130a163a7286c1af8f17",
-  "bytes": 850168,
+  "source_sha256": "a7d8dbf559138eac2ba94ee1dd4c1f79bd45f5356a08d862d35e2450ac91ac8e",
+  "binary_sha256": "14c2a68fc80a81ba3ea69739d654f674046d0041f72de01a7e92c7677e63036e",
+  "bytes": 850192,
   "untimed_mode": "sleep; leaves RTC unchanged"
 }

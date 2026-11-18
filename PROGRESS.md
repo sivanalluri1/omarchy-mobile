@@ -536,3 +536,14 @@ The supervisor is currently a RAM prototype, initially in display-only mode. It 
 - [ ] Validate the untimed mode and package the supervisor in the next image.
 
 The live supervisor still uses the 90-second fallback. Root-only PM bindings must be removed before unmounting Arch, after stopping the supervisor. The native setup/unmount helpers and opt-in desktop launcher now manage that lifecycle. Secure locking and low-battery shutdown remain out of scope for this supervisor.
+
+### Step 10 — untimed Power-button sleep passed in the live prototype (2026-11-18)
+
+- [x] Add worker diagnostics and bounded retries for changed wakeup-count handshakes.
+- [x] Enter 61.105 seconds of measured deep sleep with the RTC left unchanged and no alarm enabled.
+- [x] Resume through the Power-button flow; owner reports no automatic wake during the observed interval.
+- [x] Restore Wi-Fi and pm_async=1; no new suspend failures in the successful untimed run.
+- [x] Verify ordinary desktop-user write denial on all three scoped power attributes.
+- [ ] Package and validate revision 13.
+
+The first untimed request failed before kernel suspend; its exact child error was not captured, so a wake-counter race is not asserted as its proven cause. Diagnostics now retain worker stdout/stderr. The passed run measured about 61 seconds asleep, not the full requested two-minute interval. Longer suspend/drain testing remains open. Revision 13 will preserve the existing package versions through the offline reuse option and retain revision 12 as rollback.

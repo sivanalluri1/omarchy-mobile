@@ -109,11 +109,14 @@ def suspend(probe, fallback, fd):
                 return
             status('suspending', attempt=attempt, rtc_fallback_seconds=fallback)
             result = command([str(probe), mode], timeout=35, check=False)
+            print(json.dumps({'phase': 'probe_result', 'exit_code': result.returncode,
+                              'stdout': result.stdout[-1200:], 'stderr': result.stderr[-1200:]}), flush=True)
             match = re.search(r'suspended_seconds=([0-9.]+)', result.stdout)
             slept = float(match.group(1)) if match else None
             if result.returncode in (3, 4):
                 status('sleep_busy', attempt=attempt, exit_code=result.returncode)
-                time.sleep(2)
+                if not settle(fd, 2):
+                    return
                 continue
             if result.returncode:
                 raise RuntimeError(f'suspend probe exited {result.returncode}')

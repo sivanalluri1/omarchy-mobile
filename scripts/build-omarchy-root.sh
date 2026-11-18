@@ -4,6 +4,11 @@ set -euo pipefail
 root=$(cd "$(dirname "$0")/.." && pwd)
 source "$root/scripts/storage.sh"
 require_ssd_storage
+case "${P613_REUSE_PACKAGES:-0}" in
+0) p613_build_network=bridge;;
+1) p613_build_network=none;;
+*) echo 'P613_REUSE_PACKAGES must be 0 or 1' >&2; exit 2;;
+esac
 output="$OMARCHY_LINUX_ROOT/build/arch-omarchy"
 mkdir -p "$output"
 case "${1:-prepare}" in
@@ -15,6 +20,7 @@ resume) [ -f "$output/root.img" ] && [ ! -e "$output/root.squashfs" ];;
 *) echo 'Usage: build-omarchy-root.sh prepare|resume' >&2; exit 2;;
 esac
 docker run --rm --platform linux/arm64 --cap-add SYS_ADMIN \
+  --network "$p613_build_network" --env "P613_REUSE_PACKAGES=${P613_REUSE_PACKAGES:-0}" \
   --device-cgroup-rule 'b 7:* rwm' --device-cgroup-rule 'c 10:237 rwm' \
   --mount "type=bind,src=$root,dst=/project,readonly" \
   --mount "type=bind,src=$root/work/omarchy-integration,dst=/inputs,readonly" \

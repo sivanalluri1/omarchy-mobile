@@ -27,7 +27,12 @@ gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/quickshell.pkg.tar.zst
 gpg --batch --homedir /tmp/omarchy-gnupg --verify /inputs/settings.pkg.tar.zst.sig /inputs/settings.pkg.tar.zst
 chroot /target /bin/bash -s <<'ARCH'
 set -euo pipefail
-pacman -Syu --noconfirm --needed qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python python-dbus python-gobject inotify-tools socat grim ttf-jetbrains-mono-nerd squeekboard gsettings-desktop-schemas dconf wtype libbsd networkmanager wpa_supplicant iw alsa-utils pipewire pipewire-audio wireplumber pipewire-pulse
+packages=(qt6-base qt6-declarative qt6-svg qt6-wayland cpptrace jemalloc libpipewire polkit hicolor-icon-theme jq python python-dbus python-gobject inotify-tools socat grim ttf-jetbrains-mono-nerd squeekboard gsettings-desktop-schemas dconf wtype libbsd networkmanager wpa_supplicant iw alsa-utils pipewire pipewire-audio wireplumber pipewire-pulse)
+if [ "${P613_REUSE_PACKAGES:-0}" = 1 ]; then
+  pacman -Q "${packages[@]}" >/dev/null
+else
+  pacman -Syu --noconfirm --needed "${packages[@]}"
+fi
 usermod -aG audio omarchy
 find /var/cache/pacman/pkg -mindepth 1 -maxdepth 1 -type f -delete
 pacman -Q > /root/p613-package-manifest.txt

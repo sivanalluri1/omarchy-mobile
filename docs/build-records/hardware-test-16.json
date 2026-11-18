@@ -20,7 +20,21 @@
     "wifi_restored": "enabled",
     "wake_press_did_not_resuspend": true
   },
-  "untimed_suspend_mode": "pending hardware validation",
+  "untimed_suspend_mode": {
+    "result": "passed",
+    "suspended_seconds": 61.105,
+    "boottime_elapsed_seconds": 61.155,
+    "monotonic_elapsed_seconds": 0.051,
+    "rtc_alarm_before": "disabled",
+    "rtc_alarm_after": "disabled",
+    "rtc_modified_by_worker": false,
+    "owner_reported_no_automatic_wake": true,
+    "pm_async_restored": 1,
+    "wifi_restored": "enabled",
+    "success_counter": 2,
+    "failure_counter": 1,
+    "new_failures_in_successful_run": 0
+  },
   "secure_lock_enabled": false,
   "usb_guard_with_suspend_enabled": {
     "test": "injected evdev Power taps, with SYN_REPORT",
@@ -42,5 +56,12 @@
     "worker": "/usr/bin/false; USB/wait gate bypassed only for this no-sleep diagnostic",
     "pm_wifi_display_restored": true,
     "kernel_suspend_not_entered": true
-  }
+  },
+  "first_untimed_attempt": {
+    "result": "worker error before kernel suspend",
+    "exact_error": "not captured by old supervisor; cause not conclusively attributed"
+  },
+  "probe_diagnostics": "stdout/stderr now logged; changed wakeup-count writes are retryable",
+  "desktop_power_write_denied": true,
+  "packaged_revision_13": "pending build and tablet validation"
 }
