@@ -1,0 +1,16 @@
+{
+  "date": "2026-11-18",
+  "device": "SM-P613",
+  "root_revision": 12,
+  "phase": "power-button service, live RAM prototype",
+  "usb_display_toggle": {
+    "owner_confirmed": true,
+    "off_on_cycles_in_log": 1,
+    "suspend_success_count": 0,
+    "suspend_failure_count": 0,
+    "pm_async": 1
+  },
+  "unplugged_automatic_suspend": "pending",
+  "untimed_suspend_mode": "compiled; not yet hardware tested",
+  "secure_lock_enabled": false
+}

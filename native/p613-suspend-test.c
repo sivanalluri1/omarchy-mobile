@@ -25,10 +25,11 @@ static double now(clockid_t id) {
 }
 int main(int argc, char **argv) {
     setbuf(stdout, NULL);
-    if (argc != 2 || (strcmp(argv[1], "alarm") && strcmp(argv[1], "deep") && strcmp(argv[1], "button"))) {
-        fprintf(stderr, "usage: %s alarm|deep|button (20s RTC test, 90s button-test fallback)\n", argv[0]); return 2;
+    if (argc != 2 || (strcmp(argv[1], "alarm") && strcmp(argv[1], "deep") && strcmp(argv[1], "button") && strcmp(argv[1], "sleep"))) {
+        fprintf(stderr, "usage: %s alarm|deep|button|sleep (sleep leaves RTC unchanged)\n", argv[0]); return 2;
     }
     int button = !strcmp(argv[1], "button");
+    int timed = strcmp(argv[1], "sleep") != 0;
     int suspending = strcmp(argv[1], "alarm") != 0;
     int seconds = button ? 90 : 20;
     struct utsname u;
@@ -48,8 +49,11 @@ int main(int argc, char **argv) {
         ssize_t n=c<0?-1:read(c,count,sizeof(count)-1); alarm(0); if(c>=0)close(c);
         if(n<=0) {perror("active wake source / wakeup_count");return 3;}
     }
-    int fd = open("/dev/rtc0", O_RDWR);
-    struct rtc_time r; struct rtc_wkalrm old = {0}, a = {0};
+    int fd = -1;
+    struct rtc_wkalrm old = {0};
+    if (timed) {
+    fd = open("/dev/rtc0", O_RDWR);
+    struct rtc_time r; struct rtc_wkalrm a = {0};
     if (fd < 0 || ioctl(fd, RTC_RD_TIME, &r) || ioctl(fd, RTC_WKALM_RD, &old)) {
         perror("read RTC"); return 1;
     }
@@ -61,6 +65,7 @@ int main(int argc, char **argv) {
         .tm_mday=out.tm_mday,.tm_mon=out.tm_mon,.tm_year=out.tm_year}; a.enabled=1;
     if (ioctl(fd, RTC_WKALM_SET, &a)) { perror("arm RTC"); return 1; }
     printf("RTC armed for +%d seconds\n", seconds);
+    } else printf("RTC unchanged; waiting for hardware wake\n");
     int rc=0; double b=now(CLOCK_BOOTTIME), m=now(CLOCK_MONOTONIC);
     if (!strcmp(argv[1], "alarm")) {
         struct pollfd p={.fd=fd,.events=POLLIN};
@@ -77,12 +82,15 @@ int main(int argc, char **argv) {
         }
     }
     double slept=(now(CLOCK_BOOTTIME)-b)-(now(CLOCK_MONOTONIC)-m);
-    if(suspending && slept<(button ? 0.5 : 10.0) && rc==0) rc=1;
+    if(suspending && slept<((button || !timed) ? 0.5 : 10.0) && rc==0) rc=1;
     printf("boottime_elapsed=%.3f monotonic_elapsed=%.3f suspended_seconds=%.3f\n",
         now(CLOCK_BOOTTIME)-b,now(CLOCK_MONOTONIC)-m,
         (now(CLOCK_BOOTTIME)-b)-(now(CLOCK_MONOTONIC)-m));
     /* Clear only our alarm; restore the previous disabled alarm contents. */
+    if(timed) {
     if(ioctl(fd,RTC_AIE_OFF,0)) {perror("disable RTC alarm");rc=1;}
     if(ioctl(fd,RTC_WKALM_SET,&old)) {perror("restore disabled alarm");rc=1;}
-    close(fd); return rc;
+    close(fd);
+    }
+    return rc;
 }

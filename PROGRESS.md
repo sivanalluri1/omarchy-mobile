@@ -514,3 +514,14 @@ Evidence: docs/build-records/hardware-test-15.json. Revision 12 remains a7caac04
 Stopped NetworkManager, supplicant/system bus, desktop user processes and audio services. The fifteen audio route controls restored successfully and their state marker cleared. Stopped radio support and seatd, unmounted the Arch RAM root, synced and requested native power-off. No project containers were running. The build sparsebundle and external SSD are being detached/ejected.
 
 Resume only when requested with both devices reconnected. Latest validated image is revision 12 (a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c); BOOT is unchanged. Latest completed power evidence is hardware-test-15: manual desktop Power-button wake with optional DBMDX firmware, Wi-Fi disabled during sleep and sequential PM callbacks, followed by app/input/speaker/battery checks. All RAM firmware/profile state is lost at power-off. Optional DBMDX firmware staging must precede Arch mounting if repeating that combination; normal Arch staging does not load it automatically. Automatic sleep/lock, connected-WLAN suspend and USB recovery stalls remain open. Keep headphones deferred.
+
+### Step 10 — Power-button supervisor display controls passed (2026-11-18)
+
+- [x] Reconnect SSD/build image and boot the existing native BOOT using a read-only Download Mode session.
+- [x] Stage optional DBMDX firmware, revision 12 and network/audio/desktop services in the tested order.
+- [x] Implement a root Power-button supervisor that reads only qpnp_pon KEY_POWER without grabbing the input device.
+- [x] Obtain owner confirmation of Power-button display-off/on over USB; kernel suspend counters remain 0/0 and pm_async remains 1.
+- [ ] Validate unplugged automatic suspend with the 90-second fallback, cancellation and wake-event debouncing.
+- [ ] Validate untimed sleep and package the supervisor in the next image.
+
+The supervisor is currently a RAM prototype, initially in display-only mode. It does not implement secure locking or low-battery shutdown. The battery initially reported 1% and is charging; it reached 5% during the display test. A compiled untimed probe mode leaves RTC settings unchanged, but has not yet been hardware-tested.
