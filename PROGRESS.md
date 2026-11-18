@@ -547,3 +547,13 @@ The live supervisor still uses the 90-second fallback. Root-only PM bindings mus
 - [ ] Package and validate revision 13.
 
 The first untimed request failed before kernel suspend; its exact child error was not captured, so a wake-counter race is not asserted as its proven cause. Diagnostics now retain worker stdout/stderr. The passed run measured about 61 seconds asleep, not the full requested two-minute interval. Longer suspend/drain testing remains open. Revision 13 will preserve the existing package versions through the offline reuse option and retain revision 12 as rollback.
+
+### Step 10 — revision 13 packaged; device validation underway (2026-11-18)
+
+- [x] Build revision 13 offline with the exact revision-12 package-version list.
+- [x] Include the root Power-button supervisor and hash-verified static suspend worker.
+- [x] Pass an injected preparation-cancellation check without entering suspend.
+- [x] Stop the live prototype and restore audio; remove all three PM attribute bindings before unmounting the old RAM root.
+- [ ] Validate the packaged startup/stop lifecycle and Power-button behavior on the tablet.
+
+Candidate SHA256: 458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168 (717172736 bytes). Revision 12 remains preserved. Revision 13 adds no package upgrades; Power controls are opt-in via the native desktop launcher. Optional DBMDX firmware remains a separate pre-mount staging step for the tested configuration. No partition image has been flashed.

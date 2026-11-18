@@ -1,10 +1,10 @@
 {
-  "bytes": 716894208,
-  "sha256": "a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c",
-  "tablet_tested": true,
+  "bytes": 717172736,
+  "sha256": "458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168",
+  "tablet_tested": false,
   "systemd_pid1": false,
-  "date": "2026-11-17",
-  "profile": "Omarchy mobile desktop with normalized P613 battery telemetry",
+  "date": "2026-11-18",
+  "profile": "Omarchy mobile with opt-in native Power-button supervisor",
   "package_signatures_verified": true,
   "keyring_bootstrap": "Pinned HTTPS keyring, fingerprint checked",
   "quickshell_version": "0.3.2.r7.g2b4501a-1",
@@ -19,12 +19,12 @@
     "Power-button wake/policy, idle drain and prolonged stability remain unvalidated",
     "USB NCM recovery stalls remain open; a reconnect can require restoring the Mac USB address",
     "Input accuracy/palm rejection/rotation, microphone quality and headphone/jack tests remain open",
-    "Revision 12 desktop wake, input, battery and speaker playback verified; HTTPS on revision 12 and microphone capture after resume not repeated"
+    "Revision 13 packaged Power supervisor awaits tablet validation; live revision-12 prototype passed untimed sleep"
   ],
   "settings_version": "4.5.0-3",
   "includes_matching_settings_and_helpers": true,
-  "revision": 12,
-  "previous_root_sha256": "a354700dd9753eeca3665ef543dfe9009bda70db689b6bfb35fc2d0c44e1ffe0",
+  "revision": 13,
+  "previous_root_sha256": "a7caac04f56736b02c0f7672ee748f6349b1805baddde61026b929506b1fbe2c",
   "parent_side_forkfd_bootstrap": true,
   "input_setup_in_image": true,
   "direct_gio_desktop_launcher": true,
@@ -69,5 +69,12 @@
   "power_key_wake_with_manual_sequence_validated": true,
   "optional_power_firmware_in_image": false,
   "sequential_pm_required_for_tested_firmware_loaded_path": true,
-  "power_key_validation_record": "hardware-test-15.json"
+  "power_key_validation_record": "hardware-test-15.json",
+  "power_button_supervisor_in_image": true,
+  "power_controls_opt_in": true,
+  "power_supervisor_tablet_validation_pending": true,
+  "power_probe_sha256": "14c2a68fc80a81ba3ea69739d654f674046d0041f72de01a7e92c7677e63036e",
+  "power_supervisor_sha256": "d1dd030b9e8b7bca84ef77e51e4bc61c271c5bcdcb34f88b22dfcd7a1a45384a",
+  "package_versions_reused": true,
+  "build_container_network": "none"
 }

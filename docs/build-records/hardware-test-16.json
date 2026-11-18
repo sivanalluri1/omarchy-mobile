@@ -63,5 +63,15 @@
   },
   "probe_diagnostics": "stdout/stderr now logged; changed wakeup-count writes are retryable",
   "desktop_power_write_denied": true,
-  "packaged_revision_13": "pending build and tablet validation"
+  "packaged_revision_13": "build passed; device staging in progress",
+  "preparation_cancel_test": {
+    "method": "injected evdev Power event; cable predicate bypassed for no-sleep diagnostic",
+    "cancelled": true,
+    "kernel_suspend_counters_unchanged": true
+  },
+  "swap_cleanup": {
+    "audio_routes_restored": true,
+    "power_bindings_removed": true,
+    "ram_root_unmounted": true
+  }
 }
