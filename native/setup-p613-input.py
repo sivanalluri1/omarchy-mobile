@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Classify the known tablet's kernel input devices in the RAM-only udev DB.
+"""Classify tablet and USB keyboard/mouse devices in the RAM-only udev DB.
 
 The minimal init has no udev daemon. No firmware or persistent calibration is changed; classification uses kernel device names, not event IDs.
 """
@@ -19,13 +19,34 @@ classes={'sec_touchscreen':'ID_INPUT_TOUCHSCREEN','sec_e-pen':'ID_INPUT_TABLET',
 directory=Path('/run/udev/data')
 directory.mkdir(parents=True,exist_ok=True)
 found=set()
+def usb_classes(node):
+    """Use evdev bus/capabilities, without reading any input events."""
+    fd=os.open(node,os.O_RDONLY|os.O_NONBLOCK)
+    try:
+        bus,_,_,_=struct.unpack('4H',fcntl.ioctl(fd,0x80084502,bytes(8)))
+        if bus != 3:  # BUS_USB; never reinterpret unknown internal sensors.
+            return []
+        def bits(kind,length):
+            return int.from_bytes(fcntl.ioctl(fd,0x80000000|(length<<16)|(ord('E')<<8)|(0x20+kind),bytes(length)),'little')
+        keys=bits(1,96)
+        relative=bits(2,8)
+        result=[]
+        if all(keys & (1<<key) for key in (30,44,28,57)):
+            result += ['ID_INPUT_KEYBOARD','ID_INPUT_KEY']
+        if keys & (1<<272) and relative & 3 == 3:
+            result += ['ID_INPUT_MOUSE']
+        return result
+    finally:
+        os.close(fd)
+
 for event in Path('/sys/class/input').glob('event*'):
     name=(event/'device/name').read_text().strip()
-    if name not in classes:
-        continue
     node=Path('/dev/input')/event.name
     info=node.stat()
     assert stat.S_ISCHR(info.st_mode) and os.major(info.st_rdev)==13
+    device_classes=[classes[name]] if name in classes else usb_classes(node)
+    if not device_classes:
+        continue
     os.chown(node,0,grp.getgrnam('input').gr_gid)
     node.chmod(0o660)
     if name=='sec_e-pen':
@@ -45,13 +66,15 @@ for event in Path('/sys/class/input').glob('event*'):
         finally:
             os.close(fd)
     major,minor=os.major(info.st_rdev),os.minor(info.st_rdev)
-    properties=['ID_INPUT=1',classes[name]+'=1','ID_SEAT=seat0','WL_SEAT=seat0']
+    properties=['ID_INPUT=1']+[value+'=1' for value in device_classes]+['ID_SEAT=seat0','WL_SEAT=seat0']
+    if name not in classes:
+        properties += ['ID_BUS=usb']
     lines=['I:'+str(int(time.monotonic()*1000000)),'V:1']
     lines += ['E:'+p for p in properties]
     lines += ['G:seat','Q:seat']
     dest=directory/f'c{major}:{minor}'
     dest.write_text('\n'.join(lines)+'\n')
     dest.chmod(0o644)
-    print(f'INPUT_CLASSIFIED name={name} node={event.name} property={classes[name]}')
+    print(f'INPUT_CLASSIFIED name={name} node={event.name} properties={device_classes}')
     found.add(name)
 assert {'sec_touchscreen','sec_e-pen'} <= found

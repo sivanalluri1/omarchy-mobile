@@ -585,3 +585,9 @@ Final image: 458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168, 7
 - [ ] Complete OTG keyboard/mouse interaction and reconnect checks.
 
 USB SSH stalled again despite the correct host address/route; a physical cable reconnect restored access without rebooting. This remains an unresolved reliability issue. The new bounded LAN helper allows OTG tests without depending on USB networking. Listener teardown remains to be exercised. Bluetooth headphone testing is software-blocked: the current kernel lacks HCI UART transport, no HCI controller is registered, and BlueZ/Bluetooth audio routing are absent. The owner has Bluetooth headphones and an OTG hub; wired headphones remain unavailable. See docs/acceptance-matrix.md for the remaining scope. Private evidence is under work/hardware-test-19.
+
+### Paused at owner request (2026-11-19)
+
+Stopped the OTG watcher, network/desktop/audio/Power services, and temporary LAN SSH listener. Audio routes reported restored; Power binding/PID markers were absent. Stopped the radio supervisor and its sleep child, unmounted the Arch RAM root, synced and received SHUTDOWN_REQUESTED before SSH went offline. No partition writes were performed.
+
+USB keyboard/mouse did enumerate in the kernel, but owner interaction failed. A capability-based USB input classification change is saved as an **unvalidated prototype**: syntax and execution against built-in inputs passed; execution with USB input attached and desktop restart are still pending. It is not included in revision 13. The 30-minute WLAN SSH helper expired normally; a later 60-minute instance was verified and stopped during shutdown. USB re-enumeration required a ten-second cable disconnect. Resume only after the owner reconnects devices and asks to continue. Build image and SSD are being safely ejected.
