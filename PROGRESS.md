@@ -575,3 +575,13 @@ Packaged supervisor startup/hash checks and managed stop/cleanup passed. The own
 - [ ] Continue connected-WLAN sleep, USB reliability, secure locking, idle/low-battery policy, microphone-after-resume and longer drain/stability work.
 
 Final image: 458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168, 717172736 bytes. Evidence: docs/build-records/hardware-test-18.json; packaged cleanup and owner speaker/input/battery checks are also recorded in hardware-test-17. The tablet is left in the running revision-13 test desktop with opt-in Power controls enabled and no RTC fallback. Firmware and the Arch root remain RAM-only; BOOT is unchanged. Headphones remain deferred.
+
+### Step 10 — remaining acceptance campaign resumed (2026-11-19)
+
+- [x] Verify SSD/build mount, reboot native Linux through a read-only Download Mode session, and stage revision 13 with optional DBMDX firmware.
+- [x] Restore network, audio, desktop and packaged Power services.
+- [x] Repeat owner-entered Wi-Fi authentication, obtain a DHCP address and verify HTTPS 200 on revision 13.
+- [x] Establish a temporary native WLAN SSH listener using the existing host/client keys, with passwords and forwarding disabled and a 30-minute lifetime.
+- [ ] Complete OTG keyboard/mouse interaction and reconnect checks.
+
+USB SSH stalled again despite the correct host address/route; a physical cable reconnect restored access without rebooting. This remains an unresolved reliability issue. The new bounded LAN helper allows OTG tests without depending on USB networking. Listener teardown remains to be exercised. Bluetooth headphone testing is software-blocked: the current kernel lacks HCI UART transport, no HCI controller is registered, and BlueZ/Bluetooth audio routing are absent. The owner has Bluetooth headphones and an OTG hub; wired headphones remain unavailable. See docs/acceptance-matrix.md for the remaining scope. Private evidence is under work/hardware-test-19.

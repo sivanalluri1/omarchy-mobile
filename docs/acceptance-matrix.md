@@ -7,7 +7,7 @@ a RAM-root developer desktop, not a completed persistent Omarchy installation.
 | --- | --- | --- |
 | Native boot, accelerated display | Passed | Hardware tests 06–09; BOOT unchanged in this campaign |
 | Mobile launcher, recents, finger and S Pen | Passed, basic coverage | Prior owner checks and lifecycle regressions |
-| Wi-Fi authentication, DHCP, DNS, HTTPS | Passed on prior revisions; R13 repeat pending | Enter credentials on tablet only |
+| Wi-Fi authentication, DHCP, DNS, HTTPS | Passed, including R13 repeat | Hardware test 19: owner entered credentials locally; connected address and HTTPS 200 verified |
 | Speakers, volume/mute, microphone signal | Passed on prior revisions | Local RAM capture; numerical statistics retained |
 | Packaged Power controls, untimed sleep/wake | Passed | Hardware test 18: 12.785 s deep sleep, no RTC alarm |
 | Connected-WLAN suspend | Open failure | Repeat with sequential PM callbacks and DBMDX firmware |
