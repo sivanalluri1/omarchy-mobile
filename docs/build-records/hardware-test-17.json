@@ -1,0 +1,32 @@
+{
+  "date": "2026-11-18",
+  "device": "SM-P613",
+  "root_revision": 13,
+  "root_sha256": "458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168",
+  "packaged_startup": {
+    "power_supervisor_ready": true,
+    "allow_suspend": true,
+    "rtc_fallback_seconds": 0,
+    "mobile_shell": true,
+    "osk": true,
+    "audio_nodes": true,
+    "probe_hash_matches": true,
+    "supervisor_hash_matches": true
+  },
+  "managed_stop": {
+    "supervisor_stopped": true,
+    "pm_attributes_unmounted": true,
+    "audio_routes_restored": true,
+    "pm_async": 1
+  },
+  "owner_after_resume": {
+    "desktop_input": true,
+    "audible_tones": true,
+    "battery_percentage_visible": true
+  },
+  "post_resume_log_collection": "USB interface self-assigned IPv4; SSH unavailable; owner entered Download Mode before logs could be collected",
+  "exact_packaged_sleep_duration": "not recovered from this boot",
+  "post_resume_automated_app_cycles": "not run; SSH connection failed",
+  "recovery": "read-only Download Mode PIT session; no flash; native reboot",
+  "next_validation": "same image, with read-only on-tablet measurement window"
+}

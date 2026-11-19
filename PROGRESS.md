@@ -557,3 +557,7 @@ The first untimed request failed before kernel suspend; its exact child error wa
 - [ ] Validate the packaged startup/stop lifecycle and Power-button behavior on the tablet.
 
 Candidate SHA256: 458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168 (717172736 bytes). Revision 12 remains preserved. Revision 13 adds no package upgrades; Power controls are opt-in via the native desktop launcher. Optional DBMDX firmware remains a separate pre-mount staging step for the tested configuration. No partition image has been flashed.
+
+### Step 10 — revision 13 owner checks passed; USB log collection lost (2026-11-18)
+
+Packaged supervisor startup/hash checks and managed stop/cleanup passed. The owner reported working desktop/input, tones and battery percentage after the Power-button check. The Mac then had a self-assigned USB IPv4 address and SSH was unavailable. The owner entered Download Mode before the final RAM logs could be collected, so no exact packaged-image sleep duration or playback exit code is asserted for this boot. A read-only PIT session rebooted native Linux; the same image is being staged again. A read-only Power validation window will show the actual measurement on the tablet, independent of SSH recovery. Closing Foot should not stop the separate root SSH/Power services; the USB issue remains unresolved.
