@@ -1,6 +1,6 @@
 # Progress
 
-Status: step 10 in progress. Revision 12 runs the native Arch/Omarchy mobile prototype with touch/S Pen, OSK, Wi-Fi controls, built-in audio and battery percentage. Desktop deep suspend with WLAN temporarily disabled is verified; minimal-system Power-button wake passed with optional DBMDX firmware and sequential PM callbacks. The combined desktop Power-button trial passed with WLAN disabled for sleep and sequential PM callbacks. This remains a RAM-root/manual-service prototype with BusyBox PID 1.
+Status: step 10 in progress. Revision 13 runs the native Arch/Omarchy mobile prototype with Power-button display controls and untimed deep sleep/resume. Packaged startup/cleanup, actual sleep timing, RTC alarm disabled, Wi-Fi/power-policy restoration and post-resume app cycles are verified. Connected-WLAN sleep, USB recovery reliability, secure locking, idle/low-battery actions and longer hardware/drain checks remain open. BusyBox remains PID 1.
 
 - [x] Read-only SM-P613 hardware audit.
 - [x] Pin and fetch the exact running kernel source.
@@ -493,7 +493,7 @@ The first Power-key trial recorded 0.958 seconds asleep and two Power-key IRQs, 
 - [x] Complete 59.194 seconds of actual deep sleep with DBMDX firmware loaded and sequential PM callbacks.
 - [x] Wake before the 90-second RTC fallback following the owner's Power press; IRQ count increased 16 to 18.
 - [x] Verify no new suspend failures and restore pm_async from 0 to its original 1.
-- [ ] Validate this firmware/sequential-PM combination with the desktop, radio and audio stack.
+- [x] Validate this firmware/sequential-PM combination with the desktop, radio and audio stack.
 
 This establishes minimal native Power-button wake; the vendor wake-reason string remains unknown. It does not enable an automatic power-button sleep/lock policy. Optional firmware staging and the source hashes are retained for reproducibility; blobs remain private.
 
@@ -544,7 +544,7 @@ The live supervisor still uses the 90-second fallback. Root-only PM bindings mus
 - [x] Resume through the Power-button flow; owner reports no automatic wake during the observed interval.
 - [x] Restore Wi-Fi and pm_async=1; no new suspend failures in the successful untimed run.
 - [x] Verify ordinary desktop-user write denial on all three scoped power attributes.
-- [ ] Package and validate revision 13.
+- [x] Package and validate revision 13.
 
 The first untimed request failed before kernel suspend; its exact child error was not captured, so a wake-counter race is not asserted as its proven cause. Diagnostics now retain worker stdout/stderr. The passed run measured about 61 seconds asleep, not the full requested two-minute interval. Longer suspend/drain testing remains open. Revision 13 will preserve the existing package versions through the offline reuse option and retain revision 12 as rollback.
 
@@ -554,10 +554,24 @@ The first untimed request failed before kernel suspend; its exact child error wa
 - [x] Include the root Power-button supervisor and hash-verified static suspend worker.
 - [x] Pass an injected preparation-cancellation check without entering suspend.
 - [x] Stop the live prototype and restore audio; remove all three PM attribute bindings before unmounting the old RAM root.
-- [ ] Validate the packaged startup/stop lifecycle and Power-button behavior on the tablet.
+- [x] Validate the packaged startup/stop lifecycle and Power-button behavior on the tablet.
 
 Candidate SHA256: 458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168 (717172736 bytes). Revision 12 remains preserved. Revision 13 adds no package upgrades; Power controls are opt-in via the native desktop launcher. Optional DBMDX firmware remains a separate pre-mount staging step for the tested configuration. No partition image has been flashed.
 
 ### Step 10 — revision 13 owner checks passed; USB log collection lost (2026-11-18)
 
 Packaged supervisor startup/hash checks and managed stop/cleanup passed. The owner reported working desktop/input, tones and battery percentage after the Power-button check. The Mac then had a self-assigned USB IPv4 address and SSH was unavailable. The owner entered Download Mode before the final RAM logs could be collected, so no exact packaged-image sleep duration or playback exit code is asserted for this boot. A read-only PIT session rebooted native Linux; the same image is being staged again. A read-only Power validation window will show the actual measurement on the tablet, independent of SSH recovery. Closing Foot should not stop the separate root SSH/Power services; the USB issue remains unresolved.
+
+### Step 10 — revision 13 Power-button controls completed (2026-11-18)
+
+- [x] Validate USB display-off/on behavior and the no-suspend USB safeguard.
+- [x] Validate Power-button initiated untimed deep sleep and Power-button wake in the packaged image.
+- [x] Recover the exact final result over SSH: 12.785 seconds asleep, RTC alarm disabled, pm_async=1 and Wi-Fi enabled afterward.
+- [x] Handle one changed wakeup-count handshake with a bounded retry; kernel suspend success 1 / fail 0 in this fresh boot.
+- [x] Obtain matching on-tablet owner observations: about 12.7 seconds and RTC alarm “no.”
+- [x] Complete three app lifecycle cycles before sleep and three after resume.
+- [x] Validate packaged supervisor startup/stop, root-only PM access, cleanup restoration and cancellation handling.
+- [x] Preserve revision 12 and build revision 13 offline without package-version changes.
+- [ ] Continue connected-WLAN sleep, USB reliability, secure locking, idle/low-battery policy, microphone-after-resume and longer drain/stability work.
+
+Final image: 458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168, 717172736 bytes. Evidence: docs/build-records/hardware-test-18.json; packaged cleanup and owner speaker/input/battery checks are also recorded in hardware-test-17. The tablet is left in the running revision-13 test desktop with opt-in Power controls enabled and no RTC fallback. Firmware and the Arch root remain RAM-only; BOOT is unchanged. Headphones remain deferred.

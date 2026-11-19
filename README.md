@@ -2,7 +2,9 @@
 
 Experimental native Linux and Omarchy bring-up for the Samsung Galaxy Tab S6 Lite 2022 Wi-Fi (SM-P613 / gta4xlveu).
 
-Current milestone: revision 12 runs native Arch, accelerated Hyprland and Omarchy's mobile home, app drawer, status bar and recents on SM-P613. Touch/S Pen response, the on-screen keyboard, Wi-Fi controls, built-in speakers/main microphone and battery percentage are verified. Three desktop deep-sleep cycles passed with Wi-Fi temporarily disabled and reconnected afterward. Power-button wake is demonstrated in minimal and full desktop tests with optional DBMDX firmware, Wi-Fi disabled for sleep and sequential power callbacks. Post-resume app, input, speaker and battery-display checks passed. Connected-WLAN sleep, automatic power/lock policy, USB recovery stalls, headphone/jack checks, microphone quality and longer stability remain open. BusyBox remains PID 1 because current systemd does not support this kernel 4.14.
+Current milestone: revision 13 runs native Arch, accelerated Hyprland and Omarchy's mobile home, launcher, bar, recents and on-screen keyboard on SM-P613. Touch/S Pen response, built-in audio and battery percentage are verified. Power controls now toggle the display over USB and enter untimed deep sleep when unplugged; Power wakes the desktop. The tested sleep path temporarily disables Wi-Fi, serializes power callbacks and restores their prior settings afterward. Packaged startup/cleanup and post-resume app checks passed.
+
+Connected-WLAN sleep, intermittent USB recovery failures, secure locking, idle/low-battery policy, headphone/jack checks, microphone-after-resume quality and longer drain/stability remain open. BusyBox remains PID 1; current systemd does not support kernel 4.14. This is still a RAM-root development prototype.
 
 - [Plan](PLAN.md) · [Architecture](ARCHITECTURE.md) · [Steps](STEPS.md) · [Progress](PROGRESS.md)
 - [Omarchy shell integration](docs/omarchy-shell.md)

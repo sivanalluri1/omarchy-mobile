@@ -1,0 +1,44 @@
+{
+  "date": "2026-11-18",
+  "device": "SM-P613",
+  "root_revision": 13,
+  "root_sha256": "458e84d38f8adf50e3b15c9bd33de529ccc35f693ce0607df12dc8e22eecc168",
+  "packaged_supervisor": true,
+  "rtc_fallback_seconds": 0,
+  "untimed_power_button_cycle": {
+    "suspended_seconds": 12.785,
+    "boottime_elapsed_seconds": 12.84,
+    "monotonic_elapsed_seconds": 0.055,
+    "handshake_retries": 1,
+    "retry_reason": "wakeup_count changed; store returned EINVAL",
+    "kernel_success_counter": 1,
+    "kernel_failure_counter": 0,
+    "rtc_alarm_enabled_after": false,
+    "pm_async_restored": 1,
+    "wifi_restored": "enabled"
+  },
+  "on_tablet_observation": {
+    "owner_reported_sleep_seconds": 12.7,
+    "owner_reported_rtc_alarm": "no",
+    "view_is_read_only": true,
+    "view_source_sha256": "dcf10f976db61f38d52710cc456b1b8553a5abeb8b2820e0600dfc5e9c741fdb"
+  },
+  "app_lifecycle_cycles_before_sleep": 3,
+  "app_lifecycle_cycles_after_resume": 3,
+  "startup": {
+    "mobile_shell": true,
+    "osk": true,
+    "audio_nodes": true,
+    "power_supervisor_ready": true
+  },
+  "usb_recovery": "SSH recovered on this final cycle; prior intermittent failures remain unresolved",
+  "post_resume_speaker_owner_confirmation": "hardware-test-17, same revision/image",
+  "secure_lock_enabled": false,
+  "low_battery_action_enabled": false,
+  "limitations": [
+    "WLAN is disabled during sleep; connected-WLAN suspend unresolved",
+    "USB must be detached and its link released for deep sleep",
+    "Optional DBMDX firmware staged separately before Arch mounting",
+    "Longer drain/stability and post-resume microphone capture remain open"
+  ]
+}
