@@ -23,7 +23,8 @@ while True:
     print('\033[2J\033[HNative Power validation — SM-P613\n',
           'Supervisor: '+str(state.get('phase'))+'\n',
           'LAST DEEP SLEEP: '+measured+'\n',
-          'RTC ALARM ENABLED: '+alarm+'\n\n',
+          'RTC ALARM ENABLED: '+alarm+'\n',
+          ('DETAIL: '+str(state.get('detail'))+'\n' if state.get('detail') else '')+'\n',
           'After waking, report LAST DEEP SLEEP.\n',
           'Closing this window leaves Power controls running.\n', sep='', flush=True)
     time.sleep(1)
